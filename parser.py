@@ -1,11 +1,12 @@
+import os
 import re
 
-filename = 'USvideos.csv'
+filename = os.getcwd()
 prev_row = []
 temp = 0; skip_header = 0
 
 
-with open(filename, errors='ignore') as data:
+with open(os.path.join(filename,"CSVFile/USvideos.csv"), "r") as data:
     for row in data:
         if (skip_header == 0):
             skip_header = 1
@@ -32,4 +33,3 @@ with open(filename, errors='ignore') as data:
                         fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), prev_row)
                         print(fields)
                         #CallDBClass(fields)
-        
