@@ -2,14 +2,36 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
-
 @app.route("/", methods = ['GET', 'POST'])
 def begin():
     if request.method == 'POST':
-        Message = request.form['Message']
-        print("{} has been recieved".format(Message))
-        return redirect(url_for('home', Message=Message))
+        if request.form['submit_button'] == 'Send': #new
+            Message = request.form['Message']
+            print("{} has been recieved".format(Message))
+            return redirect(url_for('home', Message=Message))
+
+        elif request.form['submit_button'] == 'Search bar': #new
+            return redirect(url_for('search'))
+        
     return render_template('Home.html')
+
+@app.route("/Search", methods = ['GET', 'POST']) # new
+def search():
+    if request.method == 'POST':
+        if request.form['submit_button'] == 'Search':
+            return redirect(url_for('results'))
+        
+        elif request.form['submit_button'] == "Return to Home":
+            return redirect(url_for('begin'))
+
+    return render_template('SearchBar.html')
+
+@app.route("/Results", methods = ['GET', 'POST']) # new
+def results():
+    Message = request.args.get('Message',None)
+    if request.method == 'POST':
+        return redirect(url_for('search'))
+    return render_template('Results.html', Message=Message)
 
 @app.route("/Home", methods = ['GET','POST'])
 def home():
@@ -17,5 +39,6 @@ def home():
     if request.method == 'POST':
         return redirect(url_for('begin'))
     return render_template('Recieved.html', Message=Message)
+
         
 app.run(debug = True)
