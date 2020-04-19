@@ -7,6 +7,7 @@ database = ytDB()
 #input data into database
 parser(database)
 
+
 app = Flask(__name__)
 
 @app.route("/", methods = ['GET', 'POST'])
