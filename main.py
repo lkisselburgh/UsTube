@@ -1,4 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
+from db import *
+from parser import *
+
+#create database object
+database = ytDB()
+#input data into database
+parser(database)
 
 app = Flask(__name__)
 
