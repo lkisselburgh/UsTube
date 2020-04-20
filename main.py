@@ -7,7 +7,6 @@ database = ytDB()
 #input data into database
 parser(database)
 
-
 app = Flask(__name__)
 
 @app.route("/", methods = ['GET', 'POST'])
@@ -43,9 +42,19 @@ def search():
 
 @app.route("/Results", methods = ['GET', 'POST']) # new
 def results():
-	query = request.form
 	if request.method == 'POST':
-		if  'search' in request.form:
+		if 'Title' in request.form:
+			query = request.form
+			print(query)
+			titleQ = query['Title']
+			catQ = query['categoryID']
+			searchType = query['SearchType']
+			sliderQ = query['SearchContent']
+			print(titleQ, catQ, searchType, sliderQ)
+			testList = database.searchDB(titleQ,catQ,searchType,sliderQ)
+			for members in testList:
+				print(members.videoID)
+		elif  'search' in request.form:
 			return redirect(url_for('search'))
 	return render_template('Results.html', query=query)
 

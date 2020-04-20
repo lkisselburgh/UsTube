@@ -16,7 +16,6 @@ class ytDB:
 							columns[15])
 			self.db[self.counter] = videoD
 			self.counter += 1
-			return videoD.Title
 		else: 
 			return
 
@@ -62,8 +61,10 @@ class ytDB:
 
 			if searchType == "tags":
 				for keys in parser:
+					splitQuery = sliderQuery
 					if ',' in sliderQuery:
 						splitQuery = sliderQuery.split(',')
+					
 					tagSplit = parser[keys].tags.split('|')
 
 					compList = list(set(splitQuery) & set(tagSplit))
@@ -71,7 +72,7 @@ class ytDB:
 					if compList == splitQuery:
 						sliderList.append(parser[keys])
 
-			return sliderList		
+				return sliderList		
 
 		return resultList
 		
