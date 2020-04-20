@@ -8,27 +8,26 @@
 
     <h1>UsTube</h1>
 <div class="wrapper">
-    <p1>Title</p1> <input type="text" class="input" placeholder="Type here" style="margin-left:23px;"> <br />
-    <p1>Genre</p1> <input type="text" class="input" placeholder="Type here" style="margin-left:14px;"> <br />
-    <form>
-        
-        <select name="tags">
-            <option value="title">Title</option>
-            <option value="genre">Genre</option>
+    <form action="{{ url_for('results')}}" method="post">
+        <p1>Title</p1> <input type="text" id="Title" name="Title" class="input" placeholder="Type here" style="margin-left:23px;"> <br />
+        <p1>Genre</p1> <input type="text" id="categoryID" name="categoryID" class="input" placeholder="Type here" style="margin-left:14px;"> <br />
+    
+        <select name="SearchType">
+            <option value="Title">Title</option>
+            <option value="categoryID">Genre</option>
             <option value="tags">Tags</option>
-            <option value="date published">Date Published</option>
+            <option value="publishTime">Date Published</option>
             <option value="views">Views</option>
             <option value="rating">Rating</option>
         </select>
-        <input type="text" class="input" placeholder="Type here"> <br />
-    </form>
-    
-    <form method='post'>
+        <input type="text" class="input" name="SearchContent" placeholder="Type here"> <br />
             <!-- <button type="submit" onclick="">Search</button>-->
-             <input type="submit" name="submit_button" value="Search">
-             <input type="submit" name="submit_button" value="Return to Home">
-     </form>
-    
+        <input type="submit" name="submit_button" value="Search">
+    </form>
+
+    <form method = "post">
+        <input type="submit" name="submit_button" value="Return to Home">
+    </form>
 </div>
 
 

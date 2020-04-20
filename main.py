@@ -36,10 +36,11 @@ def search():
 
 @app.route("/Results", methods = ['GET', 'POST']) # new
 def results():
-    Message = request.args.get('Message',None)
-    if request.method == 'POST':
-        return redirect(url_for('search'))
-    return render_template('Results.html', Message=Message)
+	query = request.form
+	print(query)
+	# if request.method == 'POST':
+	# 	return redirect(url_for('search'))
+	return render_template('Results.html', query=query)
 
 @app.route("/Home", methods = ['GET','POST'])
 def home():
