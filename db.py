@@ -19,7 +19,7 @@ class ytDB:
 		else: 
 			return
 
-	def searchDB(self, titleQuery, cidQuery, searchType, sliderQuery):
+	def searchDB(self, titleQuery, cidQuery):
 		resultList = []	
 		if self.db is None:
 			return None

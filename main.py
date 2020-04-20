@@ -42,21 +42,19 @@ def search():
 
 @app.route("/Results", methods = ['GET', 'POST']) # new
 def results():
-	if request.method == 'POST':
-		if 'Title' in request.form:
-			query = request.form
-			print(query)
-			titleQ = query['Title']
-			catQ = query['categoryID']
-			searchType = query['SearchType']
-			sliderQ = query['SearchContent']
-			print(titleQ, catQ, searchType, sliderQ)
-			testList = database.searchDB(titleQ,catQ,searchType,sliderQ)
-			for members in testList:
-				print(members.videoID)
-		elif  'search' in request.form:
-			return redirect(url_for('search'))
-	return render_template('Results.html', query=query)
+    if request.method == 'POST':
+        if 'Title' in request.form:
+            query = request.form
+            titleQ = query['Title']
+            catQ = query['categoryID']
+            #searchType = query['SearchType']
+            #sliderQ = query['SearchContent']
+            testList = database.searchDB(titleQ,catQ)
+            for x in testList:
+                print(x.Title,x.views)
+        elif  'search' in request.form:
+            return redirect(url_for('search'))
+    return render_template('Results.html', query=query, testList=testList)
 
-        
-app.run(debug = True)
+app.run()       
+#app.run(debug = True)
