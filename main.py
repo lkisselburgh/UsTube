@@ -23,6 +23,13 @@ def begin():
         
     return render_template('Home.html')
 
+@app.route("/Home", methods = ['GET','POST'])
+def home():
+    Message = request.args.get('Message',None)
+    if request.method == 'POST':
+        return redirect(url_for('begin'))
+    return render_template('Recieved.html', Message=Message)
+
 @app.route("/Search", methods = ['GET', 'POST']) # new
 def search():
     if request.method == 'POST':
@@ -37,17 +44,10 @@ def search():
 @app.route("/Results", methods = ['GET', 'POST']) # new
 def results():
 	query = request.form
-	print(query)
-	# if request.method == 'POST':
-	# 	return redirect(url_for('search'))
+	if request.method == 'POST':
+		if  'search' in request.form:
+			return redirect(url_for('search'))
 	return render_template('Results.html', query=query)
-
-@app.route("/Home", methods = ['GET','POST'])
-def home():
-    Message = request.args.get('Message',None)
-    if request.method == 'POST':
-        return redirect(url_for('begin'))
-    return render_template('Recieved.html', Message=Message)
 
         
 app.run(debug = True)

@@ -5,6 +5,10 @@
 </head>
 <body>
     <h1>Results</h1>
-    <button type="submit" onclick="">Return to Search Bar</button>
+
+	<form method="post">
+		<button type="submit" name="search" onclick="{{ url_for('search')}}">Return to Search Bar</button>
+	</form>
+	    
 </body>
 </html>

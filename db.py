@@ -1,3 +1,7 @@
+from Jparser import *
+
+categoryList = jParser()
+
 class ytDB:
 	def __init__(self):
 		self.db = dict()
@@ -16,13 +20,61 @@ class ytDB:
 		else: 
 			return
 
-	# def searchDB(self, uID):
-	# 	if self.db is None or self.db[]:
-	# 		return None
-	# 	else:
-	# 		for unique in self.db:
-	# 			if unique is uID:
-	# 				print(self.db[uID])
+	def searchDB(self, titleQuery, cidQuery, searchType, sliderQuery):
+		resultList = []	
+		if self.db is None:
+			return None
+
+		if titleQuery != "":
+			parser = self.db
+			displayList = []
+			for keys in parser:
+				if parser[keys].Title.find(titleQuery) != -1:
+					displayList.append(parser[keys])
+			return displayList
+		
+		if cidQuery != "":
+			parser = self.db
+			cidList = []
+			cidQuery = cidQuery.lower()
+			for keys in parser:
+				genreID = parser[keys].categoryID
+				for members in categoryList:
+					if genreID in members:
+						nameofCat = members[1].lower()
+						if cidQuery in nameofCat or cidQuery == nameofCat:
+							cidList.append(parser[keys])
+			return cidList
+
+		if sliderQuery != "":
+			parser = self.db
+			sliderList = []
+
+			if searchType == "publishTime":
+				for keys in parser:
+					if sliderQuery.lower() == parser[keys].publishTime:
+						sliderList.append[parser[keys]]
+
+			if searchType == "views":
+				for keys in parser:
+					if sliderQuery.lower() == parser[keys].views:
+						sliderList.append[parser[keys]]
+
+			if searchType == "tags":
+				for keys in parser:
+					if ',' in sliderQuery:
+						splitQuery = sliderQuery.split(',')
+					tagSplit = parser[keys].tags.split('|')
+
+					compList = list(set(splitQuery) & set(tagSplit))
+
+					if compList == splitQuery:
+						sliderList.append(parser[keys])
+
+			return sliderList		
+
+		return resultList
+		
 
 
 	# def add():
