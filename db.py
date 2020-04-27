@@ -6,6 +6,7 @@ class ytDB:
 	def __init__(self):
 		self.db = dict()
 		self.counter = 1 #video ids are not unique so counter will be keys to dictionary
+		self.lastdeletedKey = None
 
 	def ytDBStart(self, columns):
 		if len(columns) == 16:
@@ -14,6 +15,9 @@ class ytDB:
 							columns[5], columns[6], columns[7], columns[8], columns[9],
 							columns[10],columns[11], columns[12], columns[13], columns[14],
 							columns[15])
+
+			if(self.db.get(lastdeletedKey) == None):
+				self.db[lastdeletedKey] = videoD
 			self.db[self.counter] = videoD
 			self.counter += 1
 		else: 
@@ -29,7 +33,7 @@ class ytDB:
 			displayList = []
 			for keys in parser:
 				if parser[keys].Title.find(titleQuery) != -1:
-					displayList.append(parser[keys])
+					displayList.append([keys,parser[keys]])
 			return displayList
 		
 		if cidQuery != "":
@@ -42,7 +46,7 @@ class ytDB:
 					if genreID in members:
 						nameofCat = members[1].lower()
 						if cidQuery in nameofCat or cidQuery == nameofCat:
-							cidList.append(parser[keys])
+							cidList.append([keys, parser[keys]])
 			return cidList
 
 #		if sliderQuery != "":
@@ -75,14 +79,14 @@ class ytDB:
 #				return sliderList		
 
 		return resultList
-		
 
+	def delete(key):
+		self.lastdeletedKey = key
+		self.db.pop(key, None)
 
-	# def add():
+	def update(key, newData):
 
-	# def delete();
-
-	# def update():
+		self.db[key]
 
 #added class 
 class videoData(object):
