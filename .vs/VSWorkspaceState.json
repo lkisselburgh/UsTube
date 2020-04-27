@@ -1,9 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\env",
+    "\\CSVFile",
+    "\\static",
+    "\\static\\css",
+    "\\static\\javascript",
     "\\templates"
   ],
-  "SelectedNode": "\\main.py",
+  "SelectedNode": "\\static\\css\\styles.css",
   "PreviewInSolutionExplorer": false
 }
