@@ -16,8 +16,8 @@ class ytDB:
 							columns[10],columns[11], columns[12], columns[13], columns[14],
 							columns[15])
 
-			if(self.db.get(lastdeletedKey) == None):
-				self.db[lastdeletedKey] = videoD
+			if(self.db.get(self.lastdeletedKey) == None):
+				self.db[self.lastdeletedKey] = videoD
 			self.db[self.counter] = videoD
 			self.counter += 1
 		else: 
