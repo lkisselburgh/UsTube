@@ -80,7 +80,7 @@ class ytDB:
 
 		return resultList
 
-	def delete(key):
+	def delete(self,key):
 		self.lastdeletedKey = key
 		self.db.pop(key, None)
 

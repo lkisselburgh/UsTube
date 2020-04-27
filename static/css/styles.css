@@ -79,6 +79,21 @@ THE SOFTWARE.
     padding: 1%;
     margin: 0% 10%;
 }
+#add_button {
+    width: 150px;
+}
+#add {
+  position: relative;
+  left: 82%;
+  
+}
+#add_form{
+    display: none;
+}
+
+#overview {
+    position: absolute;
+}
 
 .input {
     vertical-align: middle;

@@ -43,18 +43,23 @@ def search():
                 #searchType = query['SearchType']
                 #sliderQ = query['SearchContent']
                 testList = database.searchDB(titleQ,catQ)
-                for x in testList:
-                    print(x.Title,x.views)
                 return redirect(url_for('search'))
                 #redirect(url_for('results'))
-        
+
         elif request.form['submit_button'] == "Return to Home":
             return redirect(url_for('begin'))
-        
+
         elif request.form['submit_button'] == "Delete":
-            print(request.form)
-            item = request.form['Video']
+            id = request.form['Video']
+            idval = int(id)
+            for members in testList:
+                if members[0] == idval:
+                    testList.remove(members)
+            database.delete(idval)
             return redirect(url_for('search'))
+
+        elif request.form['submit_button'] == "Add":
+           print(request.form)
 
     return render_template('SearchBar.html', testList=testList)
 
