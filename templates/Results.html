@@ -1,25 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>UsTube - Recieved</title>
+	<title>UsTube - Recieved</title>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/styles.css')}}">
 </head>
 <body>
 	<h1>Results</h1>
-	{% for item in testList %}
-	<ol>
-		<ul style="list-style-type:none;">
-			<li>VideoID: {{item.videoID}}</li>
-			<li>Title: {{item.Title}}</li>
-			<li>Trending Date: {{item.trendingDate}}</li>
-			<li>Channel Title: {{item.channelTitle}}</li>
-			<li>Time Published: {{item.publishTime}}</li>
-			<li>Total Views: {{item.views}}</li>
-			<li>Dislikes: {{item.dislikes}}</li>
-			<li>Tags: {{item.tags}}</li>
-			<hr>
-		</ul>
-	</ol>
-	{% endfor %}
+	<div class="present">
+			<table class="table table-hover">
+				<thead>
+					<tr class="table-primary">
+						<th scope="col">VideoID</th>
+						<th scope="col">Title:</th>
+						<th scope="col">Trending Date:</th>
+						<th scope="col">Channel Title:</th>
+						<th scope="col">Time Published: </th>
+						<th scope="col">Total Views:</th>
+						<th scope="col">Dislikes:</th>
+						<th scope="col">Tags:</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in testList %}
+					<tr id="database">
+						<td>{{item.videoID}}</td>
+						<td>{{item.Title}}</td>
+						<td>{{item.trendingDate}}</td>
+						<td>{{item.channelTitle}}</td>
+						<td>{{item.publishTime}} </td>
+						<td>{{item.views}}</td>
+						<td>{{item.dislikes}}</td>
+						<td>{{item.tags}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+	</div>
 	<form method="post">
 		<button type="submit" name="search" onclick="{{ url_for('search')}}">Return to Search Bar</button>
 	</form>

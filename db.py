@@ -49,34 +49,34 @@ class ytDB:
 							cidList.append([keys, parser[keys]])
 			return cidList
 
-		if sliderQuery != "":
-			parser = self.db
-			sliderList = []
-
-			if searchType == "publishTime":
-				for keys in parser:
-					if sliderQuery.lower() == parser[keys].publishTime:
-						sliderList.append[parser[keys]]
-
-			if searchType == "views":
-				for keys in parser:
-					if sliderQuery.lower() == parser[keys].views:
-						sliderList.append[parser[keys]]
-
-			if searchType == "tags":
-				for keys in parser:
-					splitQuery = sliderQuery
-					if ',' in sliderQuery:
-						splitQuery = sliderQuery.split(',')
-					
-					tagSplit = parser[keys].tags.split('|')
-
-					compList = list(set(splitQuery) & set(tagSplit))
-
-					if compList == splitQuery:
-						sliderList.append(parser[keys])
-
-				return sliderList		
+#		if sliderQuery != "":
+#			parser = self.db
+#			sliderList = []
+#
+#			if searchType == "publishTime":
+#				for keys in parser:
+#					if sliderQuery.lower() == parser[keys].publishTime:
+#						sliderList.append[parser[keys]]
+#
+#			if searchType == "views":
+#				for keys in parser:
+#					if sliderQuery.lower() == parser[keys].views:
+#						sliderList.append[parser[keys]]
+#
+#			if searchType == "tags":
+#				for keys in parser:
+#					splitQuery = sliderQuery
+#					if ',' in sliderQuery:
+#						splitQuery = sliderQuery.split(',')
+#					
+#					tagSplit = parser[keys].tags.split('|')
+#
+#					compList = list(set(splitQuery) & set(tagSplit))
+#
+#					if compList == splitQuery:
+#						sliderList.append(parser[keys])
+#
+#				return sliderList		
 
 		return resultList
 

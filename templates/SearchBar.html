@@ -2,17 +2,91 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>UsTube - Search Bar</Title>
+    <title>UsTube - Search Bar</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/styles.css')}}">
 </head>
 <body>
+    <nav class="navbar  navbar-dark navbar-expand-sm bg-primary" >
+        <a class="navbar-brand" href="#">UsTube</a>
+        <div class="navbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="{{url_for('begin')}}">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url_for('search')}}">Search <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Analytics</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-    <h1>UsTube</h1>
-<div class="wrapper">
-    <form action="{{ url_for('results')}}" method="post">
-        <p1>Title</p1> <input type="text" id="Title" name="Title" class="input" placeholder="Type here" style="margin-left:23px;"> <br />
-        <p1>Genre</p1> <input type="text" id="categoryID" name="categoryID" class="input" placeholder="Type here" style="margin-left:14px;"> <br />
+    <!--<h1>UsTube</h1>-->
 
-        <!--<select name="SearchType">
+    <div class="wrapper">
+        <form id="searchform" method="post">
+            <p1>
+                Title <input type="text" id="Title" name="Title" class="input col-form-label" placeholder="Type here" style=""> <br />
+                Genre <input type="text" id="categoryID" name="categoryID" class="input col-form-label" placeholder="Type here" style=""> <br />
+            </p1>
+            <input type="submit" class="subbutton btn btn-primary" id="Search" name="submit_button" value="Search">
+            <input type="submit" class="subbutton btn btn-primary" name="submit_button" value="Return to Home">
+        </form>
+    </div>
+
+    <div id="datatable">
+        <div id="header" class="table table-hover">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">VideoID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Trending Date</th>
+                        <th scope="col">Channel Title</th>
+                        <th scope="col">Time Published </th>
+                        <th scope="col">Total Views</th>
+                        <th scope="col">Dislikes</th>
+                        <th scope="col">Tags</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div class="present">
+            <table class="table table-hover">
+                <tbody>
+                    {% for item in testList %}
+                    <tr id="database">
+                        <td>{{item.videoID}}</td>
+                        <td>{{item.Title}}</td>
+                        <td>{{item.trendingDate}}</td>
+                        <td>{{item.channelTitle}}</td>
+                        <td>{{item.publishTime}} </td>
+                        <td>{{item.views}}</td>
+                        <td>{{item.dislikes}}</td>
+                        <td>{{item.tags}}</td>
+                        <td><form method="post"><input type="submit" class="btn btn-danger" id="edit" name="submit_button" value="Edit"></form></td>
+                        <td>
+                            <form method="post">
+                                <input type="hidden" id="todelete" name="Video" value="{{item.Title}}">
+                                <input type="submit" class="btn btn-warning" id="remove" name="submit_button" value="Delete">
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</body>
+</html>
+
+<!--<select name="SearchType">
         <option value="Title">Title</option>
         <option value="categoryID">Genre</option>
         <option value="tags">Tags</option>
@@ -22,15 +96,4 @@
         </select>
         <input type="text" class="input" name="SearchContent" placeholder="Type here"> <br />
         <button type="submit" onclick="">Search</button>-->
-        <input type="submit" name="submit_button" value="Search">
-    </form>
 
-    <form method = "post">
-        <input type="submit" name="submit_button" value="Return to Home">
-    </form>
-</div>
-
-
-
-</body>
-</html>

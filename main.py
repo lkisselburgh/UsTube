@@ -1,11 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from db import *
-from parser import *
+from parse import *
 
 #create database object
 database = ytDB()
 #input data into database
 parser(database)
+
+testList = ""
 
 app = Flask(__name__)
 
@@ -31,30 +33,36 @@ def home():
 
 @app.route("/Search", methods = ['GET', 'POST']) # new
 def search():
+    global testList
     if request.method == 'POST':
         if request.form['submit_button'] == 'Search':
-            return redirect(url_for('results'))
+            if 'Title' in request.form:
+                query = request.form
+                titleQ = query['Title']
+                catQ = query['categoryID']
+                #searchType = query['SearchType']
+                #sliderQ = query['SearchContent']
+                testList = database.searchDB(titleQ,catQ)
+                for x in testList:
+                    print(x.Title,x.views)
+                return redirect(url_for('search'))
+                #redirect(url_for('results'))
         
         elif request.form['submit_button'] == "Return to Home":
             return redirect(url_for('begin'))
+        
+        elif request.form['submit_button'] == "Delete":
+            print(request.form)
+            item = request.form['Video']
+            return redirect(url_for('search'))
 
-    return render_template('SearchBar.html')
+    return render_template('SearchBar.html', testList=testList)
 
 @app.route("/Results", methods = ['GET', 'POST']) # new
 def results():
+    global testList
     if request.method == 'POST':
-        if 'Title' in request.form:
-            query = request.form
-            titleQ = query['Title']
-            catQ = query['categoryID']
-            #searchType = query['SearchType']
-            #sliderQ = query['SearchContent']
-            testList = database.searchDB(titleQ,catQ)
-            for x in testList:
-                print(x.Title,x.views)
-        elif  'search' in request.form:
             return redirect(url_for('search'))
-    return render_template('Results.html', query=query, testList=testList)
-
-app.run()       
-#app.run(debug = True)
+    return render_template('Results.html', testList=testList)
+    
+app.run(debug = True, use_reloader = False)
