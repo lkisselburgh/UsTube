@@ -59,8 +59,17 @@ def search():
             return redirect(url_for('search'))
 
         elif request.form['submit_button'] == "Add":
-           print(request.form)
-
+            print(request.form)
+            addList = list()
+            addForm = request.form
+            #print(addForm)
+            for member in addForm:
+                if member == 'submit_button':
+                    continue
+                else:
+                    addList.append(addForm[member])
+            print(addList, len(addList))
+            database.ytDBStart(addList)
     return render_template('SearchBar.html', testList=testList)
 
 @app.route("/Results", methods = ['GET', 'POST']) # new

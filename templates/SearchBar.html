@@ -43,14 +43,16 @@
         <form id="editform" method="post">
             <fieldset>
                 <label for="add_VidID">VideoID</label>
-                <!--VideoId--> <input type="text" id="add_VidID" name="add_Title" class="input col-form-label" placeholder="Type here" style=""><br />
+                <!--VideoId--> <input type="text" id="add_VidID" name="add_VidID" class="input col-form-label" placeholder="Type here" style=""><br />
+                <label for="add_Trend">Trending Date</label>
+                <!--Trending Date--> <input type="date" id="add_Trend" name="add_Trend" class="input col-form-label" placeholder="Type here" style=""> <br />
                 <label for="add_Title">Title</label>
                 <!--Title--> <input type="text" id="add_Title" name="add_Title" class="input col-form-label" placeholder="Type here" style=""><br />
                 <label for="add_CTitle">Channel Title</label>
                 <!--Channel Title--> <input type="text" id="add_CTitle" name="add_CTitle" class="input col-form-label" placeholder="Type here" style=""> <br />
                 <label for="add_VGenre">Genre</label>
                 <!--Genre-->
-                <select id="add_Genre">
+                <select id="add_Genre" name="add_Genre">
                     <option value="Music">Music</option>
                     <option value="Pets & Animals">Pets & Animals</option>
                     <option value="Sports">Sports</option>
@@ -81,27 +83,25 @@
                     <option value="Shows">Shows</option>
                     <option value="Trailers">Trailers</option>
                 </select><br />
-                <label for="add_Trend">Trending Date</label>
-                <!--Trending Date--> <input type="date" id="add_Trend" name="add_Trend" class="input col-form-label" placeholder="Type here" style=""> <br />
                 <label for="add_Time">Time Published</label>
                 <!--Time Published--> <input type="time" id="add_Time" name="add_Time" class="input col-form-label" placeholder="Type here" style=""> <br />
-                <label for="add_Views">Total Views</label>
-                <!--Total Views--> <input type="number" id="add_Views" name="add_Views" class="input col-form-label" placeholder="Type here" style=""> <br />
-                <label for="add_Disliked">Dislikes</label>
-                <!--Dislikes--> <input type="number" id="add_Disliked" name="add_Disliked" class="input col-form-label" placeholder="Type here" style=""> <br />
-                <label for="add_Liked">Likes</label>
-                <!--liked--><input type="number" id="add_Liked" name="add_Liked" class="input col-form-label" placeholder="Type here" style=""> <br />
                 <label for="add_Tags">Tags</label>
                 <!--Tags--> <input type="text" id="add_Tags" name="add_Tags" class="input col-form-label" placeholder="Type here" style=""> <br />
+                <label for="add_Views">Total Views</label>
+                <!--Total Views--> <input type="number" id="add_Views" name="add_Views" class="input col-form-label" placeholder="Type here" style=""> <br />
+                <label for="add_Liked">Likes</label>
+                <!--liked--><input type="number" id="add_Liked" name="add_Liked" class="input col-form-label" placeholder="Type here" style=""> <br />
+                <label for="add_Disliked">Dislikes</label>
+                <!--Dislikes--> <input type="number" id="add_Disliked" name="add_Disliked" class="input col-form-label" placeholder="Type here" style=""> <br />
                 <label for="add_Commentcnt">Comment Count</label>
                 <!--Comment Count--> <input type="number" id="add_Commentcnt" name="add_Commentcnt" class="input col-form-label" placeholder="Type here" style=""> <br />
                 <label for="add_Thumblink">Link to Thumbnail</label>
                 <!--ThumbnailLink--> <input type="text" id="add_Thumblink" name="add_Thumblink" class="input col-form-label" placeholder="Type here" style=""> <br />
                 <label for="add_Comdis">Disable Comments</label>
                 <!--comDisabled--> <input type="checkbox" id="add_Comdis" name="add_Comdis" class="" placeholder="Type here" style=""> <br />
-                <!--videoEOR--> <input type="hidden" id="add_videoEOR" name="add_videoEOR" value="False">
                 <label for="add_Rate">Disable Ratings</label>
                 <!--ratingsdisabled--> <input type="checkbox" id="add_Rate" name="add_Rate" class="" placeholder="Type here" style=""> <br />
+                <!--videoEOR--> <input type="hidden" id="add_videoEOR" name="add_videoEOR" value="False">
                 <label for="add_Des">Description</label>
                 <!--description--> <input type="text" id="add_Des" name="add_Des" class="input col-form-label" placeholder="Type here" style=""> <br />
                 <input type="submit" class="subbutton btn btn-green" id="Add_send" name="submit_button" value="Add">
