@@ -139,19 +139,27 @@
                         <tbody>
                             {% for item in testList %}
                             <tr id="database">
-                                <td> 
+                                <td> {{item[1].videoID}}</td>
+
+                                <td>
                                     <div id="editme" contenteditable="false">
-                                        {{item[1].videoID}}
+                                        {{item[1].Title}}
                                     </div>
                                 </td>
-                                <td>{{item[1].Title}}</td>
+
                                 <td>{{item[1].trendingDate}}</td>
                                 <td>{{item[1].channelTitle}}</td>
                                 <td>{{item[1].publishTime}}</td>
                                 <td>{{item[1].views}}</td>
                                 <td>{{item[1].dislikes}}</td>
-                                <td>{{item[1].tags}}</td>
-                                <td><form method="post"><input type="button" class="btn btn-danger" id="edit" name="submit_button" value="Edit" onclick="myFunction(this)"></form></td>
+                                
+                                <td>
+                                    <div id="editme" contenteditable="false">
+                                        {{item[1].tags}}
+                                    </div>
+                                </td>
+
+                                <td><form method="post"><input type="button" class="btn btn-danger" id="edit_btn" name="submit_button" value="Edit" onclick="myFunction(this)"></form></td>
                                 <td>
                                     <form method="post">
                                         <input type="hidden" id="todelete" name="Video" value="{{item[0]}}">
@@ -172,17 +180,19 @@
         <script>
             function myFunction(button) {
                 var x = document.getElementById("editme");
+                var btn = document.getElementById("edit_btn");
+
                 if(x.contentEditable == "false") {
                     x.contentEditable = "true";
-                    button.innerHTML = "Save";
-                    document.getElementById("editme").innerHTML = "Hey Hoe!";
+                    button.value = "Save";
+                    //btn.innerHTML = "Save";
+                    //document.getElementById("editme").innerHTML = "Hey Hoe!";
                 }
                 else {
                     x.contentEditable = "false";
-                    button.innerHTML = "Edit";
+                    button.value = "Edit";
                 }
-                //println("test")
-                //document.write();
+                
             }
         </script>
 
