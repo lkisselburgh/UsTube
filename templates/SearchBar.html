@@ -152,9 +152,9 @@
                                 <td>{{item[1].publishTime}}</td>
                                 <td>{{item[1].views}}</td>
                                 <td>{{item[1].dislikes}}</td>
-                                
+
                                 <td>
-                                    <div id="editme" contenteditable="false">
+                                    <div id="editme1" contenteditable="false">
                                         {{item[1].tags}}
                                     </div>
                                 </td>
@@ -180,16 +180,19 @@
         <script>
             function myFunction(button) {
                 var x = document.getElementById("editme");
+                var y = document.getElementById("editme1");
                 var btn = document.getElementById("edit_btn");
 
                 if(x.contentEditable == "false") {
                     x.contentEditable = "true";
+                    y.contentEditable = "true";
                     button.value = "Save";
                     //btn.innerHTML = "Save";
                     //document.getElementById("editme").innerHTML = "Hey Hoe!";
                 }
                 else {
                     x.contentEditable = "false";
+                    y.contentEditable = "false";
                     button.value = "Edit";
                 }
                 
