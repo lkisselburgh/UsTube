@@ -134,20 +134,24 @@
                     </table>
                 </div>
 
-                <div class="present">
+                <div class="present"> <!--editable-->
                     <table class="table table-hover">
                         <tbody>
                             {% for item in testList %}
                             <tr id="database">
-                                <td>{{item[1].videoID}}</td>
+                                <td> 
+                                    <div id="editme" contenteditable="false">
+                                        {{item[1].videoID}}
+                                    </div>
+                                </td>
                                 <td>{{item[1].Title}}</td>
                                 <td>{{item[1].trendingDate}}</td>
                                 <td>{{item[1].channelTitle}}</td>
-                                <td>{{item[1].publishTime}} </td>
+                                <td>{{item[1].publishTime}}</td>
                                 <td>{{item[1].views}}</td>
                                 <td>{{item[1].dislikes}}</td>
                                 <td>{{item[1].tags}}</td>
-                                <td><form method="post"><input type="submit" class="btn btn-danger" id="edit" name="submit_button" value="Edit"></form></td>
+                                <td><form method="post"><input type="button" class="btn btn-danger" id="edit" name="submit_button" value="Edit" onclick="myFunction(this)"></form></td>
                                 <td>
                                     <form method="post">
                                         <input type="hidden" id="todelete" name="Video" value="{{item[0]}}">
@@ -160,8 +164,28 @@
                     </table>
 
                 </div>
+                
+
             </div>
         </div>
+
+        <script>
+            function myFunction(button) {
+                var x = document.getElementById("editme");
+                if(x.contentEditable == "false") {
+                    x.contentEditable = "true";
+                    button.innerHTML = "Save";
+                    document.getElementById("editme").innerHTML = "Hey Hoe!";
+                }
+                else {
+                    x.contentEditable = "false";
+                    button.innerHTML = "Edit";
+                }
+                //println("test")
+                //document.write();
+            }
+        </script>
+
     </body>
     </html>
 

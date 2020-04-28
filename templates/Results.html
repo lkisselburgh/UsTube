@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>UsTube - Recieved</title>
+	<title >UsTube - Recieved</title>
 	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/styles.css')}}">
 </head>
 <body>
@@ -23,14 +23,15 @@
 				<tbody>
 					{% for item in testList %}
 					<tr id="database">
-						<td>{{item.videoID}}</td>
-						<td>{{item.Title}}</td>
-						<td>{{item.trendingDate}}</td>
-						<td>{{item.channelTitle}}</td>
-						<td>{{item.publishTime}} </td>
-						<td>{{item.views}}</td>
-						<td>{{item.dislikes}}</td>
-						<td>{{item.tags}}</td>
+						 <!--new not working-->
+								<td>{{item.videoID}}</td>
+								<td>{{item.Title}}</td>
+								<td>{{item.trendingDate}}</td>
+								<td>{{item.channelTitle}}</td>
+								<td>{{item.publishTime}} </td>
+								<td>{{item.views}}</td>
+								<td>{{item.dislikes}}</td>
+								<td>{{item.tags}}</td>
 					</tr>
 					{% endfor %}
 				</tbody>

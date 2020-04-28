@@ -49,6 +49,14 @@ def search():
         elif request.form['submit_button'] == "Return to Home":
             return redirect(url_for('begin'))
 
+        #elif request.form['submit_button'] == "Edit": # new
+             #print("Edit Button has been clicked.")
+             #if request.method == 'POST':
+                 #print("Post.")
+
+             
+             #return redirect(url_for('search'))
+
         elif request.form['submit_button'] == "Delete":
             id = request.form['Video']
             idval = int(id)

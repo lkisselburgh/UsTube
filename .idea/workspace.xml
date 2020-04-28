@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6f625e1a-9417-4374-ab43-dba6601fc461" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/templates/Home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Home.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1b4GWUh8MfbH86lq30HaKYGiaNk" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6f625e1a-9417-4374-ab43-dba6601fc461" name="Default Changelist" comment="" />
+      <created>1587883983426</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587883983426</updated>
+      <workItem from="1587931174018" duration="858000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="292" y="75" key="SettingsEditor" timestamp="1587890989749">
+      <screen x="0" y="23" width="1440" height="828" />
+    </state>
+    <state x="292" y="75" key="SettingsEditor/0.23.1440.828@0.23.1440.828" timestamp="1587890989749" />
+    <state width="500" height="400" key="SwitcherDM" timestamp="1587938213192">
+      <screen x="0" y="23" width="1440" height="828" />
+    </state>
+    <state width="500" height="400" key="SwitcherDM/0.23.1440.828@0.23.1440.828" timestamp="1587938213192" />
+  </component>
+</project>
