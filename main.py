@@ -37,6 +37,7 @@ def search():
     if request.method == 'POST':
         if request.form['submit_button'] == 'Search':
             if 'Title' in request.form:
+                #print("Msg Saved")
                 query = request.form
                 titleQ = query['Title']
                 catQ = query['categoryID']
@@ -49,13 +50,32 @@ def search():
         elif request.form['submit_button'] == "Return to Home":
             return redirect(url_for('begin'))
 
-        #elif request.form['submit_button'] == "Edit": # new
-             #print("Edit Button has been clicked.")
-             #if request.method == 'POST':
-                 #print("Post.")
+        elif request.form['submit_button'] == "Save": # new
+            #if request.method == 'POST':
+            print("Msg Saved")
+            
+            #id = request.form['EditedVideo']
+            
 
-             
-             #return redirect(url_for('search'))
+            #for members in testList:
+                #if members[0] == idval:
+                    #testList.remove(members)
+                    #database.ytDBStart(id)
+            #====== END Lacey
+            
+            #database.delete(idval)
+
+            #updateList = list()
+            #update = request.form
+
+            #for member in update:
+                #updateList.append(update[member])
+
+            #print(updateList)
+            #database.ytDBStart(updateList)
+            #====== END Kiana
+
+            return redirect(url_for('search'))
 
         elif request.form['submit_button'] == "Delete":
             id = request.form['Video']
@@ -78,6 +98,7 @@ def search():
                     addList.append(addForm[member])
             print(addList, len(addList))
             database.ytDBStart(addList)
+
     return render_template('SearchBar.html', testList=testList)
 
 @app.route("/Results", methods = ['GET', 'POST']) # new

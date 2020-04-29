@@ -110,6 +110,8 @@
         
     </div>
 
+    
+
         <div id="overview">
             <div id="add">
                     <input onclick="ShowAdd()" type="submit" id="add_button" class="subbutton btn btn-success" name="submit_button" value="Add"></input>
@@ -128,50 +130,65 @@
                                 <th scope="col">Dislikes</th>
                                 <th scope="col">Tags</th>
                                 <th scope="col">Edit</th>
+                                <th scope="col">Save</th> <!--new-->
                                 <th scope="col">Delete</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
 
-                <div class="present"> <!--editable-->
-                    <table class="table table-hover">
-                        <tbody>
-                            {% for item in testList %}
-                            <tr id="database">
-                                <td> {{item[1].videoID}}</td>
+                <form method="post" id="edit_form"> <!--new-->
+                    <div class="present"> <!--editable-->
+                        <table class="table table-hover">
+                            <tbody>
+                                {% for item in testList %}
+                                <tr id="database">
+                                    <td> {{item[1].videoID}}</td>
 
-                                <td>
-                                    <div id="editme" contenteditable="false">
-                                        {{item[1].Title}}
-                                    </div>
-                                </td>
+                                    <td>
+                                        <div id="editme" contenteditable="false">
+                                            {{item[1].Title}}
+                                        </div>
+                                    </td>
 
-                                <td>{{item[1].trendingDate}}</td>
-                                <td>{{item[1].channelTitle}}</td>
-                                <td>{{item[1].publishTime}}</td>
-                                <td>{{item[1].views}}</td>
-                                <td>{{item[1].dislikes}}</td>
+                                    <td>{{item[1].trendingDate}}</td>
+                                    <td>{{item[1].channelTitle}}</td>
+                                    <td>{{item[1].publishTime}}</td>
+                                    <td>{{item[1].views}}</td>
+                                    <td>{{item[1].dislikes}}</td>
 
-                                <td>
-                                    <div id="editme1" contenteditable="false">
-                                        {{item[1].tags}}
-                                    </div>
-                                </td>
+                                    <td>
+                                        <div id="editme1" contenteditable="false">
+                                            {{item[1].tags}}
+                                        </div>
+                                    </td>
 
-                                <td><form method="post"><input type="button" class="btn btn-danger" id="edit_btn" name="submit_button" value="Edit" onclick="myFunction(this)"></form></td>
-                                <td>
-                                    <form method="post">
-                                        <input type="hidden" id="todelete" name="Video" value="{{item[0]}}">
-                                        <input type="submit" class="btn btn-warning" id="remove" name="submit_button" value="Delete">
-                                    </form>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                                    <td><form method="post"> 
+                                        <input type="hidden" id="toedit" name="EditedVideo" value="{{item[0]}}"> <!---New---->
+                                        
+                                        <input type="button" class="btn btn-danger" id="edit_btn" name="submit_button" value="Edit" onclick="myFunction(this)"></form>
+                                    </td>
+                                    <td><form method="post">
+                                        <input type="submit" disabled=true  style="display: none" class="btn btn-danger" id="save_btn" name="submit_button" value="Save"></form>
+                                    </td>
+                                        
+                                    <td>
+                                        <form method="post">
+                                            <input type="hidden" id="todelete" name="Video" value="{{item[0]}}">
+                                        
 
-                </div>
+                                            <input type="submit" class="btn btn-warning" id="remove" name="submit_button" value="Delete">
+                                        </form>
+                                    </td>
+    
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </form> <!--new-->
                 
 
             </div>
@@ -181,22 +198,30 @@
             function myFunction(button) {
                 var x = document.getElementById("editme");
                 var y = document.getElementById("editme1");
-                var btn = document.getElementById("edit_btn");
+                var savebtn = document.getElementById("save_btn")
 
                 if(x.contentEditable == "false" && y.contentEditable == "false") {
                     x.contentEditable = "true";
                     y.contentEditable = "true";
-                    button.value = "Save";
-                    //btn.innerHTML = "Save";
-                    //document.getElementById("editme").innerHTML = "Hey Hoe!";
+                    //button.value = "Save";
+                    button.disabled = true;
+                    savebtn.disabled = false;
+                    savebtn.style.display="block";
+
                 }
                 else {
                     x.contentEditable = "false";
                     y.contentEditable = "false";
-                    button.value = "Edit";
+                    //button.value = "Edit";
+                    
                 }
-                
             }
+
+            //function saveFunction() {
+
+                
+            //}
+            
         </script>
 
     </body>
