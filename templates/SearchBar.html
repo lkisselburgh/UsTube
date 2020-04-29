@@ -163,12 +163,13 @@
                                         </div>
                                     </td>
 
-                                    <td><form method="post"> 
-                                        <input type="hidden" id="toedit" name="EditedVideo" value="{{item[0]}}"> <!---New---->
-                                        
+                                    <td><form method="post">     
                                         <input type="button" class="btn btn-danger" id="edit_btn" name="submit_button" value="Edit" onclick="myFunction(this)"></form>
                                     </td>
+
                                     <td><form method="post">
+                                        <input type="hidden" id="toedit" name="SavedVideo" value="{{item[0]}}"> <!---New---->
+
                                         <input type="submit" disabled=true  style="display: none" class="btn btn-danger" id="save_btn" name="submit_button" value="Save"></form>
                                     </td>
                                         
@@ -217,10 +218,7 @@
                 }
             }
 
-            //function saveFunction() {
-
-                
-            //}
+            
             
         </script>
 

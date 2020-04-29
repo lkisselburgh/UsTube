@@ -52,11 +52,22 @@ def search():
 
         elif request.form['submit_button'] == "Save": # new
             #if request.method == 'POST':
-            print("Msg Saved")
             
-            #id = request.form['EditedVideo']
+            id = request.form['SavedVideo']
+            idval = int(id)
+            for members in testList:
+                if members[0] == idval:
+                    print("Members: ", members[1].Title)
+                    members[1].Title = "funfetti is for psychopaths"
+                    #testList.remove(members)
+            #database.delete(idval)
+            #new_members = ['MltuW2kcREI', '17.15.11', "funfetti is for psychopaths",	'emma chamberlain',	'24',	'2017-11-14T20:28:53.000Z',	'emma chamberlain|"emma chambie"|"cooking with emma"|"funfetti"|"recipe"|"how to"|"baking"|"how to make cake"|"funfetti cake recipe"|"healthy"|"vegan"|"paleo"|"comedy"|"funny"',	'126438',	'12229',	'86',	'1865',	'https://i.ytimg.com/vi/MltuW2kcREI/default.jpg',	'FALSE',	'FALSE',	'FALSE',	"the mini whisk IS BACK\n\nIf you liked this video and want to see more from me, I post tuesdays, thursdays, and sundays, SO SUBSCRIBE FOR A GOOD TIME YO :)\n\nâœ© LINK TO THE SHIRT Iâ€™M WEARING (before I change haha) âœ©\n\nâœ­ https://goo.gl/LVhfNg\n\nâœ© MERCH: âœ©\n\nâœ­ KEEP IN MIND THAT YOU CAN CHANGE THE COLOR AND STYLE OF EACH DESIGN (like you can do a t-shirt, hoodie, travel mug, sticker, etc.) I LOVE YOU ALL AND HOPE U ENJOY THIS STUFF :)\nâœ­  https://www.redbubble.com/people/emmachambie/shop \n\nâœ© SOCIAL MEDIA âœ©\n\nâœ­ instagram: @_emmachamberlain\nâœ­ snapchat: @emmachambie\nâœ­ twitter: @emmachambie\nâœ­ pinterest: @emmachambie\nâœ­ VSCO: @emmachambie\nâœ­ depop: @emmachambie\nâœ­ email: emmafcham.business@gmail.com \nâœ­ spotify: https://open.spotify.com/user/emmachambie (or try typing in â€œEmma Frances Chamberlain) \n\nâœ© P.O. Box âœ©\n\nEmma Chamberlain\nP.O. Box #4058\nFoster City, California, 94404  USA\n\nâœ© MUSIC âœ©\n\nâœ­ Music from my outro\nJoakim Karud - Love Mode\nCheck out his channel!! - https://www.youtube.com/user/JoakimKarud/"]
+            #database.ytDBStart(new_members)
+                
             
-
+            #idval = int(items)
+            #database.delete(idval)
+            
             #for members in testList:
                 #if members[0] == idval:
                     #testList.remove(members)
