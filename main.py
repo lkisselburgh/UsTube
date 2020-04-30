@@ -110,6 +110,9 @@ def search():
             print(addList, len(addList))
             database.ytDBStart(addList)
 
+        elif request.form['submit_button'] == "Import":
+            print(enter)
+
     return render_template('SearchBar.html', testList=testList)
 
 @app.route("/Results", methods = ['GET', 'POST']) # new
