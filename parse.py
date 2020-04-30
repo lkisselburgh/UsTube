@@ -11,9 +11,10 @@ def parser(database):
 		for row in data:
 			if (skip_header == 0):
 				skip_header = 1
-				headers = row.split(', ')
+				headers = row.split(',')
 
 				if (len(headers) != 16) :
+					print(len(headers))
 					print("Error, CSV file is not formatted correctly.")
 					#EXIT			
 				else :
