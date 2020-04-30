@@ -111,6 +111,7 @@ def search():
             database.ytDBStart(addList)
 
         elif request.form['submit_button'] == "Import":
+            request.form['ImportFile']
             print(enter)
 
     return render_template('SearchBar.html', testList=testList)

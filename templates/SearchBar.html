@@ -27,11 +27,14 @@
     <!--<h1>UsTube</h1>-->
 
     <div class="wrapper">
+        <form method="post">
+            <input type="hidden" id="toimport" name="ImportFile" value=""> <!---New---->
+
+
+            <input type="submit" id="import_button" style="margin-left:1590px" class="subbutton btn btn-success" name="submit_button" value="Import"></input>
         
-        <input type="submit" id="import_button" style="margin-left:1600px" class="subbutton btn btn-success" name="submit_button" value="Import"></input>
-        
-        <input type="submit" id="export_button" style="float:right" class="subbutton btn btn-success" name="submit_button" value="Export"></input>
-        
+            <input type="submit" id="export_button" style="float:right" class="subbutton btn btn-success" name="submit_button" value="Export"></input>
+        </form>
 
         <form id="searchform" method="post">
             <p1>
@@ -46,7 +49,7 @@
             <input type="submit" class="subbutton btn btn-primary" name="submit_button" value="Return to Home">
         </form>
 
-    </div>
+</div>
 
     <div id="add_form">
         
