@@ -1,6 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
 from db import *
 from parse import *
+from imp_exp import *
+from werkzeug.utils import secure_filename
+import os
+#from flask_uploads import UploadSet, configure_uploads, IMAGES
+
+#from flask_uploads import UploadSet, configure_uploads
 
 #create database object
 database = ytDB()
@@ -9,7 +15,14 @@ parser(database)
 
 testList = ""
 
+UPLOAD_FOLDER = '/path/to/the/uploads'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+#csv_file = UploadSet('files', ('csv'))
+#configure_uploads(app, csv_file)
 
 @app.route("/", methods = ['GET', 'POST'])
 def begin():
@@ -111,8 +124,7 @@ def search():
             database.ytDBStart(addList)
 
         elif request.form['submit_button'] == "Import": #new
-            request.form['ImportFile']
-            print("enter")
+            
             return redirect(url_for('import_file')) #change
         
     return render_template('SearchBar.html', testList=testList)
@@ -126,6 +138,150 @@ def results():
 
 @app.route("/Import", methods = ['GET','POST'])
 def import_file():
+    if request.method == 'POST':
+        #global database
+        file = request.files['file']
+
+        if file:
+            file.save(secure_filename(file.filename))
+            #return print(file.filename)
+            #return file.filename
+            parseNew(file.filename)
+            #database.ytDBStart(database, file.filename)
+            #print("database: " + database.db[1].Title)
+
+        elif request.form['submit_button'] == 'Return': #new
+            return redirect(url_for('search'))
+        
+        elif request.form['submit_button'] == 'Submit':
+            print("Submit button was pressed.")
+            #parseNew(file.filename)
+
+
+        #if file:
+            #filename = secure_filename(file.filename)
+            #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            #return redirect(url_for('uploaded_file',
+                                    #filename=filename))
+
+        #file = request.files['file']
+        #file.save(os.path.join("uploads", file.filename))
+        #return render_template('Import.html', message="Success")
+
+            #if 'csv_data' in request.files:
+            #if request.files:
+                #print("requesting file.")
+            
+                #filename = secure_filename(file.filename)
+                #return filename
+
+        #file = request.files['csv_file']
+        #return file.filename
+
     return render_template('Import.html')
+
+def parseNew(newfilename):
+    global database
+    prev_row = []
+    temp = 0; skip_header = 0
+    correct = True
+
+    if (newfilename[-4:] == ".csv" or newfilename[-4:] == ".CSV"):
+        with open(newfilename, errors='ignore') as data:
+            for row in data:
+                if (skip_header == 0):
+                    skip_header = 1
+                    headers = row.split(',')
+
+                    #checks to make sure headers match
+                    if (len(headers) != 16) :
+                        print("Error, CSV file is not formatted correctly.")
+                        correct = False			
+                    else :
+                        if(headers[0] != "video_id") :
+                            print("Error, Column 1 is not video_id")
+                            correct = False			
+                        if (headers[1] != "trending_date") :
+                            print("Error, Column 2 is not trending_date")
+                            correct = False			
+                        if (headers[2] != "title") :
+                            print("Error, Column 3 is not title")
+                            correct = False			
+                        if (headers[3] != "channel_title") :
+                            print("Error, Column 4 is not channel_title")
+                            correct = False			
+                        if (headers[4] != "category_id") :
+                            print("Error, Column 5 is not category_id")
+                            correct = False			
+                        if (headers[5] != "publish_time") :
+                            print("Error, Column 6 is not publish_time")
+                            correct = False			
+                        if (headers[6] != "tags") :
+                            print("Error, Column 7 is not tags")
+                            correct = False			
+                        if (headers[7] != "views") :
+                            print("Error, Column 8 is not views")
+                            correct = False							
+                        if (headers[8] != "likes") :
+                            print("Error, Column 9 is not likes")
+                            correct = False							
+                        if (headers[9] != "dislikes") :
+                            print("Error, Column 10 is not dislikes")
+                            correct = False							
+                        if (headers[10] != "comment_count") :
+                            print("Error, Column 11 is not comment_count")
+                            correct = False							
+                        if (headers[11] != "thumbnail_link") :
+                            print("Error, Column 12 is not thumbnail_link")	
+                            correct = False						
+                        if (headers[12] != "comments_disabled") :
+                            print("Error, Column 13 is not comments_disabled")
+                            correct = False							
+                        if (headers[13] != "ratings_disabled") :
+                            print("Error, Column 14 is not ratings_disabled")
+                            correct = False							
+                        if (headers[14] != "video_error_or_removed") :
+                            print("Error, Column 15 is not video_error_or_removed")
+                            correct = False							
+                        if (headers[15] != "description\n") :
+                            print("Error, Column 16 is not description\n")
+                            correct = False
+                        if (correct == False):
+                            return database
+                        else:
+                            del database
+                            database = ytDB()		
+
+                else :
+                    count = 0
+                    count = row.count('"')
+                    
+                    if (count % 2 == 0 and count != 0):
+                        fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), row)
+                        database.ytDBStart(fields)
+                    
+                    else:  
+                        if (temp == 0):
+                            temp = 1
+                            prev_row = row
+                        
+                        else:
+                            prev_row = prev_row + row
+                            if (count == 1):
+                                temp = 0
+                                prev_row = prev_row.replace("\r"," ")
+                                prev_row = prev_row.replace("\n"," ")
+                                fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), prev_row)
+                                database.ytDBStart(fields)
+            
+            return database
+    else:
+        print("File must be .csv")
+        return database
+
+#@app.route('/uploads/<filename>')
+#def uploaded_file(filename):
+    #return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               #filename)
     
 app.run(debug = True, use_reloader = False)
