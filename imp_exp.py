@@ -5,6 +5,14 @@ from db import *
 
 #class ImpExp:
 
+# def export():
+#     global database
+#     expF = open("UsTube.csv", "w")
+#     for entry in database.db:
+#         print(entry[1].videoID)
+
+
+
 # def parseNew(newfilename):
 #     global database
 #     prev_row = []

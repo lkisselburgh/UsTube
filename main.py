@@ -1,9 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory
-from db import *
+from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory, make_response, send_file
 from parse import *
 from imp_exp import *
 from werkzeug.utils import secure_filename
 import os
+from io import StringIO
 #from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 #from flask_uploads import UploadSet, configure_uploads
@@ -18,6 +18,7 @@ testList = ""
 UPLOAD_FOLDER = '/path/to/the/uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
+#app = Flask(__name__, static_folder='static')
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -124,10 +125,18 @@ def search():
             database.ytDBStart(addList)
 
         elif request.form['submit_button'] == "Import": #new
-            
             return redirect(url_for('import_file')) #change
+
+        elif request.form['submit_button'] == "Export": #new
+            print("Exporting file...")
+            #export()
+            return redirect(url_for('export'))
         
     return render_template('SearchBar.html', testList=testList)
+
+# @app.route('/return-file/')
+# def send_file(filename):
+#     return send_from_directory(app.static_folder, filename)
 
 @app.route("/Results", methods = ['GET', 'POST']) # new
 def results():
@@ -136,11 +145,32 @@ def results():
             return redirect(url_for('search'))
     return render_template('Results.html', testList=testList)
 
+# @app.route('/Download') #new
+# def post(self):
+#     si = StringIO.StringIO()
+#     cw = csv.writer(si)
+#     cw.writerows(csvList)
+#     output = make_response(si.getvalue())
+#     output.headers["Content-Disposition"] = "attachment; filename=export.csv"
+#     output.headers["Content-type"] = "text/csv"
+#     return output
+
 @app.route("/Import", methods = ['GET','POST'])
 def import_file():
     if request.method == 'POST':
         #global database
         file = request.files['file']
+
+        # if 'file' not in request.files:
+        #     print("No file part.")
+        #     return redirect(request.url)
+
+        if request.form['submit_button'] == 'Return': #new
+            return redirect(url_for('search'))
+
+        if file.filename == '':
+            print("No selected file.")
+            return redirect(request.url)
 
         if file:
             file.save(secure_filename(file.filename))
@@ -149,36 +179,57 @@ def import_file():
             parseNew(file.filename)
             #database.ytDBStart(database, file.filename)
             #print("database: " + database.db[1].Title)
-
-        elif request.form['submit_button'] == 'Return': #new
-            return redirect(url_for('search'))
         
         elif request.form['submit_button'] == 'Submit':
             print("Submit button was pressed.")
             #parseNew(file.filename)
 
-
-        #if file:
-            #filename = secure_filename(file.filename)
-            #file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            #return redirect(url_for('uploaded_file',
-                                    #filename=filename))
-
-        #file = request.files['file']
-        #file.save(os.path.join("uploads", file.filename))
-        #return render_template('Import.html', message="Success")
-
-            #if 'csv_data' in request.files:
-            #if request.files:
-                #print("requesting file.")
-            
-                #filename = secure_filename(file.filename)
-                #return filename
-
-        #file = request.files['csv_file']
-        #return file.filename
-
     return render_template('Import.html')
+
+@app.route("/Export", methods = ['GET','POST'])
+def export():
+    global database
+    expF = open("UsTube.csv", "w")
+    expF.write("video_id,trending_date,title,channel_title,category_id,publish_time,tags,views,likes,dislikes,comment_count,thumbnail_link,comments_disabled,ratings_disabled,video_error_or_removed,description\n")
+    
+    for k in range(1,database.counter):
+        #print(database.db[k].videoID)
+        expF.write(database.db[k].videoID)
+        expF.write(',')
+        expF.write(database.db[k].trendingDate)
+        expF.write(',')
+        expF.write(database.db[k].channelTitle)
+        expF.write(',')
+        expF.write(database.db[k].categoryID)
+        expF.write(',')
+        expF.write(database.db[k].publishTime)
+        expF.write(',')
+        expF.write(database.db[k].tags)
+        expF.write(',')
+        expF.write(database.db[k].views)
+        expF.write(',')
+        expF.write(database.db[k].likes)
+        expF.write(',')
+        expF.write(database.db[k].dislikes)
+        expF.write(',')
+        expF.write(database.db[k].commentCount)
+        expF.write(',')
+        expF.write(database.db[k].thumbLink)
+        expF.write(',')
+        expF.write(database.db[k].comDisabled)
+        expF.write(',')
+        expF.write(database.db[k].ratingsDisabled)
+        expF.write(',')
+        expF.write(database.db[k].videoEOR)
+        expF.write(',')
+        expF.write(database.db[k].description)
+        #expF.write('\n')
+    expF.close()
+    
+    print("In progress...")
+
+    fname = "UsTube.csv"
+    return send_file(fname, as_attachment=True)
 
 def parseNew(newfilename):
     global database
