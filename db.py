@@ -110,6 +110,7 @@ class _Analytics(object):
 		tempCount = self._currentDB.trendCount
 		tList = list()
 		plotList = list()
+		testDict = dict()
 		if len(model) == 0:
 			return None
 
@@ -117,9 +118,13 @@ class _Analytics(object):
 			if model[keys].videoID not in tList:
 				vID = model[keys].videoID
 				title = model[keys].Title
-				plotList.append([title, tempCount[vID], len(title)])
+				if len(title) not in testDict:
+					testDict[len(title)] = tempCount[vID]
+				else:
+					testDict[len(title)] += tempCount[vID]
+				#plotList.append([title, tempCount[vID], len(title)])
 				tList.append(vID)
-		return plotList
+		return testDict
 
 
 

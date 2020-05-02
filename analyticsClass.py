@@ -9,17 +9,18 @@ class analyticsDisplay:
 			self.helper = str()
 
 		def displayLongerTitles(self, listData):
-			arr = np.asarray(listData)
+			dictItems = list(listData.items())
+			arr = np.array(dictItems)
 			#N = 14
 			#x = np.linspace(0, 1, N)
 			#y = np.random.randn(N)
-			df = pd.DataFrame(arr, columns=['Title','Amount','Length']) # creating a sample dataframe
+			df = pd.DataFrame(arr, columns=['Length','TrendAmount']) # creating a sample dataframe
 
 
 			data = [
 				go.Bar(
-					x=df['Amount'], # assign x as the dataframe column 'x'
-					y=df['Length']
+					x=df['Length'], # assign x as the dataframe column 'x'
+					y=df['TrendAmount']
 				)
 			]
 

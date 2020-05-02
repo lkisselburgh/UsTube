@@ -148,9 +148,11 @@ def results():
 
 @app.route("/Analytics", methods = ['GET','POST'])
 def analytics():
+	#graph display
 	analyticsobj = analyticsDisplay()
 	plotList = database.Analytics.trendsTitleList
 	displayObj = analyticsobj.displayLongerTitles(plotList)
+	################
 	return render_template('Analytics.html', plot=displayObj)
 
 # @app.route('/Download') #new
