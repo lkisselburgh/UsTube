@@ -145,6 +145,12 @@ def results():
             return redirect(url_for('search'))
     return render_template('Results.html', testList=testList)
 
+@app.route("/Analytics", methods = ['GET','POST'])
+def analytics():
+
+
+    return render_template('Analytics.html')
+
 # @app.route('/Download') #new
 # def post(self):
 #     si = StringIO.StringIO()
