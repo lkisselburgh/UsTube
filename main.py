@@ -4,6 +4,7 @@ from imp_exp import *
 from werkzeug.utils import secure_filename
 import os
 from io import StringIO
+from analyticsClass import *
 #from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 #from flask_uploads import UploadSet, configure_uploads
@@ -147,9 +148,10 @@ def results():
 
 @app.route("/Analytics", methods = ['GET','POST'])
 def analytics():
-
-
-    return render_template('Analytics.html')
+	analyticsobj = analyticsDisplay()
+	plotList = database.Analytics.trendsTitleList
+	displayObj = analyticsobj.displayLongerTitles(plotList)
+	return render_template('Analytics.html', plot=displayObj)
 
 # @app.route('/Download') #new
 # def post(self):

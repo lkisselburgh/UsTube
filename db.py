@@ -96,11 +96,11 @@ class ytDB:
 	# def update(key, newData):
 	# 	self.db[key]
 	@property
-	def databaseAnalytics(self):
-		return _databaseAnalytics(self)
+	def Analytics(self):
+		return _Analytics(self)
 
 
-class _databaseAnalytics(object):
+class _Analytics(object):
 	def __init__(self, currentDB):
 		self._currentDB = currentDB
 
@@ -109,15 +109,15 @@ class _databaseAnalytics(object):
 		model = self._currentDB.db
 		tempCount = self._currentDB.trendCount
 		tList = list()
-		plotList = list
+		plotList = list()
 		if len(model) == 0:
-			return None:
+			return None
 
 		for keys in model:
 			if model[keys].videoID not in tList:
 				vID = model[keys].videoID
 				title = model[keys].Title
-				plotList.append([title, tempCount[vID], len()])
+				plotList.append([title, tempCount[vID], len(title)])
 				tList.append(vID)
 		return plotList
 
