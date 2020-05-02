@@ -5,9 +5,24 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/styles.css')}}">
 </head>
 <body>
-
+    <nav class="navbar  navbar-dark navbar-expand-sm bg-primary">
+        <a class="navbar-brand" href="#">UsTube</a>
+        <div class="navbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url_for('begin')}}">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url_for('search')}}">Search </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for("analytics")}}">Analytics</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <form method='post'>
-        <label  for="message">Send a Message:</label> <br />
+        <label for="message">Send a Message:</label> <br />
         <input type="text" id="message" name="Message"> </input>
         <input type="submit" name="submit_button" value="Send">
         <input type="submit" name="submit_button" value="Search bar">
