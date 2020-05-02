@@ -7,5 +7,4 @@ function ShowAdd() {
         document.getElementById("add_button").value = "Add";
 
     }
-    
 }

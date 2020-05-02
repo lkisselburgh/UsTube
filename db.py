@@ -7,6 +7,7 @@ class ytDB:
 		self.db = dict()
 		self.counter = 1 #video ids are not unique so counter will be keys to dictionary
 		self.lastdeletedKey = None
+		self.trendCount = dict()
 
 	def ytDBStart(self, columns):
 		if len(columns) == 16:
@@ -15,9 +16,17 @@ class ytDB:
 							columns[5], columns[6], columns[7], columns[8], columns[9],
 							columns[10],columns[11], columns[12], columns[13], columns[14],
 							columns[15])
+			
+			if columns[0] not in self.trendCount:
+				self.trendCount[columns[0]] = 1
+			if columns[0] in self.trendCount:
+				self.trendCount[columns[0]] += 1
 
+			
 			if(self.db.get(self.lastdeletedKey) == None):
 				self.db[self.lastdeletedKey] = videoD
+			
+
 			self.db[self.counter] = videoD
 			self.counter += 1
 		else: 
@@ -84,9 +93,40 @@ class ytDB:
 		self.lastdeletedKey = key
 		self.db.pop(key, None)
 
-	def update(key, newData):
+	# def update(key, newData):
+	# 	self.db[key]
+	@property
+	def Analytics(self):
+		return _Analytics(self)
 
-		self.db[key]
+
+class _Analytics(object):
+	def __init__(self, currentDB):
+		self._currentDB = currentDB
+
+	@property
+	def trendsTitleList(self):
+		model = self._currentDB.db
+		tempCount = self._currentDB.trendCount
+		tList = list()
+		plotList = list()
+		testDict = dict()
+		if len(model) == 0:
+			return None
+
+		for keys in model:
+			if model[keys].videoID not in tList:
+				vID = model[keys].videoID
+				title = model[keys].Title
+				if len(title) not in testDict:
+					testDict[len(title)] = tempCount[vID]
+				else:
+					testDict[len(title)] += tempCount[vID]
+				#plotList.append([title, tempCount[vID], len(title)])
+				tList.append(vID)
+		return testDict
+
+
 
 #added class 
 class videoData(object):
