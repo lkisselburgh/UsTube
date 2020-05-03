@@ -39,7 +39,6 @@ class analyticsDisplay:
 					y=df['Amount']
 				)
 			]
-
 			Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
 			return Jobj
 
