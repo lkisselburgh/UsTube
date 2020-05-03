@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory, make_response, send_file
-from parse import *
+from CSVparser import *
 from imp_exp import *
 from werkzeug.utils import secure_filename
 import os
