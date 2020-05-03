@@ -25,10 +25,22 @@
         </div>
     </nav>
     
+
+    
+    <div class="form-group">
+        <form method="post">
+            <select name="select" class="form-control" id="graphs" onchange="this.form.submit()">
+                <option value="Null" style="display:none;" selected>Select an Option</option>
+                <option value="1">Days Trending vs. Title Length</option>
+                <option value="2">Days Trending vs. Genre</option>
+            </select>
+        </form>
+    </div>
+
     <div class="chart" id="bargraph">
         <script>
             var graphs = {{plot | safe}};
-            Plotly.plot('bargraph',graphs,{});
+            Plotly.newPlot('bargraph', graphs, {{layout | safe}} );
         </script>
     </div>
 </body>

@@ -5,6 +5,7 @@ from werkzeug.utils import secure_filename
 import os
 from io import StringIO
 from analyticsClass import *
+import plotly.graph_objects as go
 #from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 #from flask_uploads import UploadSet, configure_uploads
@@ -148,21 +149,40 @@ def results():
 
 @app.route("/Analytics", methods = ['GET','POST'])
 def analytics():
-	test = 3
-	#graph display
-	analyticsobj = analyticsDisplay()
-	if test == 1:
-		plotList = database.Analytics.trendsTitleList
-		displayObj = analyticsobj.displayLongerTitles(plotList)
-	elif test == 2:
-		plotList = database.Analytics.categoryContest
-		displayObj = analyticsobj.displayCategory(plotList)
-	elif test == 3:
-		plotList = database.Analytics.tagOccurence
-		displayObj = analyticsobj.displayTopTags(plotList)
+# <<<<<<< HEAD
+# 	test = 3
+# 	#graph display
+# 	analyticsobj = analyticsDisplay()
+# 	if test == 1:
+# 		plotList = database.Analytics.trendsTitleList
+# 		displayObj = analyticsobj.displayLongerTitles(plotList)
+# 	elif test == 2:
+# 		plotList = database.Analytics.categoryContest
+# 		displayObj = analyticsobj.displayCategory(plotList)
+# 	elif test == 3:
+# 		plotList = database.Analytics.tagOccurence
+# 		displayObj = analyticsobj.displayTopTags(plotList)
 
-	################
-	return render_template('Analytics.html', plot=displayObj)
+# 	################
+# 	return render_template('Analytics.html', plot=displayObj)
+# =======
+    analyticsobj = analyticsDisplay()
+    plotList = database.Analytics.trendsTitleList
+    displayObj = analyticsobj.displayLongerTitles(plotList)
+    analyticNum = '0'
+    layout = {}
+    if request.method == 'POST':
+        analyticNum = request.form['select']
+        print(analyticNum)
+        if analyticNum == '1':
+            analyticsobj = analyticsDisplay()
+            plotList = database.Analytics.trendsTitleList
+            displayObj = analyticsobj.displayLongerTitles(plotList)
+        elif analyticNum == '2':
+            analyticsobj = analyticsDisplay()
+            plotList = database.Analytics.categoryContest
+            displayObj = analyticsobj.displayCategory(plotList)
+    return render_template('Analytics.html', plot=displayObj)
 
 # @app.route('/Download') #new
 # def post(self):

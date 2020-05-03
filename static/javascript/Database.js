@@ -5,6 +5,5 @@ function ShowAdd() {
     } else {
         document.getElementById("add_form").style.display = "none";
         document.getElementById("add_button").value = "Add";
-
     }
 }
