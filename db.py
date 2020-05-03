@@ -5,14 +5,21 @@ categoryList = jParser()
 class ytDB:
 	def __init__(self):
 		self.db = dict()
-		self.counter = 1 #video ids are not unique so counter will be keys to dictionary
+		self.counter = 1 			#video ids are not unique so counter will be keys to dictionary
 		self.lastdeletedKey = None
-		self.trendCount = dict()
+		self.trendCount = dict()	#need this for subclass	
+		self.dbnoRepeats = dict()	#this database helps for not having repeats of videos
 
 	def ytDBStart(self, columns):
 		if len(columns) == 16:
 			videoD = videoData()
-			videoD.setVars(columns[0], columns[1], columns[2], columns[3], columns[4],
+
+			#tried to make a helper function but caused problems and looked ugly
+			for member in categoryList:
+				if columns[4] in member:
+					catinWords = member[1]
+
+			videoD.setVars(columns[0], columns[1], columns[2], columns[3], catinWords,
 							columns[5], columns[6], columns[7], columns[8], columns[9],
 							columns[10],columns[11], columns[12], columns[13], columns[14],
 							columns[15])
@@ -25,12 +32,17 @@ class ytDB:
 			
 			if(self.db.get(self.lastdeletedKey) == None):
 				self.db[self.lastdeletedKey] = videoD
-			
+
+			#
+			if columns[0] not in self.dbnoRepeats:
+				self.dbnoRepeats[columns[0]] = videoD			
 
 			self.db[self.counter] = videoD
 			self.counter += 1
 		else: 
 			return
+
+	
 
 	def searchDB(self, titleQuery, cidQuery):
 		resultList = []	
@@ -109,8 +121,8 @@ class _Analytics(object):
 		model = self._currentDB.db
 		tempCount = self._currentDB.trendCount
 		tList = list()
-		plotList = list()
-		testDict = dict()
+		plot = dict()
+
 		if len(model) == 0:
 			return None
 
@@ -118,13 +130,37 @@ class _Analytics(object):
 			if model[keys].videoID not in tList:
 				vID = model[keys].videoID
 				title = model[keys].Title
-				if len(title) not in testDict:
-					testDict[len(title)] = tempCount[vID]
+				key = len(title)
+				if key not in plot:
+					plot[key] = tempCount[vID]
 				else:
-					testDict[len(title)] += tempCount[vID]
-				#plotList.append([title, tempCount[vID], len(title)])
+					plot[key] += tempCount[vID]
 				tList.append(vID)
-		return testDict
+		return plot
+
+	@property
+	def categoryContest(self):
+		model = self._currentDB.dbnoRepeats
+		tCount = self._currentDB.trendCount
+		plot = dict()
+		for keys in model:
+			catEntry = model[keys].categoryID
+			if catEntry not in plot:
+				plot[catEntry] = tCount[keys]
+			else:
+				plot[catEntry] += tCount[keys]
+		return plot
+
+	# @property
+	# def tagOccurence(self):
+	# 	return plot
+
+	# @property
+	# def tagAmount(self):
+	# 	return plot
+	
+	
+	
 
 
 

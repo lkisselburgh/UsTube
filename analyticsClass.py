@@ -27,3 +27,19 @@ class analyticsDisplay:
 			Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
 			return Jobj
 
+		def displayCategory(self, listData):
+			dictItems = list(listData.items())
+			dtype = [('CategoryName', 'U30'), ('Amount', int)]
+			arr = np.array(dictItems, dtype=dtype)
+			arr = np.sort(arr, order='Amount')
+			df = pd.DataFrame(arr) # creating a sample dataframe
+			data = [
+				go.Bar(
+					x=df['CategoryName'], # assign x as the dataframe column 'x'
+					y=df['Amount']
+				)
+			]
+
+			Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
+			return Jobj
+
