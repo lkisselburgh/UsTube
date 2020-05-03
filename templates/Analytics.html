@@ -27,8 +27,11 @@
     
     <div class="chart" id="bargraph">
         <script>
+            var layout = {
+                title: 'Time trending vs Title Length'
+            }
             var graphs = {{plot | safe}};
-            Plotly.plot('bargraph',graphs,{});
+            Plotly.newPlot('bargraph',graphs,layout);
         </script>
     </div>
 </body>
