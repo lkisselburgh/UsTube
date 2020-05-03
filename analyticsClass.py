@@ -11,9 +11,6 @@ class analyticsDisplay:
 	def displayLongerTitles(self, listData):
 		dictItems = list(listData.items())
 		arr = np.array(dictItems)
-		#N = 14
-		#x = np.linspace(0, 1, N)
-		#y = np.random.randn(N)
 		df = pd.DataFrame(arr, columns=['Length','TrendAmount']) # creating a sample dataframe
 
 
@@ -33,6 +30,7 @@ class analyticsDisplay:
 		arr = np.array(dictItems, dtype=dtype)
 		arr = np.sort(arr, order='Amount')
 		df = pd.DataFrame(arr) # creating a sample dataframe
+
 		data = [
 			go.Bar(
 				x=df['CategoryName'], # assign x as the dataframe column 'x'
@@ -63,3 +61,20 @@ class analyticsDisplay:
 
 		return Jobj
 
+	def displayTagLength(self,listData):
+		dictItems = list(listData.items())
+		dtype = [('TagLength', 'U30'), ('TrendingCount', int)]
+		arr = np.array(dictItems, dtype=dtype)
+		arr = np.sort(arr, order='TagLength')
+		df = pd.DataFrame(arr) # creating a sample dataframe
+		
+		data = [
+			go.Bar(
+				x=df['TagLength'], # assign x as the dataframe column 'x'
+				y=df['TrendingCount']
+			)
+		]
+
+		Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
+
+		return Jobj

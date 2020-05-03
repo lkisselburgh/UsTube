@@ -9,6 +9,7 @@ class ytDB:
 		self.lastdeletedKey = None
 		self.trendCount = dict()	#need this for subclass	
 		self.dbnoRepeats = dict()	#this database helps for not having repeats of videos
+		self.vidTagLength = dict()	#to keep track of length of tags
 
 	def ytDBStart(self, columns):
 		if len(columns) == 16:
@@ -19,6 +20,7 @@ class ytDB:
 				if columns[4] in member:
 					catinWords = member[1]
 
+
 			videoD.setVars(columns[0], columns[1], columns[2], columns[3], catinWords,
 							columns[5], columns[6], columns[7], columns[8], columns[9],
 							columns[10],columns[11], columns[12], columns[13], columns[14],
@@ -26,6 +28,11 @@ class ytDB:
 			
 			if columns[0] not in self.trendCount:
 				self.trendCount[columns[0]] = 1
+				tagLength = len(columns[6].split('|'))
+				if columns[6] == '[none]':
+					self.vidTagLength[columns[0]] = 0
+				else:	
+					self.vidTagLength[columns[0]] = tagLength
 			if columns[0] in self.trendCount:
 				self.trendCount[columns[0]] += 1
 
@@ -115,7 +122,6 @@ class ytDB:
 class _Analytics(object):
 	def __init__(self, currentDB):
 		self._currentDB = currentDB
-		self._vidTagLength = dict()
 
 	@property
 	def trendsTitleList(self):
@@ -160,10 +166,6 @@ class _Analytics(object):
 	 	for key in model:
 	 		tags = model[key].tags
 	 		splitTag = tags.split('|')
-
-	 		if key not in self._vidTagLength:
-	 			self._vidTagLength[key] = len(splitTag)
-
 	 		for tag in splitTag:
 	 			if tag not in plot:
 	 				plot[tag] = 1
@@ -171,9 +173,22 @@ class _Analytics(object):
  					plot[tag] +=1
 	 	return plot
 
-	# @property
-	# def tagAmount(self):
-	# 	return plot
+	@property
+	def tagTrends(self):
+		model = self._currentDB.dbnoRepeats
+		tagLength = self._currentDB.vidTagLength
+		trendNum = self._currentDB.trendCount
+		plot = dict()
+
+		for key in model:
+			tag = tagLength[key]
+			tNum = trendNum[key]
+			if tag not in plot:
+				plot[tag] = tNum
+			else:
+				plot[tag] += tNum
+		
+		return plot
 	
 	
 	

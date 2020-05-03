@@ -149,39 +149,28 @@ def results():
 
 @app.route("/Analytics", methods = ['GET','POST'])
 def analytics():
-# <<<<<<< HEAD
-# 	test = 3
-# 	#graph display
-# 	analyticsobj = analyticsDisplay()
-# 	if test == 1:
-# 		plotList = database.Analytics.trendsTitleList
-# 		displayObj = analyticsobj.displayLongerTitles(plotList)
-# 	elif test == 2:
-# 		plotList = database.Analytics.categoryContest
-# 		displayObj = analyticsobj.displayCategory(plotList)
-# 	elif test == 3:
-# 		plotList = database.Analytics.tagOccurence
-# 		displayObj = analyticsobj.displayTopTags(plotList)
-
-# 	################
-# 	return render_template('Analytics.html', plot=displayObj)
-# =======
     analyticsobj = analyticsDisplay()
     plotList = database.Analytics.trendsTitleList
     displayObj = analyticsobj.displayLongerTitles(plotList)
     analyticNum = '0'
     layout = {}
+
     if request.method == 'POST':
         analyticNum = request.form['select']
         print(analyticNum)
         if analyticNum == '1':
-            analyticsobj = analyticsDisplay()
             plotList = database.Analytics.trendsTitleList
             displayObj = analyticsobj.displayLongerTitles(plotList)
         elif analyticNum == '2':
-            analyticsobj = analyticsDisplay()
             plotList = database.Analytics.categoryContest
             displayObj = analyticsobj.displayCategory(plotList)
+        elif analyticNum == '3':
+        	plotList = database.Analytics.tagOccurence
+        	displayObj = analyticsobj.displayTopTags(plotList)
+        elif analyticNum == '4':
+        	plotList = database.Analytics.tagTrends
+        	displayObj = analyticsobj.displayTagLength(plotList)
+
     return render_template('Analytics.html', plot=displayObj)
 
 # @app.route('/Download') #new
