@@ -115,6 +115,7 @@ class ytDB:
 class _Analytics(object):
 	def __init__(self, currentDB):
 		self._currentDB = currentDB
+		self._vidTagLength = dict()
 
 	@property
 	def trendsTitleList(self):
@@ -151,9 +152,24 @@ class _Analytics(object):
 				plot[catEntry] += tCount[keys]
 		return plot
 
-	# @property
-	# def tagOccurence(self):
-	# 	return plot
+	@property
+	def tagOccurence(self):
+	 	model = self._currentDB.dbnoRepeats
+	 	plot = dict()
+
+	 	for key in model:
+	 		tags = model[key].tags
+	 		splitTag = tags.split('|')
+
+	 		if key not in self._vidTagLength:
+	 			self._vidTagLength[key] = len(splitTag)
+
+	 		for tag in splitTag:
+	 			if tag not in plot:
+	 				plot[tag] = 1
+ 				else:
+ 					plot[tag] +=1
+	 	return plot
 
 	# @property
 	# def tagAmount(self):

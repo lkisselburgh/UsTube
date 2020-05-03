@@ -148,16 +148,18 @@ def results():
 
 @app.route("/Analytics", methods = ['GET','POST'])
 def analytics():
-	test = 1
+	test = 3
 	#graph display
+	analyticsobj = analyticsDisplay()
 	if test == 1:
-		analyticsobj = analyticsDisplay()
 		plotList = database.Analytics.trendsTitleList
 		displayObj = analyticsobj.displayLongerTitles(plotList)
 	elif test == 2:
-		analyticsobj = analyticsDisplay()
 		plotList = database.Analytics.categoryContest
 		displayObj = analyticsobj.displayCategory(plotList)
+	elif test == 3:
+		plotList = database.Analytics.tagOccurence
+		displayObj = analyticsobj.displayTopTags(plotList)
 
 	################
 	return render_template('Analytics.html', plot=displayObj)
