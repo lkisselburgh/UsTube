@@ -36,9 +36,11 @@ class analyticsDisplay:
 			data = [
 				go.Bar(
 					x=df['CategoryName'], # assign x as the dataframe column 'x'
-					y=df['Amount']
+					y=df['Amount'],
+					marker_color='Crimson',
 				)
 			]
+
 			Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
 			return Jobj
 

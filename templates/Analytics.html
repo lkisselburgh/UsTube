@@ -39,8 +39,16 @@
 
     <div class="chart" id="bargraph">
         <script>
-            var graphs = {{plot | safe}};
-            Plotly.newPlot('bargraph', graphs, {{layout | safe}} );
+            var graphs = {{ plot | safe}};
+            var analytics = {{ analyticNum }};
+            var layout = {};
+            if (analytics == 1) {
+                layout = { title : 'Days Trending vs. Title Length' };
+            }
+            else if (analytics == 2) {
+                layout = { title: 'Days Trending vs. Genre' };
+            }
+            Plotly.newPlot('bargraph', graphs, layout);
         </script>
     </div>
 </body>

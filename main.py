@@ -152,11 +152,9 @@ def analytics():
     analyticsobj = analyticsDisplay()
     plotList = database.Analytics.trendsTitleList
     displayObj = analyticsobj.displayLongerTitles(plotList)
-    analyticNum = '0'
-    layout = {}
+    analyticNum = '1'
     if request.method == 'POST':
         analyticNum = request.form['select']
-        print(analyticNum)
         if analyticNum == '1':
             analyticsobj = analyticsDisplay()
             plotList = database.Analytics.trendsTitleList
@@ -165,7 +163,7 @@ def analytics():
             analyticsobj = analyticsDisplay()
             plotList = database.Analytics.categoryContest
             displayObj = analyticsobj.displayCategory(plotList)
-    return render_template('Analytics.html', plot=displayObj)
+    return render_template('Analytics.html', plot=displayObj, analyticNum=analyticNum)
 
 # @app.route('/Download') #new
 # def post(self):
