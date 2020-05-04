@@ -153,17 +153,26 @@ def analytics():
     plotList = database.Analytics.trendsTitleList
     displayObj = analyticsobj.displayLongerTitles(plotList)
     analyticNum = '1'
+    layout = {}
     if request.method == 'POST':
         analyticNum = request.form['select']
         if analyticNum == '1':
-            analyticsobj = analyticsDisplay()
             plotList = database.Analytics.trendsTitleList
             displayObj = analyticsobj.displayLongerTitles(plotList)
         elif analyticNum == '2':
-            analyticsobj = analyticsDisplay()
             plotList = database.Analytics.categoryContest
             displayObj = analyticsobj.displayCategory(plotList)
+        elif analyticNum == '3':
+        	plotList = database.Analytics.tagOccurence
+        	displayObj = analyticsobj.displayTopTags(plotList)
+        elif analyticNum == '4':
+        	plotList = database.Analytics.tagTrends
+        	displayObj = analyticsobj.displayTagLength(plotList)
+        elif analyticNum == '5':
+        	plotList = database.Analytics.timeofDay
+        	displayObj = analyticsobj.displayTimeODay(plotList)
     return render_template('Analytics.html', plot=displayObj, analyticNum=analyticNum)
+
 
 # @app.route('/Download') #new
 # def post(self):
@@ -212,37 +221,39 @@ def export():
     expF = open("UsTube.csv", "w")
     expF.write("video_id,trending_date,title,channel_title,category_id,publish_time,tags,views,likes,dislikes,comment_count,thumbnail_link,comments_disabled,ratings_disabled,video_error_or_removed,description\n")
     
-    for k in range(1,database.counter):
+    for keys in database.db:
         #print(database.db[k].videoID)
-        expF.write(database.db[k].videoID)
+        expF.write(database.db[keys].videoID)
         expF.write(',')
-        expF.write(database.db[k].trendingDate)
+        expF.write(database.db[keys].trendingDate)
         expF.write(',')
-        expF.write(database.db[k].channelTitle)
+        expF.write(database.db[keys].Title)
         expF.write(',')
-        expF.write(database.db[k].categoryID)
+        expF.write(database.db[keys].channelTitle)
         expF.write(',')
-        expF.write(database.db[k].publishTime)
+        expF.write(database.db[keys].categoryID)
         expF.write(',')
-        expF.write(database.db[k].tags)
+        expF.write(database.db[keys].publishTime)
         expF.write(',')
-        expF.write(database.db[k].views)
+        expF.write(database.db[keys].tags)
         expF.write(',')
-        expF.write(database.db[k].likes)
+        expF.write(database.db[keys].views)
         expF.write(',')
-        expF.write(database.db[k].dislikes)
+        expF.write(database.db[keys].likes)
         expF.write(',')
-        expF.write(database.db[k].commentCount)
+        expF.write(database.db[keys].dislikes)
         expF.write(',')
-        expF.write(database.db[k].thumbLink)
+        expF.write(database.db[keys].commentCount)
         expF.write(',')
-        expF.write(database.db[k].comDisabled)
+        expF.write(database.db[keys].thumbLink)
         expF.write(',')
-        expF.write(database.db[k].ratingsDisabled)
+        expF.write(database.db[keys].comDisabled)
         expF.write(',')
-        expF.write(database.db[k].videoEOR)
+        expF.write(database.db[keys].ratingsDisabled)
         expF.write(',')
-        expF.write(database.db[k].description)
+        expF.write(database.db[keys].videoEOR)
+        expF.write(',')
+        expF.write(database.db[keys].description)
         #expF.write('\n')
     expF.close()
     

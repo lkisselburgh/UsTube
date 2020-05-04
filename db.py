@@ -9,6 +9,7 @@ class ytDB:
 		self.lastdeletedKey = None
 		self.trendCount = dict()	#need this for subclass	
 		self.dbnoRepeats = dict()	#this database helps for not having repeats of videos
+		self.vidTagLength = dict()	#to keep track of length of tags
 
 	def ytDBStart(self, columns):
 		if len(columns) == 16:
@@ -19,6 +20,7 @@ class ytDB:
 				if columns[4] in member:
 					catinWords = member[1]
 
+
 			videoD.setVars(columns[0], columns[1], columns[2], columns[3], catinWords,
 							columns[5], columns[6], columns[7], columns[8], columns[9],
 							columns[10],columns[11], columns[12], columns[13], columns[14],
@@ -26,6 +28,11 @@ class ytDB:
 			
 			if columns[0] not in self.trendCount:
 				self.trendCount[columns[0]] = 1
+				tagLength = len(columns[6].split('|'))
+				if columns[6] == '[none]':
+					self.vidTagLength[columns[0]] = 0
+				else:	
+					self.vidTagLength[columns[0]] = tagLength
 			if columns[0] in self.trendCount:
 				self.trendCount[columns[0]] += 1
 
@@ -41,8 +48,6 @@ class ytDB:
 			self.counter += 1
 		else: 
 			return
-
-	
 
 	def searchDB(self, titleQuery, cidQuery):
 		resultList = []	
@@ -107,6 +112,7 @@ class ytDB:
 
 	# def update(key, newData):
 	# 	self.db[key]
+	
 	@property
 	def Analytics(self):
 		return _Analytics(self)
@@ -151,19 +157,56 @@ class _Analytics(object):
 				plot[catEntry] += tCount[keys]
 		return plot
 
-	# @property
-	# def tagOccurence(self):
-	# 	return plot
+	@property
+	def tagOccurence(self):
+	 	model = self._currentDB.dbnoRepeats
+	 	plot = dict()
 
-	# @property
-	# def tagAmount(self):
-	# 	return plot
+	 	for key in model:
+	 		tags = model[key].tags
+	 		splitTag = tags.split('|')
+	 		for tag in splitTag:
+	 			if tag not in plot:
+	 				plot[tag] = 1
+ 				else:
+ 					plot[tag] +=1
+	 	return plot
+
+	@property
+	def tagTrends(self):
+		model = self._currentDB.dbnoRepeats
+		tagLength = self._currentDB.vidTagLength
+		trendNum = self._currentDB.trendCount
+		plot = dict()
+
+		for key in model:
+			tag = tagLength[key]
+			tNum = trendNum[key]
+			if tag not in plot:
+				plot[tag] = tNum
+			else:
+				plot[tag] += tNum
+		
+		return plot
 	
+	@property
+	def timeofDay(self):
+		model = self._currentDB.dbnoRepeats
+		tempPlot = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12:0 , 13: 0, 14: 0, 15: 0 ,16: 0, 17: 0 , 18: 0, 19: 0, 20: 0 , 21: 0, 22: 0, 23: 0}
+		plot = {'12 AM': 0,'1 AM': 0,'2 AM': 0,'3 AM': 0,'4 AM': 0, '5 AM': 0, '6 AM': 0, '7 AM': 0, '8 AM': 0, '9 AM': 0, '10 AM': 0, '11 AM': 0, '12 PM':0 , '1 PM': 0, '2 PM': 0, '3 PM': 0 ,'4 PM': 0, '5 PM': 0 , '6 PM': 0, '7 PM': 0, '8 PM': 0 , '9 PM': 0, '10 PM': 0, '11 PM': 0}
+		for key in model:
+			time = model[key].publishTime
+			time = time.split('T')
+			time = time[1].split('.')
+			time = time[0].split(':')
+			hour = int(time[0])
+			tempPlot[hour] += 1
+
+		for key1, key2 in zip(tempPlot, plot):
+			plot[key2] = tempPlot[key1]
+
+		return plot
 	
-	
-
-
-
 #added class 
 class videoData(object):
 	def __init__(self):

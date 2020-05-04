@@ -33,6 +33,9 @@
                 <option value="Null" style="display:none;" selected>Select an Option</option>
                 <option value="1">Days Trending vs. Title Length</option>
                 <option value="2">Days Trending vs. Genre</option>
+                <option value="3">Top 50 Most Trending tags</option>
+                <option value="4">Days Trending vs. Video tags</option>
+                <option value="5">Best Time of Day to Trend</option>
             </select>
         </form>
     </div>
@@ -43,10 +46,40 @@
             var analytics = {{ analyticNum }};
             var layout = {};
             if (analytics == 1) {
-                layout = { title : 'Days Trending vs. Title Length' };
+                layout = {
+                    title: 'Days Trending vs. Title Length',
+                    xaxis: { title: "Length" },
+                    yaxis: { title: "Days on Trending"}
+                };
             }
             else if (analytics == 2) {
-                layout = { title: 'Days Trending vs. Genre' };
+                layout = {
+                title: 'Days Trending vs. Genre',
+                xaxis: { title: "Genre" },
+                yaxis: { title: "Days on Trending" }
+                };
+            }
+            else if (analytics == 3) {
+                layout = {
+                    title: 'Top 50 Most Trending Tags',
+                    xaxis: { title: "Genre" },
+                    yaxis: { title: "Days on Trending" }
+                };
+            }
+            else if (analytics == 4) {
+                layout = {
+                    title: 'Days Trending vs. Video tags',
+                    xaxis: { title: "Number of Tags" },
+                    yaxis: { title: "Days on Trending" }
+                };
+            }
+            else if (analytics == 5) {
+                layout = {
+                    title: 'Best Time of Day to Trend',
+                    xaxis: { title: "Hour" },
+                    yaxis: { title: "Number of Videos Trending" }
+
+                };
             }
             Plotly.newPlot('bargraph', graphs, layout);
         </script>
