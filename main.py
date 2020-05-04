@@ -170,6 +170,9 @@ def analytics():
         elif analyticNum == '4':
         	plotList = database.Analytics.tagTrends
         	displayObj = analyticsobj.displayTagLength(plotList)
+        elif analyticNum == '5':
+        	plotList = database.Analytics.timeofDay
+        	displayObj = analyticsobj.displayTimeODay(plotList)
 
     return render_template('Analytics.html', plot=displayObj)
 

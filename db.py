@@ -49,8 +49,6 @@ class ytDB:
 		else: 
 			return
 
-	
-
 	def searchDB(self, titleQuery, cidQuery):
 		resultList = []	
 		if self.db is None:
@@ -114,6 +112,7 @@ class ytDB:
 
 	# def update(key, newData):
 	# 	self.db[key]
+	
 	@property
 	def Analytics(self):
 		return _Analytics(self)
@@ -190,11 +189,24 @@ class _Analytics(object):
 		
 		return plot
 	
+	@property
+	def timeofDay(self):
+		model = self._currentDB.dbnoRepeats
+		tempPlot = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0, 11: 0, 12:0 , 13: 0, 14: 0, 15: 0 ,16: 0, 17: 0 , 18: 0, 19: 0, 20: 0 , 21: 0, 22: 0, 23: 0}
+		plot = {'12 AM': 0,'1 AM': 0,'2 AM': 0,'3 AM': 0,'4 AM': 0, '5 AM': 0, '6 AM': 0, '7 AM': 0, '8 AM': 0, '9 AM': 0, '10 AM': 0, '11 AM': 0, '12 PM':0 , '1 PM': 0, '2 PM': 0, '3 PM': 0 ,'4 PM': 0, '5 PM': 0 , '6 PM': 0, '7 PM': 0, '8 PM': 0 , '9 PM': 0, '10 PM': 0, '11 PM': 0}
+		for key in model:
+			time = model[key].publishTime
+			time = time.split('T')
+			time = time[1].split('.')
+			time = time[0].split(':')
+			hour = int(time[0])
+			tempPlot[hour] += 1
+
+		for key1, key2 in zip(tempPlot, plot):
+			plot[key2] = tempPlot[key1]
+
+		return plot
 	
-	
-
-
-
 #added class 
 class videoData(object):
 	def __init__(self):

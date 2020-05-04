@@ -67,10 +67,27 @@ class analyticsDisplay:
 		arr = np.array(dictItems, dtype=dtype)
 		arr = np.sort(arr, order='TagLength')
 		df = pd.DataFrame(arr) # creating a sample dataframe
-		
+
 		data = [
 			go.Bar(
 				x=df['TagLength'], # assign x as the dataframe column 'x'
+				y=df['TrendingCount']
+			)
+		]
+
+		Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
+
+		return Jobj
+
+	def displayTimeODay(self, listData):
+		dictItems = list(listData.items())
+		dtype = [('Hour', 'U30'), ('TrendingCount', int)]
+		arr = np.array(dictItems, dtype=dtype)
+		df = pd.DataFrame(arr) # creating a sample dataframe
+
+		data = [
+			go.Bar(
+				x=df['Hour'], # assign x as the dataframe column 'x'
 				y=df['TrendingCount']
 			)
 		]
