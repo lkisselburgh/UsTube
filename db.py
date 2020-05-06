@@ -37,14 +37,15 @@ class ytDB:
 				self.trendCount[columns[0]] += 1
 
 			
-			if(self.db.get(self.lastdeletedKey) == None):
-				self.db[self.lastdeletedKey] = videoD
+			#if(self.db.get(self.lastdeletedKey) == None):
+			#	self.db[self.lastdeletedKey] = videoD
 
 			#
 			if columns[0] not in self.dbnoRepeats:
 				self.dbnoRepeats[columns[0]] = videoD			
 
-			self.db[self.counter] = videoD
+			
+			self.db[self.counter] = videoD			
 			self.counter += 1
 		else: 
 			return

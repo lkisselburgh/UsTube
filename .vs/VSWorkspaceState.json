@@ -1,11 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\CSVFile",
     "\\static",
     "\\static\\css",
     "\\static\\javascript",
     "\\templates"
   ],
-  "SelectedNode": "\\templates\\SearchBar.html",
+  "SelectedNode": "\\templates\\Results.html",
   "PreviewInSolutionExplorer": false
 }

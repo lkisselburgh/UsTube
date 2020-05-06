@@ -14,7 +14,8 @@ import plotly.graph_objects as go
 database = ytDB()
 #input data into database
 parser(database)
-
+print(database.db[1].Title)
+print(database.db[2].Title)
 testList = ""
 
 UPLOAD_FOLDER = '/path/to/the/uploads'
@@ -206,6 +207,10 @@ def import_file():
             #return print(file.filename)
             #return file.filename
             parseNew(file.filename)
+            #print("POST PARSE")
+            #for keys in database.db:
+            #    print(keys, database.db[keys].Title)
+            #print(database.db[2].Title)
             #database.ytDBStart(database, file.filename)
             #print("database: " + database.db[1].Title)
         
@@ -218,11 +223,12 @@ def import_file():
 @app.route("/Export", methods = ['GET','POST'])
 def export():
     global database
+    
     expF = open("UsTube.csv", "w")
     expF.write("video_id,trending_date,title,channel_title,category_id,publish_time,tags,views,likes,dislikes,comment_count,thumbnail_link,comments_disabled,ratings_disabled,video_error_or_removed,description\n")
     
     for keys in database.db:
-        #print(database.db[k].videoID)
+        #print(database.db[keys].Title)
         expF.write(database.db[keys].videoID)
         expF.write(',')
         expF.write(database.db[keys].trendingDate)
@@ -264,6 +270,7 @@ def export():
 
 def parseNew(newfilename):
     global database
+    
     prev_row = []
     temp = 0; skip_header = 0
     correct = True
@@ -340,7 +347,10 @@ def parseNew(newfilename):
                     
                     if (count % 2 == 0 and count != 0):
                         fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), row)
+                        
+                        #print(database there)
                         database.ytDBStart(fields)
+                        #print(fields)
                     
                     else:  
                         if (temp == 0):
@@ -354,7 +364,9 @@ def parseNew(newfilename):
                                 prev_row = prev_row.replace("\r"," ")
                                 prev_row = prev_row.replace("\n"," ")
                                 fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), prev_row)
+                                
                                 database.ytDBStart(fields)
+                                #print(fields)
             
             return database
     else:

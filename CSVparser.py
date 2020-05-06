@@ -18,6 +18,7 @@ def parser(database):
 				
 				if (count % 2 == 0 and count != 0):
 					fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), row)
+					
 					database.ytDBStart(fields)
 				
 				else:  
@@ -32,5 +33,6 @@ def parser(database):
 							prev_row = prev_row.replace("\r"," ")
 							prev_row = prev_row.replace("\n"," ")
 							fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), prev_row)
+							
 							database.ytDBStart(fields)
 	
