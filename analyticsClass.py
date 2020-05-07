@@ -158,25 +158,40 @@ class analyticsDisplay:
 
 			return Jobj
 
+		def displayAvgRatings(self, listData):
+			dictItems = list(listData.items())
+			dtype = [('Rating', 'U30'), ('Amount', int)]
+			arr = np.array(dictItems, dtype=dtype)
+			df = pd.DataFrame(arr)
+			data = [
+				go.Bar(
+					x=df['Rating'],
+					y=df['Amount'],
+					marker_color = 'black'
+				)
+			]
 
-		#def displayTopTags(self, listData):
-		#	dictItems = list(listData.items())
-		#	dtype = [('Tag', 'U30'), ('Amount', int)]
-		#	arr = np.array(dictItems, dtype=dtype)
-		#	arr = np.sort(arr, order='Amount')
-		#	lastArr = len(arr)
-		#	topFifty = lastArr - 50
-		#	arr = arr[topFifty:lastArr]
-		#	df = pd.DataFrame(arr) # creating a sample dataframe
-		#	data = [
-		#		go.Bar(
-		#			x=df['Tag'], # assign x as the dataframe column 'x'
-		#			y=df['Amount'],
-		#			marker_color = 'black'
-		#		)
-		#	]
-		#
-		#	Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
-		#
-		#	return Jobj
+			Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
+
+			return Jobj	
+
+		def displayTimeOfYear(self, listData):
+			#listData is a dictionary with each value being another dictionary with the top 3 genres of that month
+			# {'January': {'Entertainment': 122, 'Music': 100, 'People': 85}, 'February': {'Entertainment': 122, ...} ...} etc
 			
+			dictItems = list(listData.items())
+			dtype = [('Month', 'U30'), ('Genre', str), ('Amount', int)]
+			arr = np.array(dictItems, dtype=dtype)
+			df = pd.DataFrame(arr) # creating a sample dataframe
+
+			data = [
+				go.Bar(
+					x=df['Month'], # assign x as the dataframe column 'x'
+					y=df['TrendingCount'],
+					marker_color = 'black'
+				)
+			]
+
+			Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
+
+			return Jobj

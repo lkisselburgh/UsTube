@@ -174,6 +174,12 @@ def analytics():
         elif analyticNum == '6':
             plotList = database.Analytics.channelOccurence
             displayObj = analyticsobj.displayTopChannels(plotList)
+        elif analyticNum == '7':
+            plotList = database.Analytics.avgRating
+            displayObj = analyticsobj.displayAvgRatings(plotList)
+        elif analyticNum == '8':
+            plotList = database.Analytics.timeofYear
+            displayObj = analyticsobj.displayTimeOfYear(plotList)
     return render_template('Analytics.html', plot=displayObj, analyticNum=analyticNum)
 
 
