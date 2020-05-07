@@ -14,8 +14,7 @@ import plotly.graph_objects as go
 database = ytDB()
 #input data into database
 parser(database)
-print(database.db[1].Title)
-print(database.db[2].Title)
+
 testList = ""
 
 UPLOAD_FOLDER = '/path/to/the/uploads'
@@ -172,6 +171,9 @@ def analytics():
         elif analyticNum == '5':
         	plotList = database.Analytics.timeofDay
         	displayObj = analyticsobj.displayTimeODay(plotList)
+        elif analyticNum == '6':
+            plotList = database.Analytics.channelOccurence
+            displayObj = analyticsobj.displayTopChannels(plotList)
     return render_template('Analytics.html', plot=displayObj, analyticNum=analyticNum)
 
 

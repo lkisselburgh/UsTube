@@ -99,6 +99,7 @@ class analyticsDisplay:
 			Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
 
 			return Jobj
+
 		def displayTagLength(self,listData):
 			dictItems = list(listData.items())
 			dtype = [('TagLength', 'U30'), ('TrendingCount', int)]
@@ -135,3 +136,47 @@ class analyticsDisplay:
 			Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
 
 			return Jobj
+
+		def displayTopChannels(self, listData):
+			dictItems = list(listData.items())
+			dtype = [('Channel', 'U30'), ('Amount', int)]
+			arr = np.array(dictItems, dtype=dtype)
+			arr = np.sort(arr, order='Amount')
+			lastArr = len(arr)
+			topFifty = lastArr - 50
+			arr = arr[topFifty:lastArr]
+			df = pd.DataFrame(arr)
+			data = [
+				go.Bar(
+					x=df['Channel'],
+					y=df['Amount'],
+					marker_color = 'black'
+				)
+			]
+
+			Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
+
+			return Jobj
+
+
+		#def displayTopTags(self, listData):
+		#	dictItems = list(listData.items())
+		#	dtype = [('Tag', 'U30'), ('Amount', int)]
+		#	arr = np.array(dictItems, dtype=dtype)
+		#	arr = np.sort(arr, order='Amount')
+		#	lastArr = len(arr)
+		#	topFifty = lastArr - 50
+		#	arr = arr[topFifty:lastArr]
+		#	df = pd.DataFrame(arr) # creating a sample dataframe
+		#	data = [
+		#		go.Bar(
+		#			x=df['Tag'], # assign x as the dataframe column 'x'
+		#			y=df['Amount'],
+		#			marker_color = 'black'
+		#		)
+		#	]
+		#
+		#	Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
+		#
+		#	return Jobj
+			

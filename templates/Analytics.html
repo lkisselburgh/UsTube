@@ -36,6 +36,7 @@
                 <option value="3">Top 50 Most Trending tags</option>
                 <option value="4">Days Trending vs. Video tags</option>
                 <option value="5">Best Time of Day to Trend</option>
+                <option value="6">Top 50 Most Trending Channels</option>
             </select>
         </form>
     </div>
@@ -79,6 +80,13 @@
                     xaxis: { title: "Hour" },
                     yaxis: { title: "Number of Videos Trending" }
 
+                };
+            }
+            else if (analytics == 6) {
+                layout = {
+                    title: 'Top 50 Most Trending Channels',
+                    xaxis: { title: "Channels" },
+                    yaxis: { title: "Number of Trending Videos" }
                 };
             }
             Plotly.newPlot('bargraph', graphs, layout);

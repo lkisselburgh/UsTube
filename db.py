@@ -207,6 +207,20 @@ class _Analytics(object):
 			plot[key2] = tempPlot[key1]
 
 		return plot
+
+	@property
+	def channelOccurence(self):
+	 	model = self._currentDB.dbnoRepeats
+	 	plot = dict()
+
+	 	for key in model:
+	 		channel = model[key].channelTitle
+	 		#splitTag = tags.split('|')
+	 		if channel not in plot:
+	 			plot[channel] = 1
+ 			else:
+ 				plot[channel] +=1
+	 	return plot
 	
 #added class 
 class videoData(object):
