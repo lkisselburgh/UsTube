@@ -36,6 +36,8 @@
                 <option value="3">Top 50 Most Trending tags</option>
                 <option value="4">Days Trending vs. Video tags</option>
                 <option value="5">Best Time of Day to Trend</option>
+                <option value="6">Enabling vs. Disabling Comments</option>
+                <option value="7">Description Length vs. Views</option>
             </select>
         </form>
     </div>
@@ -78,6 +80,22 @@
                     title: 'Best Time of Day to Trend',
                     xaxis: { title: "Hour" },
                     yaxis: { title: "Number of Videos Trending" }
+
+                };
+            }
+            else if (analytics == 6) {
+                layout = {
+                    title: 'Comments Enabled/Disabled',
+                    /*xaxis: { title: "Hour" },
+                    yaxis: { title: "Number of Videos Trending" }*/
+
+                };
+            }
+            else if (analytics == 7) {
+                layout = {
+                    title: 'Description Length vs Views',
+                    xaxis: { title: "Description Length (Words)" },
+                    yaxis: { title: "Views" }
 
                 };
             }
