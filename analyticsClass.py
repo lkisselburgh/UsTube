@@ -196,14 +196,34 @@ class analyticsDisplay:
 
 			dtype = [('Genre', 'U30'), ('TrendingCount', int)]
 			arr = np.array(gdata[0], dtype=dtype)
-			print(arr)
+			#print(arr)
 			df = pd.DataFrame(arr) # creating a sample dataframe
+
+			dtype = [('Genre2', 'U30'), ('TrendingCount2', int)]
+			arr = np.array(gdata[1], dtype=dtype)
+			#print(arr)
+			df2 = pd.DataFrame(arr) # creating a sample dataframe
+
+			dtype = [('Genre3', 'U30'), ('TrendingCount3', int)]
+			arr = np.array(gdata[2], dtype=dtype)
+			#print(arr)
+			df3 = pd.DataFrame(arr) # creating a sample dataframe
 
 			data = [
 				go.Bar(
 					x=df['Genre'], # assign x as the dataframe column 'x'
 					y=df['TrendingCount'],
 					marker_color = 'black'
+				),
+				go.Bar(
+					x=df2['Genre2'],
+					y=df2['TrendingCount2'],
+					marker_color = 'red'
+				),
+				go.Bar(
+					x=df3['Genre3'],
+					y=df3['TrendingCount3'],
+					marker_color = 'blue'
 				)
 			]
 
