@@ -36,9 +36,9 @@
                 <option value="3">Top 50 Most Trending tags</option>
                 <option value="4">Days Trending vs. Video tags</option>
                 <option value="5">Best Time of Day to Trend</option>
-                <option value="6">Top 50 Most Trending Channels</option>
-                <option value="7">Average Rating of Trending Videos</option>
-                <option value="8">What Genres Trend Throughout the Year</option>
+                <option value="8">Top 50 Most Trending Channels</option>
+                <option value="9">Ratings of Trending Videos</option>
+                <option value="10">What Genres Trend Throughout the Year</option>
             </select>
         </form>
     </div>
@@ -84,21 +84,21 @@
 
                 };
             }
-            else if (analytics == 6) {
+            else if (analytics == 8) {
                 layout = {
                     title: 'Top 50 Most Trending Channels',
                     xaxis: { title: "Channels" },
                     yaxis: { title: "Number of Trending Videos" }
                 };
             }
-            else if (analytics == 7) {
+            else if (analytics == 9) {
                 layout = {
-                    title: 'Average Rating of Trending Videos',
+                    title: 'Ratings of Trending Videos',
                     xaxis: { title: "Rating" },
                     yaxis: { title: "Number of Trending Videos" }
                 };
             }
-            else if (analytics == 8) {
+            else if (analytics == 10) {
                 layout = {
                     title: 'What Genres Trend Throughout the Year',
                     xaxis: { title: "Month" },

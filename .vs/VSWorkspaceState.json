@@ -1,12 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CSVFile",
-    "\\static",
-    "\\static\\css",
-    "\\static\\javascript",
-    "\\templates"
+    "\\CSVFile"
   ],
-  "SelectedNode": "\\templates\\Results.html",
+  "SelectedNode": "\\CSVFile\\USvideos.csv",
   "PreviewInSolutionExplorer": false
 }

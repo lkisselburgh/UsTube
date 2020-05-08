@@ -167,7 +167,7 @@ class analyticsDisplay:
 				go.Bar(
 					x=df['Rating'],
 					y=df['Amount'],
-					marker_color = 'black'
+					marker_color = 'black',
 				)
 			]
 

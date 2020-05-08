@@ -234,7 +234,8 @@ class _Analytics(object):
 			if (int(likes) == 0 and int(dislikes) == 0):
 				rating = 0
 			else:
-				rating = int(likes) / (int(dislikes) + int(likes))
+				rating = (int(likes) / (int(dislikes) + int(likes))) * 100
+				rating = round(rating)
 			if rating not in plot:
 				plot[rating] = 1
 			else:

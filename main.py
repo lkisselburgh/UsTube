@@ -171,13 +171,13 @@ def analytics():
         elif analyticNum == '5':
         	plotList = database.Analytics.timeofDay
         	displayObj = analyticsobj.displayTimeODay(plotList)
-        elif analyticNum == '6':
+        elif analyticNum == '8':
             plotList = database.Analytics.channelOccurence
             displayObj = analyticsobj.displayTopChannels(plotList)
-        elif analyticNum == '7':
+        elif analyticNum == '9':
             plotList = database.Analytics.avgRating
             displayObj = analyticsobj.displayAvgRatings(plotList)
-        elif analyticNum == '8':
+        elif analyticNum == '10':
             plotList = database.Analytics.timeofYear
             displayObj = analyticsobj.displayTimeOfYear(plotList)
     return render_template('Analytics.html', plot=displayObj, analyticNum=analyticNum)
