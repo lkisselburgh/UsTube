@@ -271,7 +271,10 @@ class _Analytics(object):
 				del plot[month][max_key]
 				
 				k += 1
-			plot[month] = temp
+			
+			plot[month] = list(temp.items())
+			#print(plot[month])
+
 		
 		#for month in plot:
 		#	print(month, plot[month])

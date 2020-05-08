@@ -1,5 +1,6 @@
 import plotly
 import plotly.graph_objs as go
+from plotly.subplots import make_subplots
 import pandas as pd
 import numpy as np
 import json
@@ -180,13 +181,27 @@ class analyticsDisplay:
 			# {'January': {'Entertainment': 122, 'Music': 100, 'People': 85}, 'February': {'Entertainment': 122, ...} ...} etc
 			
 			dictItems = list(listData.items())
-			dtype = [('Month', 'U30'), ('Genre', str), ('Amount', int)]
-			arr = np.array(dictItems, dtype=dtype)
+			#print(dictItems)
+
+			# print(dictItems)
+			months = []
+			genres = []
+			gdata = []
+			for month in dictItems:
+				months.append(month[0])
+				#genres.append(month[1][0])
+				gdata.append(month[1])
+			# print("months", months)
+			#print("data", gdata)
+
+			dtype = [('Genre', 'U30'), ('TrendingCount', int)]
+			arr = np.array(gdata[0], dtype=dtype)
+			print(arr)
 			df = pd.DataFrame(arr) # creating a sample dataframe
 
 			data = [
 				go.Bar(
-					x=df['Month'], # assign x as the dataframe column 'x'
+					x=df['Genre'], # assign x as the dataframe column 'x'
 					y=df['TrendingCount'],
 					marker_color = 'black'
 				)
