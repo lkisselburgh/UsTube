@@ -36,6 +36,8 @@
                 <option value="3">Top 50 Most Trending tags</option>
                 <option value="4">Days Trending vs. Video tags</option>
                 <option value="5">Best Time of Day to Trend</option>
+                <option value="6">Enabling vs. Disabling Comments</option>
+                <option value="7">Description Length vs. Views</option>
                 <option value="8">Top 50 Most Trending Channels</option>
                 <option value="9">Ratings of Trending Videos</option>
                 <option value="10">What Genres Trend Throughout the Year</option>
@@ -84,6 +86,23 @@
 
                 };
             }
+
+            else if (analytics == 6) {
+                layout = {
+                    title: 'Comments Enabled/Disabled',
+                    /*xaxis: { title: "Hour" },
+                    yaxis: { title: "Number of Videos Trending" }*/
+
+                };
+            }
+            else if (analytics == 7) {
+                layout = {
+                    title: 'Description Length vs Views',
+                    xaxis: { title: "Description Length (Words)" },
+                    yaxis: { title: "Views" }
+
+                };
+            }
             else if (analytics == 8) {
                 layout = {
                     title: 'Top 50 Most Trending Channels',
@@ -105,7 +124,6 @@
                     yaxis: { title: "Number of Videos Trending" }
                 };
             }
-
             Plotly.newPlot('bargraph', graphs, layout);
         </script>
     </div>

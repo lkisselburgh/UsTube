@@ -171,6 +171,13 @@ def analytics():
         elif analyticNum == '5':
         	plotList = database.Analytics.timeofDay
         	displayObj = analyticsobj.displayTimeODay(plotList)
+        elif analyticNum == '6':
+        	plotList = database.Analytics.enabledVDisabled
+        	displayObj = analyticsobj.displayComments(plotList)
+        elif analyticNum == '7':
+        	plotList = database.Analytics.descriptionVViews
+        	displayObj = analyticsobj.displayDesvViews(plotList)
+        	print(displayObj)
         elif analyticNum == '8':
             plotList = database.Analytics.channelOccurence
             displayObj = analyticsobj.displayTopChannels(plotList)
@@ -180,6 +187,7 @@ def analytics():
         elif analyticNum == '10':
             plotList = database.Analytics.timeofYear
             displayObj = analyticsobj.displayTimeOfYear(plotList)
+
     return render_template('Analytics.html', plot=displayObj, analyticNum=analyticNum)
 
 

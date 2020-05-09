@@ -209,7 +209,34 @@ class _Analytics(object):
 		return plot
 
 	@property
-	def channelOccurence(self):
+ 	def enabledVDisabled(self):
+		model = self._currentDB.dbnoRepeats
+		plot = [0, 0]
+
+		for key in model:
+			enaoDis = model[key].comDisabled
+			if enaoDis == 'True':
+				plot[0] +=1
+			else:
+				plot[1] +=1
+		return plot
+	
+	@property
+	def descriptionVViews(self):
+		def sortSecond(val):
+			return val[0]
+
+		model = self._currentDB.dbnoRepeats
+		plot = list()
+		for key in model:
+			viewsNew = int(model[key].views)
+			descripLength = len(model[key].description.split(' '))
+			plot.append([descripLength, viewsNew])
+		plot.sort(key = sortSecond)
+		return plot
+  
+  @property
+  def channelOccurence(self):
 	 	model = self._currentDB.dbnoRepeats
 	 	plot = dict()
 
@@ -282,7 +309,6 @@ class _Analytics(object):
 
 		return plot
 
-	
 #added class 
 class videoData(object):
 	def __init__(self):
