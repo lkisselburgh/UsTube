@@ -38,6 +38,9 @@
                 <option value="5">Best Time of Day to Trend</option>
                 <option value="6">Enabling vs. Disabling Comments</option>
                 <option value="7">Description Length vs. Views</option>
+                <option value="8">Top 50 Most Trending Channels</option>
+                <option value="9">Ratings of Trending Videos</option>
+                <option value="10">What Genres Trend Throughout the Year</option>
             </select>
         </form>
     </div>
@@ -83,6 +86,7 @@
 
                 };
             }
+
             else if (analytics == 6) {
                 layout = {
                     title: 'Comments Enabled/Disabled',
@@ -97,6 +101,27 @@
                     xaxis: { title: "Description Length (Words)" },
                     yaxis: { title: "Views" }
 
+                };
+            }
+            else if (analytics == 8) {
+                layout = {
+                    title: 'Top 50 Most Trending Channels',
+                    xaxis: { title: "Channels" },
+                    yaxis: { title: "Number of Trending Videos" }
+                };
+            }
+            else if (analytics == 9) {
+                layout = {
+                    title: 'Ratings of Trending Videos',
+                    xaxis: { title: "Rating" },
+                    yaxis: { title: "Number of Trending Videos" }
+                };
+            }
+            else if (analytics == 10) {
+                layout = {
+                    title: 'What Genres Trend Throughout the Year',
+                    xaxis: { title: "Month" },
+                    yaxis: { title: "Number of Videos Trending" }
                 };
             }
             Plotly.newPlot('bargraph', graphs, layout);

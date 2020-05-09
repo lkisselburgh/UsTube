@@ -37,14 +37,15 @@ class ytDB:
 				self.trendCount[columns[0]] += 1
 
 			
-			if(self.db.get(self.lastdeletedKey) == None):
-				self.db[self.lastdeletedKey] = videoD
+			#if(self.db.get(self.lastdeletedKey) == None):
+			#	self.db[self.lastdeletedKey] = videoD
 
 			#
 			if columns[0] not in self.dbnoRepeats:
 				self.dbnoRepeats[columns[0]] = videoD			
 
-			self.db[self.counter] = videoD
+			
+			self.db[self.counter] = videoD			
 			self.counter += 1
 		else: 
 			return
@@ -208,7 +209,7 @@ class _Analytics(object):
 		return plot
 
 	@property
-	def enabledVDisabled(self):
+ 	def enabledVDisabled(self):
 		model = self._currentDB.dbnoRepeats
 		plot = [0, 0]
 
@@ -233,8 +234,81 @@ class _Analytics(object):
 			plot.append([descripLength, viewsNew])
 		plot.sort(key = sortSecond)
 		return plot
-	
-	
+  
+  @property
+  def channelOccurence(self):
+	 	model = self._currentDB.dbnoRepeats
+	 	plot = dict()
+
+	 	for key in model:
+	 		channel = model[key].channelTitle
+	 		if channel not in plot:
+	 			plot[channel] = 1
+ 			else:
+ 				plot[channel] +=1
+	 	return plot
+
+	@property
+	def avgRating(self):
+		model = self._currentDB.dbnoRepeats
+		plot = dict()
+
+		for key in model:
+			likes = model[key].likes
+			#print(likes)
+			dislikes = model[key].dislikes
+			#print(dislikes)
+			if (int(likes) == 0 and int(dislikes) == 0):
+				rating = 0
+			else:
+				rating = (int(likes) / (int(dislikes) + int(likes))) * 100
+				rating = round(rating)
+			if rating not in plot:
+				plot[rating] = 1
+			else:
+				plot[rating] += 1
+		return plot
+
+	@property
+	def timeofYear(self):
+		model = self._currentDB.dbnoRepeats
+		genrePlot = {1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {}, 7: {}, 8: {}, 9: {}, 10: {}, 11: {}, 12: {}}
+		plot = {'January': 0,'February': 0,'March': 0,'April': 0,'May': 0, 'June': 0, 'July': 0, 'August': 0, 'September': 0, 'October': 0, 'November': 0, 'December': 0}
+		for key in model:
+			month = model[key].publishTime
+			month = month.split('T')
+			month = month[0].split('-')
+			month = int(month[1])
+			genre = model[key].categoryID
+			
+			if genre not in genrePlot[month]:
+	 			genrePlot[month][genre] = 1
+			else:
+ 				genrePlot[month][genre] += 1
+
+		for key1, key2 in zip(genrePlot, plot):
+			plot[key2] = genrePlot[key1]
+
+		#reduce categories to top 3
+		for month in plot:
+			temp = {}
+			for k in range(3):
+				if (plot[month]):
+					max_key = max(plot[month], key=plot[month].get)
+					temp[max_key] = plot[month][max_key]
+					del plot[month][max_key]
+					
+				k += 1
+			
+			plot[month] = list(temp.items())
+			#print(plot[month])
+
+		
+		#for month in plot:
+		#	print(month, plot[month])
+
+		return plot
+
 #added class 
 class videoData(object):
 	def __init__(self):
