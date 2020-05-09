@@ -266,10 +266,11 @@ class _Analytics(object):
 		for month in plot:
 			temp = {}
 			for k in range(3):
-				max_key = max(plot[month], key=plot[month].get)
-				temp[max_key] = plot[month][max_key]
-				del plot[month][max_key]
-				
+				if (plot[month]):
+					max_key = max(plot[month], key=plot[month].get)
+					temp[max_key] = plot[month][max_key]
+					del plot[month][max_key]
+					
 				k += 1
 			
 			plot[month] = list(temp.items())
