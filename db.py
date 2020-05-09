@@ -209,7 +209,7 @@ class _Analytics(object):
 		return plot
 
 	@property
- 	def enabledVDisabled(self):
+	def enabledVDisabled(self):
 		model = self._currentDB.dbnoRepeats
 		plot = [0, 0]
 
@@ -235,8 +235,8 @@ class _Analytics(object):
 		plot.sort(key = sortSecond)
 		return plot
   
-  @property
-  def channelOccurence(self):
+	@property
+	def channelOccurence(self):
 	 	model = self._currentDB.dbnoRepeats
 	 	plot = dict()
 

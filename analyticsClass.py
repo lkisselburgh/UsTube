@@ -128,7 +128,8 @@ class analyticsDisplay:
 			Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
 
 			return Jobj
-    def displayTopChannels(self, listData):
+
+		def displayTopChannels(self, listData):
 			dictItems = list(listData.items())
 			dtype = [('Channel', 'U30'), ('Amount', int)]
 			arr = np.array(dictItems, dtype=dtype)
