@@ -231,7 +231,8 @@ class _Analytics(object):
 		for key in model:
 			viewsNew = int(model[key].views)
 			descripLength = len(model[key].description.split(' '))
-			plot.append([descripLength, viewsNew])
+			if descripLength <= 850 and viewsNew <= 20000000:
+				plot.append([descripLength, viewsNew])
 		plot.sort(key = sortSecond)
 		return plot
   

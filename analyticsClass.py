@@ -104,8 +104,9 @@ class analyticsDisplay:
 		def displayComments(self, listData):
 			data = [
 				go.Pie(
-					labels = ['Enabled', 'Disabled'],
-					values = listData
+					labels = ['Disabled', 'Enabled'],
+					values = listData,
+					marker = dict(colors=['Red','Black'])  
 				)
 			]
 
@@ -122,7 +123,7 @@ class analyticsDisplay:
 					y=df['Views'],
 					mode = 'markers',
 					marker_color = 'black'
-				)
+				),
 			]
 
 			Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
