@@ -135,9 +135,9 @@ class analyticsDisplay:
 			dtype = [('Channel', 'U30'), ('Amount', int)]
 			arr = np.array(dictItems, dtype=dtype)
 			arr = np.sort(arr, order='Amount')
-			lastArr = len(arr)
-			topFifty = lastArr - 50
-			arr = arr[topFifty:lastArr]
+			# lastArr = len(arr)
+			# topFifty = lastArr - 50
+			# arr = arr[topFifty:lastArr]
 			df = pd.DataFrame(arr)
 			data = [
 				go.Bar(

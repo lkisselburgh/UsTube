@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory, make_response, send_file
 from CSVparser import *
-from imp_exp import *
 from werkzeug.utils import secure_filename
 import os
 from io import StringIO
 from analyticsClass import *
+import time
+#from analyticsStore import *
 import plotly.graph_objects as go
 #from flask_uploads import UploadSet, configure_uploads, IMAGES
 
@@ -12,8 +13,9 @@ import plotly.graph_objects as go
 
 #create database object
 database = ytDB()
+anStore = AnalyticStorage()
 #input data into database
-parser(database)
+parser(database, anStore)
 
 testList = ""
 
@@ -76,31 +78,6 @@ def search():
                     print("Members: ", members[1].Title)
                     members[1].Title = "funfetti is for psychopaths"
                     #testList.remove(members)
-            #database.delete(idval)
-            #new_members = ['MltuW2kcREI', '17.15.11', "funfetti is for psychopaths",	'emma chamberlain',	'24',	'2017-11-14T20:28:53.000Z',	'emma chamberlain|"emma chambie"|"cooking with emma"|"funfetti"|"recipe"|"how to"|"baking"|"how to make cake"|"funfetti cake recipe"|"healthy"|"vegan"|"paleo"|"comedy"|"funny"',	'126438',	'12229',	'86',	'1865',	'https://i.ytimg.com/vi/MltuW2kcREI/default.jpg',	'FALSE',	'FALSE',	'FALSE',	"the mini whisk IS BACK\n\nIf you liked this video and want to see more from me, I post tuesdays, thursdays, and sundays, SO SUBSCRIBE FOR A GOOD TIME YO :)\n\nâœ© LINK TO THE SHIRT Iâ€™M WEARING (before I change haha) âœ©\n\nâœ­ https://goo.gl/LVhfNg\n\nâœ© MERCH: âœ©\n\nâœ­ KEEP IN MIND THAT YOU CAN CHANGE THE COLOR AND STYLE OF EACH DESIGN (like you can do a t-shirt, hoodie, travel mug, sticker, etc.) I LOVE YOU ALL AND HOPE U ENJOY THIS STUFF :)\nâœ­  https://www.redbubble.com/people/emmachambie/shop \n\nâœ© SOCIAL MEDIA âœ©\n\nâœ­ instagram: @_emmachamberlain\nâœ­ snapchat: @emmachambie\nâœ­ twitter: @emmachambie\nâœ­ pinterest: @emmachambie\nâœ­ VSCO: @emmachambie\nâœ­ depop: @emmachambie\nâœ­ email: emmafcham.business@gmail.com \nâœ­ spotify: https://open.spotify.com/user/emmachambie (or try typing in â€œEmma Frances Chamberlain) \n\nâœ© P.O. Box âœ©\n\nEmma Chamberlain\nP.O. Box #4058\nFoster City, California, 94404  USA\n\nâœ© MUSIC âœ©\n\nâœ­ Music from my outro\nJoakim Karud - Love Mode\nCheck out his channel!! - https://www.youtube.com/user/JoakimKarud/"]
-            #database.ytDBStart(new_members)
-                
-            
-            #idval = int(items)
-            #database.delete(idval)
-            
-            #for members in testList:
-                #if members[0] == idval:
-                    #testList.remove(members)
-                    #database.ytDBStart(id)
-            #====== END Lacey
-            
-            #database.delete(idval)
-
-            #updateList = list()
-            #update = request.form
-
-            #for member in update:
-                #updateList.append(update[member])
-
-            #print(updateList)
-            #database.ytDBStart(updateList)
-            #====== END Kiana
 
             return redirect(url_for('search'))
 
@@ -157,49 +134,71 @@ def analytics():
     if request.method == 'POST':
         analyticNum = request.form['select']
         if analyticNum == '1':
+            tic = time.perf_counter()
             plotList = database.Analytics.trendsTitleList
             displayObj = analyticsobj.displayLongerTitles(plotList)
+            toc = time.perf_counter()
         elif analyticNum == '2':
+            tic = time.perf_counter()
             plotList = database.Analytics.categoryContest
             displayObj = analyticsobj.displayCategory(plotList)
+            toc = time.perf_counter()
+            print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '3':
-        	plotList = database.Analytics.tagOccurence
-        	displayObj = analyticsobj.displayTopTags(plotList)
+            tic = time.perf_counter()
+            plotList = database.Analytics.tagOccurence
+            displayObj = analyticsobj.displayTopTags(plotList)
+            toc = time.perf_counter()
+            print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '4':
-        	plotList = database.Analytics.tagTrends
-        	displayObj = analyticsobj.displayTagLength(plotList)
+            tic = time.perf_counter()
+            plotList = database.Analytics.tagTrends
+            displayObj = analyticsobj.displayTagLength(plotList)
+            toc = time.perf_counter()
+            print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '5':
-        	plotList = database.Analytics.timeofDay
-        	displayObj = analyticsobj.displayTimeODay(plotList)
+            tic = time.perf_counter()
+            plotList = database.Analytics.timeofDay
+            displayObj = analyticsobj.displayTimeODay(plotList)
+            toc = time.perf_counter()
+            print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '6':
-        	plotList = database.Analytics.enabledVDisabled
-        	displayObj = analyticsobj.displayComments(plotList)
+            tic = time.perf_counter()
+            #print("I'm changed")
+            #plotList = database.Analytics.enabledVDisabled
+            plotList = anStore.enVdis
+            displayObj = analyticsobj.displayComments(plotList)
+            toc = time.perf_counter()
+            print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '7':
-        	plotList = database.Analytics.descriptionVViews
-        	displayObj = analyticsobj.displayDesvViews(plotList)
-        	print(displayObj)
+            tic = time.perf_counter()
+            plotList = database.Analytics.descriptionVViews
+            displayObj = analyticsobj.displayDesvViews(plotList)
+            print(displayObj)
+            toc = time.perf_counter()
+            print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '8':
-            plotList = database.Analytics.channelOccurence
+            tic = time.perf_counter()
+            #plotList = database.Analytics.channelOccurence
+            plotList = anStore.read_top50Channels()
             displayObj = analyticsobj.displayTopChannels(plotList)
+            toc = time.perf_counter()
+            print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '9':
+            tic = time.perf_counter()
             plotList = database.Analytics.avgRating
             displayObj = analyticsobj.displayAvgRatings(plotList)
+            toc = time.perf_counter()
+            print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '10':
+            tic = time.perf_counter()
             plotList = database.Analytics.timeofYear
             displayObj = analyticsobj.displayTimeOfYear(plotList)
+            toc = time.perf_counter()
+            print("Finished in " , toc - tic, "seconds")
 
     return render_template('Analytics.html', plot=displayObj, analyticNum=analyticNum)
 
-
-# @app.route('/Download') #new
-# def post(self):
-#     si = StringIO.StringIO()
-#     cw = csv.writer(si)
-#     cw.writerows(csvList)
-#     output = make_response(si.getvalue())
-#     output.headers["Content-Disposition"] = "attachment; filename=export.csv"
-#     output.headers["Content-type"] = "text/csv"
-#     return output
 
 @app.route("/Import", methods = ['GET','POST'])
 def import_file():
@@ -223,16 +222,10 @@ def import_file():
             #return print(file.filename)
             #return file.filename
             parseNew(file.filename)
-            #print("POST PARSE")
-            #for keys in database.db:
-            #    print(keys, database.db[keys].Title)
-            #print(database.db[2].Title)
-            #database.ytDBStart(database, file.filename)
-            #print("database: " + database.db[1].Title)
+            
         
         elif request.form['submit_button'] == 'Submit':
             print("Submit button was pressed.")
-            #parseNew(file.filename)
 
     return render_template('Import.html')
 

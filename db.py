@@ -1,4 +1,5 @@
 from Jparser import *
+#from analyticsStore import *
 
 categoryList = jParser()
 
@@ -219,6 +220,8 @@ class _Analytics(object):
 				plot[0] +=1
 			else:
 				plot[1] +=1
+		
+		#plot = enVdis.read()
 		return plot
 	
 	@property

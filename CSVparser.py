@@ -1,8 +1,9 @@
 import os
 import re
 from db import *
+from analyticsStore import *
 
-def parser(database):
+def parser(database, enVdis):
 	filename = os.getcwd()
 	prev_row = []
 	temp = 0; skip_header = 0
@@ -20,6 +21,7 @@ def parser(database):
 					fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), row)
 					
 					database.ytDBStart(fields)
+					enVdis.add(fields)
 				
 				else:  
 					if (temp == 0):
@@ -35,4 +37,5 @@ def parser(database):
 							fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), prev_row)
 							
 							database.ytDBStart(fields)
+							enVdis.add(fields)
 	
