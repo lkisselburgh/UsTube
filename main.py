@@ -164,7 +164,6 @@ def analytics():
             print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '6':
             tic = time.perf_counter()
-            #print("I'm changed")
             #plotList = database.Analytics.enabledVDisabled
             plotList = anStore.enVdis
             displayObj = analyticsobj.displayComments(plotList)
@@ -172,27 +171,30 @@ def analytics():
             print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '7':
             tic = time.perf_counter()
-            plotList = database.Analytics.descriptionVViews
+            #plotList = database.Analytics.descriptionVViews
+            plotList = anStore.descripVviews
             displayObj = analyticsobj.displayDesvViews(plotList)
-            print(displayObj)
+            #print(displayObj)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '8':
             tic = time.perf_counter()
             #plotList = database.Analytics.channelOccurence
-            plotList = anStore.read_top50Channels()
+            plotList = anStore.channels
             displayObj = analyticsobj.displayTopChannels(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '9':
             tic = time.perf_counter()
-            plotList = database.Analytics.avgRating
+            #plotList = database.Analytics.avgRating
+            plotList = anStore.ratings
             displayObj = analyticsobj.displayAvgRatings(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '10':
             tic = time.perf_counter()
-            plotList = database.Analytics.timeofYear
+            #plotList = database.Analytics.timeofYear
+            plotList = anStore.read_topMonthlyGenres()
             displayObj = analyticsobj.displayTimeOfYear(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")

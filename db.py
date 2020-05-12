@@ -1,5 +1,5 @@
 from Jparser import *
-#from analyticsStore import *
+from analyticsStore import *
 
 categoryList = jParser()
 
@@ -12,7 +12,7 @@ class ytDB:
 		self.dbnoRepeats = dict()	#this database helps for not having repeats of videos
 		self.vidTagLength = dict()	#to keep track of length of tags
 
-	def ytDBStart(self, columns):
+	def ytDBStart(self, columns, anStore):
 		if len(columns) == 16:
 			videoD = videoData()
 
@@ -43,7 +43,8 @@ class ytDB:
 
 			#
 			if columns[0] not in self.dbnoRepeats:
-				self.dbnoRepeats[columns[0]] = videoD			
+				self.dbnoRepeats[columns[0]] = videoD
+				anStore.add(videoD)			
 
 			
 			self.db[self.counter] = videoD			
