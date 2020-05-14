@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory, make_response, send_file
+from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory, make_response, send_file, flash
 from CSVparser import *
 from werkzeug.utils import secure_filename
 import os
@@ -25,6 +25,7 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 #app = Flask(__name__, static_folder='static')
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.secret_key = 'lacey copy and pasted this'
 
 #csv_file = UploadSet('files', ('csv'))
 #configure_uploads(app, csv_file)
@@ -141,6 +142,8 @@ def analytics():
             displayObj = analyticsobj.displayLongerTitles(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
+            flash("Time elapsed: " + str(toc - tic) + " seconds")
+
         elif analyticNum == '2':
             tic = time.perf_counter()
             #plotList = database.Analytics.categoryContest
@@ -148,6 +151,8 @@ def analytics():
             displayObj = analyticsobj.displayCategory(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
+            flash("Time elapsed: " + str(toc - tic) + " seconds")
+
         elif analyticNum == '3':
             tic = time.perf_counter()
             plotList = anStore.tagDisplay
@@ -155,6 +160,8 @@ def analytics():
             displayObj = analyticsobj.displayTopTags(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
+            flash("Time elapsed: " + str(toc - tic) + " seconds")
+
         elif analyticNum == '4':
             tic = time.perf_counter()
             plotList = anStore.tagTrends
@@ -162,6 +169,8 @@ def analytics():
             displayObj = analyticsobj.displayTagLength(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
+            flash("Time elapsed: " + str(toc - tic) + " seconds")
+
         elif analyticNum == '5':
             tic = time.perf_counter()
             plotList = anStore.timeoDay
@@ -169,6 +178,8 @@ def analytics():
             displayObj = analyticsobj.displayTimeODay(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
+            flash("Time elapsed: " + str(toc - tic) + " seconds")
+
         elif analyticNum == '6':
             tic = time.perf_counter()
             #plotList = database.Analytics.enabledVDisabled
@@ -176,6 +187,8 @@ def analytics():
             displayObj = analyticsobj.displayComments(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
+            flash("Time elapsed: " + str(toc - tic) + " seconds")
+
         elif analyticNum == '7':
             tic = time.perf_counter()
             #plotList = database.Analytics.descriptionVViews
@@ -184,6 +197,8 @@ def analytics():
             #print(displayObj)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
+            flash("Time elapsed: " + str(toc - tic) + " seconds")
+
         elif analyticNum == '8':
             tic = time.perf_counter()
             #plotList = database.Analytics.channelOccurence
@@ -191,6 +206,8 @@ def analytics():
             displayObj = analyticsobj.displayTopChannels(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
+            flash("Time elapsed: " + str(toc - tic) + " seconds")
+            
         elif analyticNum == '9':
             tic = time.perf_counter()
             #plotList = database.Analytics.avgRating
@@ -198,6 +215,8 @@ def analytics():
             displayObj = analyticsobj.displayAvgRatings(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
+            flash("Time elapsed: " + str(toc - tic) + " seconds")
+
         elif analyticNum == '10':
             tic = time.perf_counter()
             #plotList = database.Analytics.timeofYear
@@ -205,6 +224,7 @@ def analytics():
             displayObj = analyticsobj.displayTimeOfYear(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
+            flash("Time elapsed: " + str(toc - tic) + " seconds")
 
     return render_template('Analytics.html', plot=displayObj, analyticNum=analyticNum)
 
