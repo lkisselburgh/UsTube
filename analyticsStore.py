@@ -38,40 +38,40 @@ class AnalyticStorage:
 
 	def add(self, fields):
 		#Analytic 3 Tag occurence
-			tags = fields.tags
-			splitTag = tags.split('|')
-			for tag in splitTag:
-				if tag not in self.tagDisplay:
-					self.tagDisplay[tag] = 1
-				else:
-					self.tagDisplay[tag] += 1
-
-			#Analytic 4 (TBD)
-
-			#Analytic 5 Best TIme to Trend
-			def checkTime(temp):
-				self.timeoDay[temp] += 1
-
-			time = fields.publishTime
-			time = time.split('T')
-			time = time[1].split('.')
-			time = time[0].split(':')
-			hour = int(time[0])
-			if hour > 12:
-				hour = hour - 12
-				hour = str(hour) + " PM"
-				checkTime(hour)
-			elif hour == 0:
-				hour = "12 AM"
-				checkTime(hour)
-			elif hour == 12:
-				hour = "12 PM"
-				checkTime(hour)
+		tags = fields.tags
+		splitTag = tags.split('|')
+		for tag in splitTag:
+			if tag not in self.tagDisplay:
+				self.tagDisplay[tag] = 1
 			else:
-				hour = str(hour) + " AM"
-				checkTime(hour)
+				self.tagDisplay[tag] += 1
+
+		#Analytic 4 (TBD)
+
+		#Analytic 5 Best TIme to Trend
+		def checkTime(temp):
+			self.timeoDay[temp] += 1
+
+		time = fields.publishTime
+		time = time.split('T')
+		time = time[1].split('.')
+		time = time[0].split(':')
+		hour = int(time[0])
+		if hour > 12:
+			hour = hour - 12
+			hour = str(hour) + " PM"
+			checkTime(hour)
+		elif hour == 0:
+			hour = "12 AM"
+			checkTime(hour)
+		elif hour == 12:
+			hour = "12 PM"
+			checkTime(hour)
+		else:
+			hour = str(hour) + " AM"
+			checkTime(hour)
         
-    #Analytic 6: comments enabled vs disabled
+    		#Analytic 6: comments enabled vs disabled
 		if fields.comDisabled == 'True':
 			self.enVdis[0] += 1
 		else:

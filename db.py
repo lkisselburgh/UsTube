@@ -40,10 +40,10 @@ class ytDB:
 			#
 			if columns[0] not in self.dbnoRepeats:
 				self.dbnoRepeats[columns[0]] = videoD
-				#anStore.add(videoD)			
+				anStore.add(videoD)			
 
 			self.db[self.counter] = videoD			
-			anStore.add(videoD)
+			#anStore.add(videoD)
 			self.counter += 1
 			anStore.add_trendsTitleCat(videoD)
 		else: 
