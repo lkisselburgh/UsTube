@@ -44,7 +44,19 @@
             </select>
         </form>
     </div>
-
+    
+    <div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    
     <div class="chart" id="bargraph">
         <script>
             var graphs = {{ plot | safe}};
