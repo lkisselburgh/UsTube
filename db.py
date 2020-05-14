@@ -49,7 +49,7 @@ class ytDB:
 			
 			self.db[self.counter] = videoD			
 			self.counter += 1
-			anStore.add_trendsTitle(videoD, self.trendCount)
+			anStore.add_trendsTitleCat(videoD)
 		else: 
 			return
 

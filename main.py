@@ -135,15 +135,15 @@ def analytics():
         analyticNum = request.form['select']
         if analyticNum == '1':
             tic = time.perf_counter()
-            plotList = database.Analytics.trendsTitleList
-            #plotList = anStore.read_trendsTitle()
+            #plotList = database.Analytics.trendsTitleList
+            plotList = anStore.trendsTitle
             displayObj = analyticsobj.displayLongerTitles(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '2':
             tic = time.perf_counter()
-            plotList = database.Analytics.categoryContest
-            #plotList = anStore.categoryTrends
+            #plotList = database.Analytics.categoryContest
+            plotList = anStore.categoryTrends
             displayObj = analyticsobj.displayCategory(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")

@@ -12,9 +12,8 @@ class AnalyticStorage:
 		self.categoryTrends = dict()
 		
 
-	def add_trendsTitle(self, fields, trendCount):
-		tempCount = trendCount
-		#if fields.videoID not in self.trendsList:
+	def add_trendsTitleCat(self, fields):
+		#Analytic 1
 		vID = fields.videoID
 		title = fields.Title 
 		key = len(title)
@@ -22,7 +21,6 @@ class AnalyticStorage:
 			self.trendsTitle[key] = 1
 		else:
 			self.trendsTitle[key] += 1
-		#self.trendsList.append(vID)
 
 		#Analytic 2
 		catEntry = fields.categoryID
@@ -31,15 +29,7 @@ class AnalyticStorage:
 		else:
 			self.categoryTrends[catEntry] += 1
 
-	def read_trendsTitle(self):
-		if len(self.trendsTitle) == 0:
-			return None
-		else:
-			#print(self.trendsTitle)
-			return self.trendsTitle
 
-
-	
 	def add(self, fields):
 
 		#Analytic 6: comments enabled vs disabled
