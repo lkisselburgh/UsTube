@@ -136,18 +136,15 @@ def analytics():
         analyticNum = request.form['select']
         if analyticNum == '1':
             tic = time.perf_counter()
-            plotList = anStore.titleLength
             #plotList = database.Analytics.trendsTitleList
-            print(plotList)
-            print(anStore.counter, len(database.db))
+            plotList = anStore.trendsTitle
             displayObj = analyticsobj.displayLongerTitles(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '2':
             tic = time.perf_counter()
-            plotList = anStore.catVDays
             #plotList = database.Analytics.categoryContest
-            print(plotList)
+            plotList = anStore.categoryTrends
             displayObj = analyticsobj.displayCategory(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")

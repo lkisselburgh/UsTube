@@ -45,6 +45,7 @@ class ytDB:
 			self.db[self.counter] = videoD			
 			anStore.add(videoD)
 			self.counter += 1
+			anStore.add_trendsTitleCat(videoD)
 		else: 
 			return
 
@@ -132,15 +133,18 @@ class _Analytics(object):
 			return None
 
 		for keys in model:
-			if model[keys].videoID not in tList:
-				vID = model[keys].videoID
-				title = model[keys].Title
-				key = len(title)
-				if key not in plot:
-					plot[key] = tempCount[vID]
-				else:
-					plot[key] += tempCount[vID]
-				tList.append(vID)
+			#if model[keys].videoID not in tList:
+			vID = model[keys].videoID
+			title = model[keys].Title
+			key = len(title)
+			if key not in plot:
+				#plot[key] = tempCount[vID]
+				plot[key] = 1
+			else:
+				#plot[key] += tempCount[vID]
+				plot[key] += 1
+			#	tList.append(vID)
+		#print(plot)
 		return plot
 
 	@property

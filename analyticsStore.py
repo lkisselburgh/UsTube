@@ -13,21 +13,31 @@ class AnalyticStorage:
 		self.channels = dict()
 		self.ratings = dict()
 		self.monthlyGenres = {1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {}, 7: {}, 8: {}, 9: {}, 10: {}, 11: {}, 12: {}}
+		self.trendsList = list()
+		self.trendsTitle = dict()
+		self.categoryTrends = dict()
 		
 
+	def add_trendsTitleCat(self, fields):
+		#Analytic 1
+		vID = fields.videoID
+		title = fields.Title 
+		key = len(title)
+		if key not in self.trendsTitle:
+			self.trendsTitle[key] = 1
+		else:
+			self.trendsTitle[key] += 1
+
+		#Analytic 2
+		catEntry = fields.categoryID
+		if catEntry not in self.categoryTrends:
+			self.categoryTrends[catEntry] = 1
+		else:
+			self.categoryTrends[catEntry] += 1
+
+
 	def add(self, fields):
-		if fields.videoID not in self.idList:
-	#FIX	#analytic 1: 
-			titleLen = len(fields.Title)
-			if titleLen not in self.titleLength:
-				self.titleLength[titleLen] = 1
-
-	#FIX	#Analytic 2: Category vs Days Trending
-			catEntry = fields.categoryID
-			if catEntry not in self.catVDays:
-				self.catVDays[catEntry] = 1
-
-			#Analytic 3 Tag occurence
+		#Analytic 3 Tag occurence
 			tags = fields.tags
 			splitTag = tags.split('|')
 			for tag in splitTag:
@@ -60,40 +70,39 @@ class AnalyticStorage:
 			else:
 				hour = str(hour) + " AM"
 				checkTime(hour)
+        
+    #Analytic 6: comments enabled vs disabled
+		if fields.comDisabled == 'True':
+			self.enVdis[0] += 1
+		else:
+			self.enVdis[1] += 1
 
-			#Analytic 6: comments enabled vs disabled
-			if fields.comDisabled == 'True':
-				self.enVdis[0] += 1
-			else:
-				self.enVdis[1] += 1
+		#Analytic 7: description length vs views
+		viewsNew = int(fields.views)
+		descripLength = len(fields.description.split(' '))
+		if descripLength <= 850 and viewsNew <= 20000000:
+			self.descripVviews.append([descripLength, viewsNew])
 
-			#Analytic 7: description length vs views
-			viewsNew = int(fields.views)
-			descripLength = len(fields.description.split(' '))
-			if descripLength <= 850 and viewsNew <= 20000000:
-				self.descripVviews.append([descripLength, viewsNew])
+		#Analytic 8: top channels
+		channel = fields.channelTitle
+		if channel not in self.channels:
+			self.channels[channel] = 1
+		else:
+			self.channels[channel] += 1
 
-			#Analytic 8: top channels
-			channel = fields.channelTitle
-			if channel not in self.channels:
-				self.channels[channel] = 1
-			else:
-				self.channels[channel] += 1
-
-			
-			#Analytic 9: average rating
-			likes = fields.likes
-			dislikes = fields.dislikes
-			if (int(likes) == 0 and int(dislikes) == 0):
-					rating = 0
-			else:
-				rating = (int(likes) / (int(dislikes) + int(likes))) * 100
-				rating = round(rating)
-			if rating not in self.ratings:
-				self.ratings[rating] = 1
-			else:
-				self.ratings[rating] += 1
-
+		
+		#Analytic 9: average rating
+		likes = fields.likes
+		dislikes = fields.dislikes
+		if (int(likes) == 0 and int(dislikes) == 0):
+				rating = 0
+		else:
+			rating = (int(likes) / (int(dislikes) + int(likes))) * 100
+			rating = round(rating)
+		if rating not in self.ratings:
+			self.ratings[rating] = 1
+		else:
+			self.ratings[rating] += 1
 
 			#Analytic 10: Genres Throughout Year
 			genre = fields.categoryID
@@ -105,14 +114,6 @@ class AnalyticStorage:
 				self.monthlyGenres[month][genre] = 1
 			else:
 				self.monthlyGenres[month][genre] += 1
-
-			self.idList.append(fields.videoID)
-
-		else:
-			titleLen = len(fields.Title)
-			catEntry = fields.categoryID
-			self.titleLength[titleLen] += 1
-			self.catVDays[catEntry] += 1
 
 
 	def read_descripVview(self):
