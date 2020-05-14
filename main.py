@@ -127,6 +127,7 @@ def results():
 @app.route("/Analytics", methods = ['GET','POST'])
 def analytics():
     analyticsobj = analyticsDisplay()
+    #plotList = anStore.titleLength
     plotList = database.Analytics.trendsTitleList
     displayObj = analyticsobj.displayLongerTitles(plotList)
     analyticNum = '1'
@@ -135,18 +136,25 @@ def analytics():
         analyticNum = request.form['select']
         if analyticNum == '1':
             tic = time.perf_counter()
-            plotList = database.Analytics.trendsTitleList
+            plotList = anStore.titleLength
+            #plotList = database.Analytics.trendsTitleList
+            print(plotList)
+            print(anStore.counter, len(database.db))
             displayObj = analyticsobj.displayLongerTitles(plotList)
             toc = time.perf_counter()
+            print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '2':
             tic = time.perf_counter()
-            plotList = database.Analytics.categoryContest
+            plotList = anStore.catVDays
+            #plotList = database.Analytics.categoryContest
+            print(plotList)
             displayObj = analyticsobj.displayCategory(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '3':
             tic = time.perf_counter()
-            plotList = database.Analytics.tagOccurence
+            plotList = anStore.tagDisplay
+            #plotList = database.Analytics.tagOccurence
             displayObj = analyticsobj.displayTopTags(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
@@ -158,7 +166,8 @@ def analytics():
             print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '5':
             tic = time.perf_counter()
-            plotList = database.Analytics.timeofDay
+            plotList = anStore.timeoDay
+            #plotList = database.Analytics.timeofDay
             displayObj = analyticsobj.displayTimeODay(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
