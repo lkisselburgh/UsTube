@@ -127,8 +127,8 @@ def results():
 @app.route("/Analytics", methods = ['GET','POST'])
 def analytics():
     analyticsobj = analyticsDisplay()
-    #plotList = anStore.titleLength
-    plotList = database.Analytics.trendsTitleList
+    plotList = anStore.titleLength
+    #plotList = database.Analytics.trendsTitleList
     displayObj = analyticsobj.displayLongerTitles(plotList)
     analyticNum = '1'
     layout = {}
