@@ -2,6 +2,12 @@ from Jparser import *
 
 class AnalyticStorage:
 	def __init__(self):
+		self.idList = list()
+		self.catVDays = dict()
+		self.titleLength = dict()
+		self.tagDisplay = dict()
+		self.tagTrends = dict()
+		self.timeoDay = plot = {'12 AM': 0,'1 AM': 0,'2 AM': 0,'3 AM': 0,'4 AM': 0, '5 AM': 0, '6 AM': 0, '7 AM': 0, '8 AM': 0, '9 AM': 0, '10 AM': 0, '11 AM': 0, '12 PM':0 , '1 PM': 0, '2 PM': 0, '3 PM': 0 ,'4 PM': 0, '5 PM': 0 , '6 PM': 0, '7 PM': 0, '8 PM': 0 , '9 PM': 0, '10 PM': 0, '11 PM': 0}	
 		self.enVdis = [0, 0]
 		self.descripVviews = list()
 		self.channels = dict()
@@ -31,8 +37,41 @@ class AnalyticStorage:
 
 
 	def add(self, fields):
+		#Analytic 3 Tag occurence
+			tags = fields.tags
+			splitTag = tags.split('|')
+			for tag in splitTag:
+				if tag not in self.tagDisplay:
+					self.tagDisplay[tag] = 1
+				else:
+					self.tagDisplay[tag] += 1
 
-		#Analytic 6: comments enabled vs disabled
+			#Analytic 4 (TBD)
+
+			#Analytic 5 Best TIme to Trend
+			def checkTime(temp):
+				self.timeoDay[temp] += 1
+
+			time = fields.publishTime
+			time = time.split('T')
+			time = time[1].split('.')
+			time = time[0].split(':')
+			hour = int(time[0])
+			if hour > 12:
+				hour = hour - 12
+				hour = str(hour) + " PM"
+				checkTime(hour)
+			elif hour == 0:
+				hour = "12 AM"
+				checkTime(hour)
+			elif hour == 12:
+				hour = "12 PM"
+				checkTime(hour)
+			else:
+				hour = str(hour) + " AM"
+				checkTime(hour)
+        
+    #Analytic 6: comments enabled vs disabled
 		if fields.comDisabled == 'True':
 			self.enVdis[0] += 1
 		else:
@@ -65,20 +104,18 @@ class AnalyticStorage:
 		else:
 			self.ratings[rating] += 1
 
+			#Analytic 10: Genres Throughout Year
+			genre = fields.categoryID
+			month = fields.publishTime
+			month = month.split('T')
+			month = month[0].split('-')
+			month = int(month[1])
+			if genre not in self.monthlyGenres[month]:
+				self.monthlyGenres[month][genre] = 1
+			else:
+				self.monthlyGenres[month][genre] += 1
 
-		#Analytic 10: Genres Throughout Year
-		genre = fields.categoryID
-		month = fields.publishTime
-		month = month.split('T')
-		month = month[0].split('-')
-		month = int(month[1])
-		if genre not in self.monthlyGenres[month]:
-			self.monthlyGenres[month][genre] = 1
-		else:
-			self.monthlyGenres[month][genre] += 1
 
-
-					
 	def read_descripVview(self):
 		def sortSecond(val):
 			return val[0]

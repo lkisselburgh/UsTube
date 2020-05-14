@@ -34,20 +34,16 @@ class ytDB:
 					self.vidTagLength[columns[0]] = 0
 				else:	
 					self.vidTagLength[columns[0]] = tagLength
-			if columns[0] in self.trendCount:
+			else:
 				self.trendCount[columns[0]] += 1
-
-			
-			#if(self.db.get(self.lastdeletedKey) == None):
-			#	self.db[self.lastdeletedKey] = videoD
 
 			#
 			if columns[0] not in self.dbnoRepeats:
 				self.dbnoRepeats[columns[0]] = videoD
-				anStore.add(videoD)			
+				#anStore.add(videoD)			
 
-			
 			self.db[self.counter] = videoD			
+			anStore.add(videoD)
 			self.counter += 1
 			anStore.add_trendsTitleCat(videoD)
 		else: 
