@@ -14,7 +14,6 @@ class analyticsDisplay:
 			arr = np.array(dictItems)
 			df = pd.DataFrame(arr, columns=['Length','TrendAmount']) # creating a sample dataframe
 
-
 			data = [
 				go.Bar(
 					x=df['Length'], # assign x as the dataframe column 'x'

@@ -26,7 +26,7 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = 'lacey copy and pasted this'
-
+firstRender = True
 #csv_file = UploadSet('files', ('csv'))
 #configure_uploads(app, csv_file)
 
@@ -127,104 +127,122 @@ def results():
 
 @app.route("/Analytics", methods = ['GET','POST'])
 def analytics():
+    global firstRender
     analyticsobj = analyticsDisplay()
-    plotList = anStore.titleLength
-    #plotList = database.Analytics.trendsTitleList
-    displayObj = analyticsobj.displayLongerTitles(plotList)
-    analyticNum = '1'
     layout = {}
-    if request.method == 'POST':
-        analyticNum = request.form['select']
-        if analyticNum == '1':
-            tic = time.perf_counter()
-            #plotList = database.Analytics.trendsTitleList
-            plotList = anStore.trendsTitle
-            displayObj = analyticsobj.displayLongerTitles(plotList)
-            toc = time.perf_counter()
-            print("Finished in " , toc - tic, "seconds")
-            flash("Time elapsed: " + str(toc - tic) + " seconds")
+    if (firstRender):
+        tic = time.perf_counter()
+        plotList = anStore.trendsTitle
+        #plotList = database.Analytics.trendsTitleList
+        displayObj = analyticsobj.displayLongerTitles(plotList)
+        toc = time.perf_counter()
+        print("Finished in " , toc - tic, "seconds")
+        flash("Time elapsed: " + str(toc - tic) + " seconds")
+        analyticNum = '1'
+        firstRender=False
+    else:
+        if request.method == 'POST':
+            analyticNum = request.form['select']
+            if analyticNum == '1':
+                tic = time.perf_counter()
+                plotList = database.Analytics.trendsTitleList
+                plotList = anStore.trendsTitle
+                displayObj = analyticsobj.displayLongerTitles(plotList)
+                toc = time.perf_counter()
+                print("Finished in " , toc - tic, "seconds")
+                flash("Time elapsed: " + str(toc - tic) + " seconds")
+                firstRender = False
 
-        elif analyticNum == '2':
-            tic = time.perf_counter()
-            #plotList = database.Analytics.categoryContest
-            plotList = anStore.categoryTrends
-            displayObj = analyticsobj.displayCategory(plotList)
-            toc = time.perf_counter()
-            print("Finished in " , toc - tic, "seconds")
-            flash("Time elapsed: " + str(toc - tic) + " seconds")
+            elif analyticNum == '2':
+                tic = time.perf_counter()
+                #plotList = database.Analytics.categoryContest
+                plotList = anStore.categoryTrends
+                displayObj = analyticsobj.displayCategory(plotList)
+                toc = time.perf_counter()
+                print("Finished in " , toc - tic, "seconds")
+                flash("Time elapsed: " + str(toc - tic) + " seconds")
+                firstRender = False
 
-        elif analyticNum == '3':
-            tic = time.perf_counter()
-            plotList = anStore.tagDisplay
-            #plotList = database.Analytics.tagOccurence
-            displayObj = analyticsobj.displayTopTags(plotList)
-            toc = time.perf_counter()
-            print("Finished in " , toc - tic, "seconds")
-            flash("Time elapsed: " + str(toc - tic) + " seconds")
+            elif analyticNum == '3':
+                tic = time.perf_counter()
+                plotList = anStore.tagDisplay
+                #plotList = database.Analytics.tagOccurence
+                displayObj = analyticsobj.displayTopTags(plotList)
+                toc = time.perf_counter()
+                print("Finished in " , toc - tic, "seconds")
+                flash("Time elapsed: " + str(toc - tic) + " seconds")
+                firstRender = False
 
-        elif analyticNum == '4':
-            tic = time.perf_counter()
-            plotList = anStore.tagTrends
-            #plotList = database.Analytics.tagTrends
-            displayObj = analyticsobj.displayTagLength(plotList)
-            toc = time.perf_counter()
-            print("Finished in " , toc - tic, "seconds")
-            flash("Time elapsed: " + str(toc - tic) + " seconds")
+            elif analyticNum == '4':
+                tic = time.perf_counter()
+                plotList = anStore.tagTrends
+                #plotList = database.Analytics.tagTrends
+                displayObj = analyticsobj.displayTagLength(plotList)
+                toc = time.perf_counter()
+                print("Finished in " , toc - tic, "seconds")
+                flash("Time elapsed: " + str(toc - tic) + " seconds")
+                firstRender = False
 
-        elif analyticNum == '5':
-            tic = time.perf_counter()
-            plotList = anStore.timeoDay
-            #plotList = database.Analytics.timeofDay
-            displayObj = analyticsobj.displayTimeODay(plotList)
-            toc = time.perf_counter()
-            print("Finished in " , toc - tic, "seconds")
-            flash("Time elapsed: " + str(toc - tic) + " seconds")
+            elif analyticNum == '5':
+                tic = time.perf_counter()
+                plotList = anStore.timeoDay
+                #plotList = database.Analytics.timeofDay
+                displayObj = analyticsobj.displayTimeODay(plotList)
+                toc = time.perf_counter()
+                print("Finished in " , toc - tic, "seconds")
+                flash("Time elapsed: " + str(toc - tic) + " seconds")
+                firstRender = False
 
-        elif analyticNum == '6':
-            tic = time.perf_counter()
-            #plotList = database.Analytics.enabledVDisabled
-            plotList = anStore.enVdis
-            displayObj = analyticsobj.displayComments(plotList)
-            toc = time.perf_counter()
-            print("Finished in " , toc - tic, "seconds")
-            flash("Time elapsed: " + str(toc - tic) + " seconds")
+            elif analyticNum == '6':
+                tic = time.perf_counter()
+                #plotList = database.Analytics.enabledVDisabled
+                plotList = anStore.enVdis
+                displayObj = analyticsobj.displayComments(plotList)
+                toc = time.perf_counter()
+                print("Finished in " , toc - tic, "seconds")
+                flash("Time elapsed: " + str(toc - tic) + " seconds")
+                firstRender = False
 
-        elif analyticNum == '7':
-            tic = time.perf_counter()
-            #plotList = database.Analytics.descriptionVViews
-            plotList = anStore.descripVviews
-            displayObj = analyticsobj.displayDesvViews(plotList)
-            #print(displayObj)
-            toc = time.perf_counter()
-            print("Finished in " , toc - tic, "seconds")
-            flash("Time elapsed: " + str(toc - tic) + " seconds")
+            elif analyticNum == '7':
+                tic = time.perf_counter()
+                #plotList = database.Analytics.descriptionVViews
+                plotList = anStore.descripVviews
+                displayObj = analyticsobj.displayDesvViews(plotList)
+                #print(displayObj)
+                toc = time.perf_counter()
+                print("Finished in " , toc - tic, "seconds")
+                flash("Time elapsed: " + str(toc - tic) + " seconds")
+                firstRender = False
 
-        elif analyticNum == '8':
-            tic = time.perf_counter()
-            #plotList = database.Analytics.channelOccurence
-            plotList = anStore.channels
-            displayObj = analyticsobj.displayTopChannels(plotList)
-            toc = time.perf_counter()
-            print("Finished in " , toc - tic, "seconds")
-            flash("Time elapsed: " + str(toc - tic) + " seconds")
-            
-        elif analyticNum == '9':
-            tic = time.perf_counter()
-            #plotList = database.Analytics.avgRating
-            plotList = anStore.ratings
-            displayObj = analyticsobj.displayAvgRatings(plotList)
-            toc = time.perf_counter()
-            print("Finished in " , toc - tic, "seconds")
-            flash("Time elapsed: " + str(toc - tic) + " seconds")
+            elif analyticNum == '8':
+                tic = time.perf_counter()
+                #plotList = database.Analytics.channelOccurence
+                plotList = anStore.channels
+                displayObj = analyticsobj.displayTopChannels(plotList)
+                toc = time.perf_counter()
+                print("Finished in " , toc - tic, "seconds")
+                flash("Time elapsed: " + str(toc - tic) + " seconds")
+                firstRender = False
+                
+            elif analyticNum == '9':
+                tic = time.perf_counter()
+                #plotList = database.Analytics.avgRating
+                plotList = anStore.ratings
+                displayObj = analyticsobj.displayAvgRatings(plotList)
+                toc = time.perf_counter()
+                print("Finished in " , toc - tic, "seconds")
+                flash("Time elapsed: " + str(toc - tic) + " seconds")
+                firstRender = False
 
-        elif analyticNum == '10':
-            tic = time.perf_counter()
-            #plotList = database.Analytics.timeofYear
-            plotList = anStore.read_topMonthlyGenres()
-            displayObj = analyticsobj.displayTimeOfYear(plotList)
-            toc = time.perf_counter()
-            print("Finished in " , toc - tic, "seconds")
-            flash("Time elapsed: " + str(toc - tic) + " seconds")
+            elif analyticNum == '10':
+                tic = time.perf_counter()
+                #plotList = database.Analytics.timeofYear
+                plotList = anStore.read_topMonthlyGenres()
+                displayObj = analyticsobj.displayTimeOfYear(plotList)
+                toc = time.perf_counter()
+                print("Finished in " , toc - tic, "seconds")
+                flash("Time elapsed: " + str(toc - tic) + " seconds")
+                firstRender = False
 
     return render_template('Analytics.html', plot=displayObj, analyticNum=analyticNum)
 

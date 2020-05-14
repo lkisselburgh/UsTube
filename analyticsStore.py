@@ -3,8 +3,8 @@ from Jparser import *
 class AnalyticStorage:
 	def __init__(self):
 		self.idList = list()
-		self.catVDays = dict()
-		self.titleLength = dict()
+		#self.catVDays = dict()
+		#self.titleLength = dict()
 		self.tagDisplay = dict()
 		self.tagTrends = dict()
 		self.timeoDay = plot = {'12 AM': 0,'1 AM': 0,'2 AM': 0,'3 AM': 0,'4 AM': 0, '5 AM': 0, '6 AM': 0, '7 AM': 0, '8 AM': 0, '9 AM': 0, '10 AM': 0, '11 AM': 0, '12 PM':0 , '1 PM': 0, '2 PM': 0, '3 PM': 0 ,'4 PM': 0, '5 PM': 0 , '6 PM': 0, '7 PM': 0, '8 PM': 0 , '9 PM': 0, '10 PM': 0, '11 PM': 0}	
@@ -56,8 +56,6 @@ class AnalyticStorage:
 				self.tagDisplay[tag] = 1
 			else:
 				self.tagDisplay[tag] += 1
-
-		#Analytic 4 (TBD)
 
 		#Analytic 5 Best TIme to Trend
 		def checkTime(temp):
@@ -115,16 +113,16 @@ class AnalyticStorage:
 		else:
 			self.ratings[rating] += 1
 
-			#Analytic 10: Genres Throughout Year
-			genre = fields.categoryID
-			month = fields.publishTime
-			month = month.split('T')
-			month = month[0].split('-')
-			month = int(month[1])
-			if genre not in self.monthlyGenres[month]:
-				self.monthlyGenres[month][genre] = 1
-			else:
-				self.monthlyGenres[month][genre] += 1
+		#Analytic 10: Genres Throughout Year
+		genre = fields.categoryID
+		month = fields.publishTime
+		month = month.split('T')
+		month = month[0].split('-')
+		month = int(month[1])
+		if genre not in self.monthlyGenres[month]:
+			self.monthlyGenres[month][genre] = 1
+		else:
+			self.monthlyGenres[month][genre] += 1
 
 
 	def read_descripVview(self):
