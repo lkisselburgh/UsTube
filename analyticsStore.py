@@ -7,9 +7,41 @@ class AnalyticStorage:
 		self.channels = dict()
 		self.ratings = dict()
 		self.monthlyGenres = {1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {}, 7: {}, 8: {}, 9: {}, 10: {}, 11: {}, 12: {}}
+		self.trendsList = list()
+		self.trendsTitle = dict()
+		self.categoryTrends = dict()
 		
 
+	def add_trendsTitle(self, fields, trendCount):
+		tempCount = trendCount
+		#if fields.videoID not in self.trendsList:
+		vID = fields.videoID
+		title = fields.Title 
+		key = len(title)
+		if key not in self.trendsTitle:
+			self.trendsTitle[key] = 1
+		else:
+			self.trendsTitle[key] += 1
+		#self.trendsList.append(vID)
+
+		#Analytic 2
+		catEntry = fields.categoryID
+		if catEntry not in self.categoryTrends:
+			self.categoryTrends[catEntry] = 1
+		else:
+			self.categoryTrends[catEntry] += 1
+
+	def read_trendsTitle(self):
+		if len(self.trendsTitle) == 0:
+			return None
+		else:
+			#print(self.trendsTitle)
+			return self.trendsTitle
+
+
+	
 	def add(self, fields):
+
 		#Analytic 6: comments enabled vs disabled
 		if fields.comDisabled == 'True':
 			self.enVdis[0] += 1

@@ -136,11 +136,14 @@ def analytics():
         if analyticNum == '1':
             tic = time.perf_counter()
             plotList = database.Analytics.trendsTitleList
+            #plotList = anStore.read_trendsTitle()
             displayObj = analyticsobj.displayLongerTitles(plotList)
             toc = time.perf_counter()
+            print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '2':
             tic = time.perf_counter()
             plotList = database.Analytics.categoryContest
+            #plotList = anStore.categoryTrends
             displayObj = analyticsobj.displayCategory(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
