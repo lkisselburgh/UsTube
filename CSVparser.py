@@ -2,7 +2,8 @@ import os
 import re
 from db import *
 
-def parser(database):
+
+def parser(database, anStore):
 	filename = os.getcwd()
 	prev_row = []
 	temp = 0; skip_header = 0
@@ -19,7 +20,8 @@ def parser(database):
 				if (count % 2 == 0 and count != 0):
 					fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), row)
 					
-					database.ytDBStart(fields)
+					database.ytDBStart(fields, anStore)
+					#anStore.add(fields)
 				
 				else:  
 					if (temp == 0):
@@ -34,5 +36,6 @@ def parser(database):
 							prev_row = prev_row.replace("\n"," ")
 							fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), prev_row)
 							
-							database.ytDBStart(fields)
+							database.ytDBStart(fields, anStore)
+							#anStore.add(fields)
 	
