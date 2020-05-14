@@ -35,6 +35,17 @@ class AnalyticStorage:
 		else:
 			self.categoryTrends[catEntry] += 1
 
+		#Analytic 4 
+		if fields.tags == '[none]':
+			tagLength = 0
+		else:
+			tagLength = len(fields.tags.split('|'))
+		
+		if tagLength not in self.tagTrends:
+			self.tagTrends[tagLength] = 1
+		else:	
+			self.tagTrends[tagLength] += 1
+
 
 	def add(self, fields):
 		#Analytic 3 Tag occurence

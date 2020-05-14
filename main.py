@@ -157,7 +157,8 @@ def analytics():
             print("Finished in " , toc - tic, "seconds")
         elif analyticNum == '4':
             tic = time.perf_counter()
-            plotList = database.Analytics.tagTrends
+            plotList = anStore.tagTrends
+            #plotList = database.Analytics.tagTrends
             displayObj = analyticsobj.displayTagLength(plotList)
             toc = time.perf_counter()
             print("Finished in " , toc - tic, "seconds")
