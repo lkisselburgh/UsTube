@@ -102,7 +102,7 @@ def search():
                 else:
                     addList.append(addForm[member])
             print(addList, len(addList))
-            database.ytDBStart(addList)
+            database.ytDBStart(addList, anStore)
 
         elif request.form['submit_button'] == "Import": #new
             return redirect(url_for('import_file')) #change
@@ -268,7 +268,7 @@ def import_file():
             file.save(secure_filename(file.filename))
             #return print(file.filename)
             #return file.filename
-            parseNew(file.filename)
+            parseNew(file.filename, anStore)
             
         
         elif request.form['submit_button'] == 'Submit':
@@ -324,7 +324,7 @@ def export():
     fname = "UsTube.csv"
     return send_file(fname, as_attachment=True)
 
-def parseNew(newfilename):
+def parseNew(newfilename, anStore):
     global database
     
     prev_row = []
@@ -405,7 +405,7 @@ def parseNew(newfilename):
                         fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), row)
                         
                         #print(database there)
-                        database.ytDBStart(fields)
+                        database.ytDBStart(fields, anStore)
                         #print(fields)
                     
                     else:  
@@ -421,7 +421,7 @@ def parseNew(newfilename):
                                 prev_row = prev_row.replace("\n"," ")
                                 fields = re.split((",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"), prev_row)
                                 
-                                database.ytDBStart(fields)
+                                database.ytDBStart(fields, anStore)
                                 #print(fields)
             
             return database
