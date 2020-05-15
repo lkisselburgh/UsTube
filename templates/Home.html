@@ -6,7 +6,7 @@
 </head>
 <body>
     <nav class="navbar  navbar-dark navbar-expand-sm bg-primary">
-        <a class="navbar-brand" href="#">UsTube</a>
+        <a class="navbar-brand" href="{{url_for('begin')}}">UsTube</a>
         <div class="navbar">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -21,14 +21,26 @@
             </ul>
         </div>
     </nav>
-    <div>
-        <form method='post'>
-            <label for="message">Send a Message:</label> <br />
-            <input type="text" id="message" name="Message"> </input>
-            <input type="submit" name="submit_button" value="Send">
-            <input type="submit" name="submit_button" value="Search bar">
-        </form>
+    <div id="intro">
+        <img id="image" src="static/Images/youtube_logo.png">
+        <h4 style="font-family:TradeGothic">Welcome to UsTube!</h4>
+        <p style="font-family:TradeGothic">
+          This is a web Application created by Jason Mendoza, Miguel Andrade, Lacey Kisselburgh and Kiana McCullough . It allows you to view not only the youtube database and analytics, but the database 
+          and analytics for any Video CSV that you implement. <br /> <br />
+          We have implemented: Search, Add, Delete, Edit, Import, Export, Incremental Analytics, and an Interface
+        </p>
+        <div id="continue">
+            <a class="subbutton btn btn-primary" href="{{url_for('search')}}">Continue to Search</a>
+        </div>
     </div>
 
 </body>
 </html>
+<!--
+<form method='post'>
+    <label for="message">Send a Message:</label> <br />
+    <input type="text" id="message" name="Message"> </input>
+    <input type="submit" name="submit_button" value="Send">
+    <input type="submit" name="submit_button" value="Search bar">
+</form>
+-->
