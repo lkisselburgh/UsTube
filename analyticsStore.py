@@ -4,19 +4,18 @@ class AnalyticStorage:
 	def __init__(self):
 		self.tagDisplay = dict()
 		self.tagTrends = dict()
-		self.timeoDay = plot = {'12 AM': 0,'1 AM': 0,'2 AM': 0,'3 AM': 0,'4 AM': 0, '5 AM': 0, '6 AM': 0, '7 AM': 0, '8 AM': 0, '9 AM': 0, '10 AM': 0, '11 AM': 0, '12 PM':0 , '1 PM': 0, '2 PM': 0, '3 PM': 0 ,'4 PM': 0, '5 PM': 0 , '6 PM': 0, '7 PM': 0, '8 PM': 0 , '9 PM': 0, '10 PM': 0, '11 PM': 0}	
+		self.timeoDay = {'12 AM': 0,'1 AM': 0,'2 AM': 0,'3 AM': 0,'4 AM': 0, '5 AM': 0, '6 AM': 0, '7 AM': 0, '8 AM': 0, '9 AM': 0, '10 AM': 0, '11 AM': 0, '12 PM':0 , '1 PM': 0, '2 PM': 0, '3 PM': 0 ,'4 PM': 0, '5 PM': 0 , '6 PM': 0, '7 PM': 0, '8 PM': 0 , '9 PM': 0, '10 PM': 0, '11 PM': 0}	
 		self.enVdis = [0, 0]
 		self.descripVviews = list()
 		self.channels = dict()
 		self.ratings = dict()
 		self.monthlyGenres = {1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {}, 7: {}, 8: {}, 9: {}, 10: {}, 11: {}, 12: {}}
-		self.trendsList = list()
 		self.trendsTitle = dict()
 		self.categoryTrends = dict()
 		
 
 	def add_trendsTitleCat(self, fields):
-		#Analytic 1
+		#Analytic 1: Days Trending vs Title Length
 		vID = fields.videoID
 		title = fields.Title 
 		key = len(title)
@@ -25,14 +24,14 @@ class AnalyticStorage:
 		else:
 			self.trendsTitle[key] += 1
 
-		#Analytic 2
+		#Analytic 2: Days Trending vs Genre
 		catEntry = fields.categoryID
 		if catEntry not in self.categoryTrends:
 			self.categoryTrends[catEntry] = 1
 		else:
 			self.categoryTrends[catEntry] += 1
 
-		#Analytic 4 
+		#Analytic 4 : Number of Tags vs Days Trending
 		if fields.tags == '[none]':
 			tagLength = 0
 		else:
@@ -45,7 +44,7 @@ class AnalyticStorage:
 
 
 	def add(self, fields):
-		#Analytic 3 Tag occurence
+		#Analytic 3 Top Tags
 		tags = fields.tags
 		splitTag = tags.split('|')
 		for tag in splitTag:
