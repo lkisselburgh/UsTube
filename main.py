@@ -73,15 +73,15 @@ def search():
             #if request.method == 'POST':
             
             id = request.form['SavedVideo']
-            print(id)
+            print("ONE:" + id)
             idval = id[0]
             
             for members in testList:
                 if members[1].videoID == idval:
-                    print(members[1])
+                    print("TWO: " + members[1])
                     members[1].Title = id[1]
                     members[1].tags = id[2]
-                    print(members[1])
+                    print("THREE: " + members[1])
                     #members[1].description = id.description
                     #print("Members: ", members[1].Title)
                     #members[1].Title = "funfetti is for psychopaths"
