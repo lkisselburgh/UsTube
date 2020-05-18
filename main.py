@@ -74,12 +74,14 @@ def search():
             
             id = request.form['SavedVideo']
             print(id)
-            idval = int(id[0])
+            idval = id[0]
             
             for members in testList:
                 if members[1].videoID == idval:
+                    print(members[1])
                     members[1].Title = id[1]
                     members[1].tags = id[2]
+                    print(members[1])
                     #members[1].description = id.description
                     #print("Members: ", members[1].Title)
                     #members[1].Title = "funfetti is for psychopaths"
