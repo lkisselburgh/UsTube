@@ -32,6 +32,8 @@ firstRender = True
 
 @app.route("/", methods = ['GET', 'POST'])
 def begin():
+    global firstRender
+    firstRender = True
     if request.method == 'POST':
         if request.form['submit_button'] == 'Send': #new
             Message = request.form['Message']
@@ -43,19 +45,22 @@ def begin():
         
     return render_template('Home.html')
 
-@app.route("/Home", methods = ['GET','POST'])
-def home():
-    Message = request.args.get('Message',None)
-    if request.method == 'POST':
-        return redirect(url_for('begin'))
-    return render_template('Recieved.html', Message=Message)
+#@app.route("/Home", methods = ['GET','POST'])
+#def home():
+#    Message = request.args.get('Message',None)
+#    if request.method == 'POST':
+#        return redirect(url_for('begin'))
+#    return render_template('Recieved.html', Message=Message)
 
 @app.route("/Search", methods = ['GET', 'POST']) # new
 def search():
     global testList
+    global firstRender
+    firstRender = True
     if request.method == 'POST':
         if request.form['submit_button'] == 'Search':
             if 'Title' in request.form:
+                tic = time.perf_counter()
                 #print("Msg Saved")
                 query = request.form
                 titleQ = query['Title']
@@ -63,6 +68,9 @@ def search():
                 #searchType = query['SearchType']
                 #sliderQ = query['SearchContent']
                 testList = database.searchDB(titleQ,catQ)
+                toc = time.perf_counter()
+                print("Finished in " , toc - tic, "seconds")
+                flash("Time elapsed: " + str(toc - tic) + " seconds")
                 return redirect(url_for('search'))
                 #redirect(url_for('results'))
 
