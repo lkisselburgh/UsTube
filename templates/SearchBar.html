@@ -188,9 +188,9 @@
 
                                 <td>
                                     <form method="post">
-                                        <input type="hidden" id="toedit" name="SavedVideo" value="[{{item[1].videoID}}, {{item[1].Title}}, {{item[1].tags}}]"> <!---New---->
+                                        <input type="hidden" id="toedit" name="SavedVideo" value="{{[item[1].videoID, document.getElementByID('editme1'), document.getElementByID('editme1')]}}"> <!---New---->
 
-                                        <input type="submit" disabled=true style="display: none" class="btn btn-danger" id="save_btn" name="submit_button" value="Save" onclick="myFunction2(this)">
+                                        <input type="submit" disabled=true style="display: none" class="btn btn-danger" id="save_btn" name="submit_button" value="Save" onclick="myFunction2()">
                                     </form>
                                 </td>
 
@@ -239,7 +239,7 @@
                 }
             }
 
-            function myFunction2(button) {
+            function myFunction2() {
                 var x = document.getElementById("editme");
                 var y = document.getElementByID("editme1");
                 console.log("x: " + x + " y: " + y);
