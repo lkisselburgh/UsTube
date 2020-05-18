@@ -190,7 +190,7 @@
                                     <form method="post">
                                         <input type="hidden" id="toedit" name="SavedVideo" value="[{{item[1].videoID}}, {{item[1].Title}}, {{item[1].tags}}]"> <!---New---->
 
-                                        <input type="submit" disabled=true style="display: none" class="btn btn-danger" id="save_btn" name="submit_button" value="Save">
+                                        <input type="submit" disabled=true style="display: none" class="btn btn-danger" id="save_btn" name="submit_button" value="Save" onclick="myFunction2(this)">
                                     </form>
                                 </td>
 
@@ -239,8 +239,13 @@
                 }
             }
 
-            
-            
+            function myFunction2(button) {
+                var x = document.getElementById("editme");
+                var y = document.getElementByID("editme1");
+
+                item[1].Title = x;
+                item[1].tags = y;
+            }    
         </script>
 
     </body>
