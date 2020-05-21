@@ -69,21 +69,18 @@ def search():
         elif request.form['submit_button'] == "Return to Home":
             return redirect(url_for('begin'))
 
-        elif request.form['submit_button'] == "Save": # new
+        elif request.form['submit_button'] == "Save": # new - change to edit
             #if request.method == 'POST':
             
-            id = request.form['SavedVideo']
-            print("ONE:" + id)
-            idval = id[0]
+            #print(request.form)
             
-            for members in testList:
-                if members[1].videoID == idval:
-                    print("TWO: " + members[1])
-                    members[1].Title = id[1]
-                    members[1].tags = id[2]
-                    print("THREE: " + members[1])
-                    #members[1].description = id.description
-                    #print("Members: ", members[1].Title)
+            id = request.form['SavedVideo']
+            #idval = int(id)
+            
+            # for members in testList:
+            #     if members[1].videoID == idval:
+                   
+                    #Hard Coding
                     #members[1].Title = "funfetti is for psychopaths"
                     #testList.remove(members)
 
@@ -152,7 +149,7 @@ def analytics():
             analyticNum = request.form['select']
             if analyticNum == '1':
                 tic = time.perf_counter()
-                plotList = database.Analytics.trendsTitleList
+                #plotList = database.Analytics.trendsTitleList
                 plotList = anStore.trendsTitle
                 displayObj = analyticsobj.displayLongerTitles(plotList)
                 toc = time.perf_counter()

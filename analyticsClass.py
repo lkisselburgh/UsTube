@@ -100,6 +100,7 @@ class analyticsDisplay:
 			Jobj = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)	
 
 			return Jobj
+		
 		def displayComments(self, listData):
 			data = [
 				go.Pie(
@@ -172,18 +173,15 @@ class analyticsDisplay:
 			# {'January': {'Entertainment': 122, 'Music': 100, 'People': 85}, 'February': {'Entertainment': 122, ...} ...} etc
 			
 			dictItems = list(listData.items())
-			#print(dictItems)
+			#print("dictItems", dictItems)
 
-			# print(dictItems)
 			months = []
-			genres = []
 			gdata = []
+
 			for month in dictItems:
 				months.append(month[0])
-				#genres.append(month[1][0])
 				gdata.append(month[1])
-			# print("months", months)
-			#print("data", gdata)
+
 
 			dtype = [('Genre', 'U30'), ('TrendingCount', int)]
 			arr = np.array(gdata[0], dtype=dtype)

@@ -1,4 +1,5 @@
 from Jparser import *
+import copy
 
 class AnalyticStorage:
 	def __init__(self):
@@ -129,26 +130,23 @@ class AnalyticStorage:
 	
 	def read_topMonthlyGenres(self):
 		#change keys to months
+		#you could either backup before it gets deleted,
+		#or instead of delete, just add variables to find the top 3 maximums
 		plot = {'January': 0,'February': 0,'March': 0,'April': 0,'May': 0, 'June': 0, 'July': 0, 'August': 0, 'September': 0, 'October': 0, 'November': 0, 'December': 0}
 		for key1, key2 in zip(self.monthlyGenres, plot):
-			plot[key2] = self.monthlyGenres[key1]
+			plot[key2] = copy.deepcopy(self.monthlyGenres[key1])
 
 		for month in plot:
 			temp = {}
+
 			for k in range(3):
 				if (plot[month]):
 					max_key = max(plot[month], key=plot[month].get)
 					temp[max_key] = plot[month][max_key]
-					del plot[month][max_key]
+					del plot[month][max_key] #w/o this, it only give you top 3
 					
 				k += 1
-			
+				
 			plot[month] = list(temp.items())
 
 		return plot
-
-
-
-
-	
-
