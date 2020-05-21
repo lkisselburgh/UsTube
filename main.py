@@ -60,7 +60,6 @@ def search():
     if request.method == 'POST':
         if request.form['submit_button'] == 'Search':
             if 'Title' in request.form:
-                tic = time.perf_counter()
                 #print("Msg Saved")
                 query = request.form
                 titleQ = query['Title']
@@ -68,9 +67,6 @@ def search():
                 #searchType = query['SearchType']
                 #sliderQ = query['SearchContent']
                 testList = database.searchDB(titleQ,catQ)
-                toc = time.perf_counter()
-                print("Finished in " , toc - tic, "seconds")
-                flash("Time elapsed: " + str(toc - tic) + " seconds")
                 return redirect(url_for('search'))
                 #redirect(url_for('results'))
 
