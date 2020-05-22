@@ -99,13 +99,14 @@ def search():
 
         elif request.form['submit_button'] == "Edit": # new - change to edit
             if request.method == 'POST':
-                print("Edit pressed.")
+                #print("Edit pressed.")
                 id = request.form['SavedVideo']
                 idval = int(id)
                 for members in testList:
                     if members[0] == idval:
                         vid = members[1]
 
+                
                 return render_template('Edit.html', vid = vid)
 
         #     print(request.form)

@@ -11,13 +11,13 @@
         <form id="editingform" method="post">
             <fieldset>
                 <label for="edit_VidID">VideoID</label>
-                <!--VideoId--> <input type="text" id="edit_VidID" name="edit_VidID" class="input col-form-label" placeholder={{vid.videoID}} style="" readonly><br />
+                <!--VideoId--> <input type="text" id="edit_VidID" name="edit_VidID" class="input col-form-label" value="{{vid.videoID}}" style="" readonly><br />
                 <label for="edit_Trend">Trending Date</label>
-                <!--Trending Date--> <input type="text" id="edit_Trend" name="edit_Trend" class="input col-form-label" placeholder={{vid.trendingDate}} style="" readonly> <br />
+                <!--Trending Date--> <input type="text" id="edit_Trend" name="edit_Trend" class="input col-form-label" value="{{vid.trendingDate}}" style="" readonly> <br />
                 <label for="edit_Title">Title</label>
-                <!--Title--> <input type="text" id="edit_Title" name="edit_Title" class="input col-form-label" placeholder={{vid.Title}} style=""><br />
+                <!--Title--> <input type="text" id="edit_Title" name="edit_Title" class="input col-form-label" value="{{vid.Title}}" style="width:450px;"><br />
                 <label for="edit_CTitle">Channel Title</label>
-                <!--Channel Title--> <input type="text" id="edit_CTitle" name="edit_CTitle" class="input col-form-label" placeholder={{vid.channelTitle}} style="" readonly> <br />
+                <!--Channel Title--> <input type="text" id="edit_CTitle" name="edit_CTitle" class="input col-form-label" value="{{vid.channelTitle}}" style="" readonly> <br />
                 <label for="edit_VGenre">Genre</label>
                 <!--Genre-->
                 <select id="edit_Genre" name="edit_Genre">
@@ -52,26 +52,26 @@
                     <option value="Trailers">Trailers</option>
                 </select><br />
                 <label for="edit_Time">Time Published</label>
-                <!--Time Published--> <input type="text" id="edit_Time" name="edit_Time" class="input col-form-label" placeholder={{vid.publishTime}} style="" readonly> <br />
+                <!--Time Published--> <input type="text" id="edit_Time" name="edit_Time" class="input col-form-label" value="{{vid.publishTime}}" style="" readonly> <br />
                 <label for="edit_Tags">Tags</label>
-                <!--Tags--> <input type="text" id="edit_Tags" name="edit_Tags" class="input col-form-label" placeholder={{vid.tags}} style=""> <br />
+                <!--Tags--> <input type="text" id="edit_Tags" name="edit_Tags" class="input col-form-label" value="{{vid.tags}}" style="width:450px;"> <br />
                 <label for="edit_Views">Total Views</label>
-                <!--Total Views--> <input type="number" id="edit_Views" name="edit_Views" class="input col-form-label" placeholder={{vid.views}} style="" readonly> <br />
+                <!--Total Views--> <input type="number" id="edit_Views" name="edit_Views" class="input col-form-label" value="{{vid.views}}" style="" readonly> <br />
                 <label for="edit_Liked">Likes</label>
-                <!--liked--><input type="number" id="edit_Liked" name="edit_Liked" class="input col-form-label" placeholder={{vid.likes}} style="" readonly> <br />
+                <!--liked--><input type="number" id="edit_Liked" name="edit_Liked" class="input col-form-label" value="{{vid.likes}}" style="" readonly> <br />
                 <label for="edit_Disliked">Dislikes</label>
-                <!--Dislikes--> <input type="number" id="edit_Disliked" name="edit_Disliked" class="input col-form-label" placeholder={{vid.dislikes}} style="" readonly> <br />
+                <!--Dislikes--> <input type="number" id="edit_Disliked" name="edit_Disliked" class="input col-form-label" value="{{vid.dislikes}}" style="" readonly> <br />
                 <label for="edit_Commentcnt">Comment Count</label>
-                <!--Comment Count--> <input type="number" id="edit_Commentcnt" name="edit_Commentcnt" class="input col-form-label" placeholder={{vid.commentCount}} style="" readonly> <br />
+                <!--Comment Count--> <input type="number" id="edit_Commentcnt" name="edit_Commentcnt" class="input col-form-label" value="{{vid.commentCount}}" style="" readonly> <br />
                 <label for="edit_Thumblink">Link to Thumbnail</label>
-                <!--ThumbnailLink--> <input type="text" id="edit_Thumblink" name="edit_Thumblink" class="input col-form-label" placeholder={{vid.thumbLink}} style=""> <br />
+                <!--ThumbnailLink--> <input type="text" id="edit_Thumblink" name="edit_Thumblink" class="input col-form-label" value="{{vid.thumbLink}}" style="width:350px;"> <br />
                 <label for="edit_Comdis">Disable Comments</label>
-                <!--comDisabled--> <input type="checkbox" id="edit_Comdis" name="edit_Comdis" class="" placeholder={{vid.comDisabled}} style=""> <br />
+                <!--comDisabled--> <input type="checkbox" id="edit_Comdis" name="edit_Comdis" class="" value="{{vid.comDisabled}}" style=""> <br />
                 <label for="edit_Rate">Disable Ratings</label>
-                <!--ratingsdisabled--> <input type="checkbox" id="edit_Rate" name="edit_Rate" class="" placeholder={{vid.ratingsDisabled}} style=""> <br />
-                <!--videoEOR--> <input type="hidden" id="edit_videoEOR" name="edit_videoEOR" value={{vid.videoEOR}}>
+                <!--ratingsdisabled--> <input type="checkbox" id="edit_Rate" name="edit_Rate" class="" value="{{vid.ratingsDisabled}}" style=""> <br />
+                <!--videoEOR--> <input type="hidden" id="edit_videoEOR" name="edit_videoEOR" value="{{vid.videoEOR}}">
                 <label for="edit_Des">Description</label>
-                <!--description--> <input type="text" id="edit_Des" name="edit_Des" class="input col-form-label" placeholder={{vid.description}} style=""> <br />
+                <!--description--> <input type="text" id="edit_Des" name="edit_Des" class="input col-form-label" value="{{vid.description}}" style="width:450px;"></input> <br />
                 <input type="submit" class="subbutton btn btn-green" id="Edit_send" name="submit_button" value="Save">
                 <input type="submit" class="subbutton btn btn-red" id="edit_cancel" name="submit_button" value="Cancel">
             </fieldset>
