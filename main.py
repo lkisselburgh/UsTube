@@ -50,7 +50,15 @@ def home():
         return redirect(url_for('begin'))
     return render_template('Recieved.html', Message=Message)
 
-@app.route("/Search", methods = ['GET', 'POST']) # new
+@app.route("/Edit", methods = ['GET','POST']) #new
+def edit():
+    if request.method == 'POST':
+        if request.form['submit_button'] == "Cancel": #new
+            return redirect(url_for('search'))
+
+    return render_template('Edit.html')
+
+@app.route("/Search", methods = ['GET', 'POST'])
 def search():
     global testList
     if request.method == 'POST':
@@ -70,26 +78,27 @@ def search():
             return redirect(url_for('begin'))
 
         elif request.form['submit_button'] == "Edit": # new - change to edit
-            #if request.method == 'POST':
-            print("Edit pressed.")
-            print(request.form)
+            if request.method == 'POST':
+                print("Edit pressed.")
+                return redirect(url_for('edit'))
+        #     print(request.form)
             
-            #print(request.form)
+        #     #print(request.form)
 
-            # id = request.form['SavedVideo']
-            # print("ONE:" + id)
-            # idval = int(id)
+        #     # id = request.form['SavedVideo']
+        #     # print("ONE:" + id)
+        #     # idval = int(id)
             
-            # for members in testList:
-            #     if members[1].videoID == idval:
+        #     # for members in testList:
+        #     #     if members[1].videoID == idval:
                    
-            #         #Hard Coding
-            #         members[1].Title = "funfetti is for psychopaths"
-            #         testList.remove(members)
+        #     #         #Hard Coding
+        #     #         members[1].Title = "funfetti is for psychopaths"
+        #     #         testList.remove(members)
 
-            # print("Edit pressed.")
+        #     # print("Edit pressed.")
 
-            return redirect(url_for('search'))
+        #     return redirect(url_for('search'))
 
         elif request.form['submit_button'] == "Delete":
             id = request.form['Video']
@@ -242,7 +251,7 @@ def analytics():
                 print("Finished in " , toc - tic, "seconds")
                 flash("Time elapsed: " + str(toc - tic) + " seconds")
                 firstRender = False
-
+ 
             elif analyticNum == '10':
                 tic = time.perf_counter()
                 #plotList = database.Analytics.timeofYear
