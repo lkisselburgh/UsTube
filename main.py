@@ -50,10 +50,69 @@ def home():
         return redirect(url_for('begin'))
     return render_template('Recieved.html', Message=Message)
 
-@app.route("/Edit", methods = ['GET','POST']) #new
-def edit():
+# @app.route("/Edit", methods = ['GET','POST']) #new
+# def edit():
+#     print("Enter")
+#     if request.method == 'POST':
+#         if request.form['submit_button'] == "Cancel":
+#             print("Cancelling")
+#             return redirect(url_for('search'))
+        
+#         elif request.form['submit_button'] == "Save":
+#             print("Saving.")
+#             print(request.form)
+
+#             editList = list()
+#             editForm = request.form
+
+#             for member in editForm:
+#                 if member == 'submit_button':
+#                     continue
+#                 else:
+#                     editList.append(editForm[member])
+
+#             print(editList, len(editList))
+#             database.ytDBStart(editList, anStore)
+
+#             #delete curr entry from list after appending new entry
+
+#     return render_template('Edit.html')
+
+@app.route("/Search", methods = ['GET', 'POST'])
+def search():
+    global testList
     if request.method == 'POST':
-        if request.form['submit_button'] == "Cancel":
+        if request.form['submit_button'] == 'Search':
+            if 'Title' in request.form:
+                query = request.form
+                titleQ = query['Title']
+                catQ = query['categoryID']
+                testList = database.searchDB(titleQ,catQ)
+                return redirect(url_for('search'))
+
+        elif request.form['submit_button'] == "Return to Home":
+            return redirect(url_for('begin'))
+
+        elif request.form['submit_button'] == "Edit": # new - change to edit
+            if request.method == 'POST':
+                #print("Edit pressed.")
+                id = request.form['SavedVideo']
+                idval = int(id)
+                for members in testList:
+                    if members[0] == idval:
+                        vid = members[1]
+                return render_template('Edit.html', vid = vid)
+
+            #   HARD CODING
+            # for members in testList:
+            #     if members[1].videoID == idval:
+                   
+            #         #Hard Coding
+            #         members[1].Title = "funfetti is for psychopaths"
+            #         testList.remove(members)
+
+        elif request.form['submit_button'] == "Cancel":
+            print("Cancelling")
             return redirect(url_for('search'))
         
         elif request.form['submit_button'] == "Save":
@@ -72,61 +131,6 @@ def edit():
             print(editList, len(editList))
             database.ytDBStart(editList, anStore)
 
-            #delete curr entry from list after appending new entry
-
-            print(editList)
-
-    return render_template('Edit.html')
-
-@app.route("/Search", methods = ['GET', 'POST'])
-def search():
-    global testList
-    if request.method == 'POST':
-        if request.form['submit_button'] == 'Search':
-            if 'Title' in request.form:
-                #print("Msg Saved")
-                query = request.form
-                titleQ = query['Title']
-                catQ = query['categoryID']
-                #searchType = query['SearchType']
-                #sliderQ = query['SearchContent']
-                testList = database.searchDB(titleQ,catQ)
-                return redirect(url_for('search'))
-                #redirect(url_for('results'))
-
-        elif request.form['submit_button'] == "Return to Home":
-            return redirect(url_for('begin'))
-
-        elif request.form['submit_button'] == "Edit": # new - change to edit
-            if request.method == 'POST':
-                #print("Edit pressed.")
-                id = request.form['SavedVideo']
-                idval = int(id)
-                for members in testList:
-                    if members[0] == idval:
-                        vid = members[1]
-
-                
-                return render_template('Edit.html', vid = vid)
-
-        #     print(request.form)
-            
-        #     #print(request.form)
-
-        #     # id = request.form['SavedVideo']
-        #     # print("ONE:" + id)
-        #     # idval = int(id)
-            
-        #     # for members in testList:
-        #     #     if members[1].videoID == idval:
-                   
-        #     #         #Hard Coding
-        #     #         members[1].Title = "funfetti is for psychopaths"
-        #     #         testList.remove(members)
-
-        #     # print("Edit pressed.")
-
-        #     return redirect(url_for('search'))
 
         elif request.form['submit_button'] == "Delete":
             id = request.form['Video']
@@ -160,9 +164,6 @@ def search():
         
     return render_template('SearchBar.html', testList=testList)
 
-# @app.route('/return-file/')
-# def send_file(filename):
-#     return send_from_directory(app.static_folder, filename)
 
 @app.route("/Results", methods = ['GET', 'POST']) # new
 def results():
@@ -299,10 +300,6 @@ def import_file():
         #global database
         file = request.files['file']
 
-        # if 'file' not in request.files:
-        #     print("No file part.")
-        #     return redirect(request.url)
-
         if request.form['submit_button'] == 'Return': #new
             return redirect(url_for('search'))
 
@@ -312,8 +309,6 @@ def import_file():
 
         if file:
             file.save(secure_filename(file.filename))
-            #return print(file.filename)
-            #return file.filename
             parseNew(file.filename, anStore)
             
         
@@ -362,7 +357,6 @@ def export():
         expF.write(database.db[keys].videoEOR)
         expF.write(',')
         expF.write(database.db[keys].description)
-        #expF.write('\n')
     expF.close()
     
     print("In progress...")
@@ -474,10 +468,5 @@ def parseNew(newfilename, anStore):
     else:
         print("File must be .csv")
         return database
-
-#@app.route('/uploads/<filename>')
-#def uploaded_file(filename):
-    #return send_from_directory(app.config['UPLOAD_FOLDER'],
-                               #filename)
     
 app.run(debug = True, use_reloader = False)
