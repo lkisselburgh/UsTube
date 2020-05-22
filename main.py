@@ -53,8 +53,28 @@ def home():
 @app.route("/Edit", methods = ['GET','POST']) #new
 def edit():
     if request.method == 'POST':
-        if request.form['submit_button'] == "Cancel": #new
+        if request.form['submit_button'] == "Cancel":
             return redirect(url_for('search'))
+        
+        elif request.form['submit_button'] == "Save":
+            print("Saving.")
+            print(request.form)
+
+            editList = list()
+            editForm = request.form
+
+            for member in editForm:
+                if member == 'submit_button':
+                    continue
+                else:
+                    editList.append(editForm[member])
+
+            print(editList, len(editList))
+            database.ytDBStart(editList, anStore)
+
+            #delete curr entry from list after appending new entry
+
+            print(editList)
 
     return render_template('Edit.html')
 
@@ -80,7 +100,14 @@ def search():
         elif request.form['submit_button'] == "Edit": # new - change to edit
             if request.method == 'POST':
                 print("Edit pressed.")
-                return redirect(url_for('edit'))
+                id = request.form['SavedVideo']
+                idval = int(id)
+                for members in testList:
+                    if members[0] == idval:
+                        vid = members[1]
+
+                return render_template('Edit.html', vid = vid)
+
         #     print(request.form)
             
         #     #print(request.form)
