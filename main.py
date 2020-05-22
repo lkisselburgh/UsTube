@@ -69,20 +69,25 @@ def search():
         elif request.form['submit_button'] == "Return to Home":
             return redirect(url_for('begin'))
 
-        elif request.form['submit_button'] == "Save": # new - change to edit
+        elif request.form['submit_button'] == "Edit": # new - change to edit
             #if request.method == 'POST':
+            print("Edit pressed.")
+            print(request.form)
             
             #print(request.form)
-            
-            id = request.form['SavedVideo']
-            #idval = int(id)
+
+            # id = request.form['SavedVideo']
+            # print("ONE:" + id)
+            # idval = int(id)
             
             # for members in testList:
             #     if members[1].videoID == idval:
                    
-                    #Hard Coding
-                    #members[1].Title = "funfetti is for psychopaths"
-                    #testList.remove(members)
+            #         #Hard Coding
+            #         members[1].Title = "funfetti is for psychopaths"
+            #         testList.remove(members)
+
+            # print("Edit pressed.")
 
             return redirect(url_for('search'))
 
