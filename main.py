@@ -26,14 +26,11 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = 'lacey copy and pasted this'
-firstRender = True
 #csv_file = UploadSet('files', ('csv'))
 #configure_uploads(app, csv_file)
 
 @app.route("/", methods = ['GET', 'POST'])
 def begin():
-    global firstRender
-    firstRender = True
     if request.method == 'POST':
         if request.form['submit_button'] == 'Send': #new
             Message = request.form['Message']
@@ -55,8 +52,6 @@ def begin():
 @app.route("/Search", methods = ['GET', 'POST']) # new
 def search():
     global testList
-    global firstRender
-    firstRender = True
     if request.method == 'POST':
         if request.form['submit_button'] == 'Search':
             if 'Title' in request.form:
@@ -131,10 +126,9 @@ def results():
 
 @app.route("/Analytics", methods = ['GET','POST'])
 def analytics():
-    global firstRender
     analyticsobj = analyticsDisplay()
     layout = {}
-    if (firstRender):
+    if request.method == 'GET':
         tic = time.perf_counter()
         plotList = anStore.trendsTitle
         #plotList = database.Analytics.trendsTitleList
