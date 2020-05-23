@@ -101,6 +101,9 @@ def search():
                 for members in testList:
                     if members[0] == idval:
                         vid = members[1]
+                print(vid.comDisabled)
+                print(vid.ratingsDisabled)
+                print(vid.videoEOR)
                 return render_template('Edit.html', vid = vid)
 
             #   HARD CODING
@@ -117,7 +120,7 @@ def search():
         
         elif request.form['submit_button'] == "Save":
             print("Saving.")
-            print(request.form)
+            # print(request.form)
 
             editList = list()
             editForm = request.form
@@ -129,6 +132,16 @@ def search():
                     editList.append(editForm[member])
 
             print(editList, len(editList))
+            for members in testList:
+                if members[1].videoID == editList[0]:
+                    members[1].Title = editList[2]
+                    members[1].categoryID = editList[4]
+                    members[1].tags = editList[6]
+                    members[1].thumbLink = editList[11]
+                    members[1].comDisabled = editList[12]
+                    members[1].ratingsDisabled = editList[13]
+                    members[1].videoEOR = editList[14]
+                    members[1].description = editList[15]
             database.ytDBStart(editList, anStore)
 
 

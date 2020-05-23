@@ -66,10 +66,11 @@
                 <label for="edit_Thumblink">Link to Thumbnail</label>
                 <!--ThumbnailLink--> <input type="text" id="edit_Thumblink" name="edit_Thumblink" class="input col-form-label" value="{{vid.thumbLink}}" style="width:350px;"> <br />
                 <label for="edit_Comdis">Disable Comments</label>
-                <!--comDisabled--> <input type="checkbox" id="edit_Comdis" name="edit_Comdis" class="" value="{{vid.comDisabled}}" style=""> <br />
+                <!--comDisabled--> <input type="hidden" id="edit_Comdis" name="edit_Comdis" class="" value="{{vid.comDisabled}}" style=""> <br />
                 <label for="edit_Rate">Disable Ratings</label>
-                <!--ratingsdisabled--> <input type="checkbox" id="edit_Rate" name="edit_Rate" class="" value="{{vid.ratingsDisabled}}" style=""> <br />
-                <!--videoEOR--> <input type="hidden" id="edit_videoEOR" name="edit_videoEOR" value="{{vid.videoEOR}}">
+                <!--ratingsdisabled--> <input type="hidden" id="edit_Rate" name="edit_Rate" class="" value="{{vid.ratingsDisabled}}" style=""> <br />
+                <label for="video_EOR">Video Error or Removed</label>
+                <!--videoEOR--> <input type="hidden" id="edit_videoEOR" name="edit_videoEOR" value="{{vid.videoEOR}}"><br />
                 <label for="edit_Des">Description</label>
                 <!--description--> <input type="text" id="edit_Des" name="edit_Des" class="input col-form-label" value="{{vid.description}}" style="width:450px;"></input> <br />
                 <input type="submit" class="subbutton btn btn-green" id="Edit_send" name="submit_button" value="Save">
