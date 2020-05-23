@@ -66,11 +66,20 @@
                 <label for="edit_Thumblink">Link to Thumbnail</label>
                 <!--ThumbnailLink--> <input type="text" id="edit_Thumblink" name="edit_Thumblink" class="input col-form-label" value="{{vid.thumbLink}}" style="width:350px;"> <br />
                 <label for="edit_Comdis">Disable Comments</label>
-                <!--comDisabled--> <input type="hidden" id="edit_Comdis" name="edit_Comdis" class="" value="{{vid.comDisabled}}" style=""> <br />
+                <!--comDisabled--> <input type="radio" id="True_Comdis" name="edit_Comdis" class="" value="True" style="">
+                <!--comDisabled--> <label for="True_Comdis">True</label> 
+                <!--comDisabled--> <input type="radio" id="False_Comdis" name="edit_Comdis" class="" value="False" style="">
+                <!--comDisabled--> <label for="False_Comdis">False</label> <br />
                 <label for="edit_Rate">Disable Ratings</label>
-                <!--ratingsdisabled--> <input type="hidden" id="edit_Rate" name="edit_Rate" class="" value="{{vid.ratingsDisabled}}" style=""> <br />
+                <!--ratingsDisabled--> <input type="radio" id="True_Rate" name="edit_Rate" class="" value="True" style="">
+                <!--ratingsDisabled--> <label for="True_Rate">True</label>
+                <!--ratingsDisabled--> <input type="radio" id="False_Rate" name="edit_Rate" class="" value="False" style="">
+                <!--ratingsDisabled--> <label for="False_Rate">False</label> <br />
                 <label for="video_EOR">Video Error or Removed</label>
-                <!--videoEOR--> <input type="hidden" id="edit_videoEOR" name="edit_videoEOR" value="{{vid.videoEOR}}"><br />
+                <!--videoEOR--> <input type="radio" id="True_videoEOR" name="edit_videoEOR" class="" value="True" style="">
+                <!--videoEOR--> <label for="True_videoEOR">True</label> 
+                <!--videoEOR--> <input type="radio" id="False_videoEOR" name="edit_videoEOR" class="" value="False" style="">
+                <!--videoEOR--> <label for="False_videoEOR">False</label> <br />
                 <label for="edit_Des">Description</label>
                 <!--description--> <input type="text" id="edit_Des" name="edit_Des" class="input col-form-label" value="{{vid.description}}" style="width:450px;"></input> <br />
                 <input type="submit" class="subbutton btn btn-green" id="Edit_send" name="submit_button" value="Save">
