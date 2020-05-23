@@ -111,10 +111,20 @@
                 <label for="add_Thumblink">Link to Thumbnail</label>
                 <!--ThumbnailLink--> <input type="text" id="add_Thumblink" name="add_Thumblink" class="input col-form-label" placeholder="Type here" style=""> <br />
                 <label for="add_Comdis">Disable Comments</label>
-                <!--comDisabled--> <input type="checkbox" id="add_Comdis" name="add_Comdis" class="" placeholder="Type here" style=""> <br />
+                <!--comDisabled--> <input type="radio" id="True_Comdis" name="add_Comdis" class="" value="True" style="">
+                <!--comDisabled--> <label for="True_Comdis">True</label> 
+                <!--comDisabled--> <input type="radio" id="False_Comdis" name="add_Comdis" class="" value="False" style="">
+                <!--comDisabled--> <label for="False_Comdis">False</label> <br />
                 <label for="add_Rate">Disable Ratings</label>
-                <!--ratingsdisabled--> <input type="checkbox" id="add_Rate" name="add_Rate" class="" placeholder="Type here" style=""> <br />
-                <!--videoEOR--> <input type="hidden" id="add_videoEOR" name="add_videoEOR" value="False">
+                <!--ratingsDisabled--> <input type="radio" id="True_Rate" name="add_Rate" class="" value="True" style="">
+                <!--ratingsDisabled--> <label for="True_Rate">True</label>
+                <!--ratingsDisabled--> <input type="radio" id="False_Rate" name="add_Rate" class="" value="False" style="">
+                <!--ratingsDisabled--> <label for="False_Rate">False</label> <br />
+                <label for="add_video_EOR">Video Error or Removed</label>
+                <!--videoEOR--> <input type="radio" id="True_videoEOR" name="add_video_EOR" class="" value="True" style="">
+                <!--videoEOR--> <label for="True_videoEOR">True</label> 
+                <!--videoEOR--> <input type="radio" id="False_videoEOR" name="add_video_EOR" class="" value="False" style="">
+                <!--videoEOR--> <label for="False_videoEOR">False</label> <br />
                 <label for="add_Des">Description</label>
                 <!--description--> <input type="text" id="add_Des" name="add_Des" class="input col-form-label" placeholder="Type here" style=""> <br />
                 <input type="submit" class="subbutton btn btn-green" id="Add_send" name="submit_button" value="Add">

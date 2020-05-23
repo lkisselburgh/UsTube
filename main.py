@@ -27,8 +27,7 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.secret_key = 'lacey copy and pasted this'
 firstRender = True
-#csv_file = UploadSet('files', ('csv'))
-#configure_uploads(app, csv_file)
+
 
 @app.route("/", methods = ['GET', 'POST'])
 def begin():
@@ -50,33 +49,6 @@ def home():
         return redirect(url_for('begin'))
     return render_template('Recieved.html', Message=Message)
 
-# @app.route("/Edit", methods = ['GET','POST']) #new
-# def edit():
-#     print("Enter")
-#     if request.method == 'POST':
-#         if request.form['submit_button'] == "Cancel":
-#             print("Cancelling")
-#             return redirect(url_for('search'))
-        
-#         elif request.form['submit_button'] == "Save":
-#             print("Saving.")
-#             print(request.form)
-
-#             editList = list()
-#             editForm = request.form
-
-#             for member in editForm:
-#                 if member == 'submit_button':
-#                     continue
-#                 else:
-#                     editList.append(editForm[member])
-
-#             print(editList, len(editList))
-#             database.ytDBStart(editList, anStore)
-
-#             #delete curr entry from list after appending new entry
-
-#     return render_template('Edit.html')
 
 @app.route("/Search", methods = ['GET', 'POST'])
 def search():
@@ -101,9 +73,9 @@ def search():
                 for members in testList:
                     if members[0] == idval:
                         vid = members[1]
-                print(vid.comDisabled)
-                print(vid.ratingsDisabled)
-                print(vid.videoEOR)
+                # print(vid.comDisabled)
+                # print(vid.ratingsDisabled)
+                # print(vid.videoEOR)
                 return render_template('Edit.html', vid = vid)
 
             #   HARD CODING
@@ -115,11 +87,11 @@ def search():
             #         testList.remove(members)
 
         elif request.form['submit_button'] == "Cancel":
-            print("Cancelling")
+            #print("Cancelling")
             return redirect(url_for('search'))
         
         elif request.form['submit_button'] == "Save":
-            print("Saving.")
+            #print("Saving.")
             # print(request.form)
 
             editList = list()
@@ -131,7 +103,7 @@ def search():
                 else:
                     editList.append(editForm[member])
 
-            print(editList, len(editList))
+            #print(editList, len(editList))
             for members in testList:
                 if members[1].videoID == editList[0]:
                     members[1].Title = editList[2]
@@ -155,7 +127,7 @@ def search():
             return redirect(url_for('search'))
 
         elif request.form['submit_button'] == "Add":
-            print(request.form)
+            #print(request.form)
             addList = list()
             addForm = request.form
             #print(addForm)
@@ -164,7 +136,7 @@ def search():
                     continue
                 else:
                     addList.append(addForm[member])
-            print(addList, len(addList))
+            #print(addList, len(addList))
             database.ytDBStart(addList, anStore)
 
         elif request.form['submit_button'] == "Import": #new
