@@ -55,29 +55,23 @@ def search():
     if request.method == 'POST':
         if request.form['submit_button'] == 'Search':
             if 'Title' in request.form:
-                #print("Msg Saved")
                 query = request.form
                 titleQ = query['Title']
                 catQ = query['categoryID']
-                #searchType = query['SearchType']
-                #sliderQ = query['SearchContent']
                 testList = database.searchDB(titleQ,catQ)
                 return redirect(url_for('search'))
-                #redirect(url_for('results'))
+
 
         elif request.form['submit_button'] == "Return to Home":
             return redirect(url_for('begin'))
 
-        elif request.form['submit_button'] == "Save": # new
-            #if request.method == 'POST':
-            
+        elif request.form['submit_button'] == "Save": 
             id = request.form['SavedVideo']
             idval = int(id)
             for members in testList:
                 if members[0] == idval:
                     print("Members: ", members[1].Title)
                     members[1].Title = "funfetti is for psychopaths"
-                    #testList.remove(members)
 
             return redirect(url_for('search'))
 
@@ -94,7 +88,6 @@ def search():
             print(request.form)
             addList = list()
             addForm = request.form
-            #print(addForm)
             for member in addForm:
                 if member == 'submit_button':
                     continue
@@ -103,12 +96,11 @@ def search():
             print(addList, len(addList))
             database.ytDBStart(addList, anStore)
 
-        elif request.form['submit_button'] == "Import": #new
-            return redirect(url_for('import_file')) #change
+        elif request.form['submit_button'] == "Import": 
+            return redirect(url_for('import_file')) 
 
-        elif request.form['submit_button'] == "Export": #new
+        elif request.form['submit_button'] == "Export": 
             print("Exporting file...")
-            #export()
             return redirect(url_for('export'))
         
     return render_template('SearchBar.html', testList=testList)
@@ -137,7 +129,6 @@ def analytics():
         print("Finished in " , toc - tic, "seconds")
         flash("Time elapsed: " + str(toc - tic) + " seconds")
         analyticNum = '1'
-        firstRender=False
     else:
         if request.method == 'POST':
             analyticNum = request.form['select']
@@ -149,7 +140,6 @@ def analytics():
                 toc = time.perf_counter()
                 print("Finished in " , toc - tic, "seconds")
                 flash("Time elapsed: " + str(toc - tic) + " seconds")
-                firstRender = False
 
             elif analyticNum == '2':
                 tic = time.perf_counter()
@@ -159,7 +149,6 @@ def analytics():
                 toc = time.perf_counter()
                 print("Finished in " , toc - tic, "seconds")
                 flash("Time elapsed: " + str(toc - tic) + " seconds")
-                firstRender = False
 
             elif analyticNum == '3':
                 tic = time.perf_counter()
@@ -169,7 +158,6 @@ def analytics():
                 toc = time.perf_counter()
                 print("Finished in " , toc - tic, "seconds")
                 flash("Time elapsed: " + str(toc - tic) + " seconds")
-                firstRender = False
 
             elif analyticNum == '4':
                 tic = time.perf_counter()
@@ -179,7 +167,6 @@ def analytics():
                 toc = time.perf_counter()
                 print("Finished in " , toc - tic, "seconds")
                 flash("Time elapsed: " + str(toc - tic) + " seconds")
-                firstRender = False
 
             elif analyticNum == '5':
                 tic = time.perf_counter()
@@ -189,7 +176,6 @@ def analytics():
                 toc = time.perf_counter()
                 print("Finished in " , toc - tic, "seconds")
                 flash("Time elapsed: " + str(toc - tic) + " seconds")
-                firstRender = False
 
             elif analyticNum == '6':
                 tic = time.perf_counter()
@@ -199,7 +185,6 @@ def analytics():
                 toc = time.perf_counter()
                 print("Finished in " , toc - tic, "seconds")
                 flash("Time elapsed: " + str(toc - tic) + " seconds")
-                firstRender = False
 
             elif analyticNum == '7':
                 tic = time.perf_counter()
@@ -210,7 +195,6 @@ def analytics():
                 toc = time.perf_counter()
                 print("Finished in " , toc - tic, "seconds")
                 flash("Time elapsed: " + str(toc - tic) + " seconds")
-                firstRender = False
 
             elif analyticNum == '8':
                 tic = time.perf_counter()
@@ -220,7 +204,6 @@ def analytics():
                 toc = time.perf_counter()
                 print("Finished in " , toc - tic, "seconds")
                 flash("Time elapsed: " + str(toc - tic) + " seconds")
-                firstRender = False
                 
             elif analyticNum == '9':
                 tic = time.perf_counter()
@@ -230,7 +213,6 @@ def analytics():
                 toc = time.perf_counter()
                 print("Finished in " , toc - tic, "seconds")
                 flash("Time elapsed: " + str(toc - tic) + " seconds")
-                firstRender = False
 
             elif analyticNum == '10':
                 tic = time.perf_counter()
@@ -240,7 +222,6 @@ def analytics():
                 toc = time.perf_counter()
                 print("Finished in " , toc - tic, "seconds")
                 flash("Time elapsed: " + str(toc - tic) + " seconds")
-                firstRender = False
 
     return render_template('Analytics.html', plot=displayObj, analyticNum=analyticNum)
 
